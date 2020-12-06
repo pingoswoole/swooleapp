@@ -1,0 +1,51 @@
+
+{
+    "name": "pingo/swoolapp",   
+    "description": "This is a PHP Framework base on Swoole",
+    "type": "project",
+    "authors": [                                      
+        {
+            "name": "pingo",
+            "email": "pingstrong@163.com",
+            "homepage": "https://githunb.com/pingoswoole"
+        }
+    ],
+    "homepage":"https://github.com/pingoswoole",     
+    "license": "MIT",                                               
+    "keywords": [                                                
+        "swoole",
+        "pingo",
+        "pingo-swoole",
+        "framework",
+        "coroutine",
+        "websocket",
+        "orm",
+        "php",
+        "mvc",
+        "process",
+        "task"
+    ],
+ 
+    "require": {                                                    
+        "php": "^7.3|^8.0",
+        "pingo/swoolapp": "*"
+    },
+    "autoload": {                                                 
+        "files": [
+            "app/Utility/functions.php"
+        ],
+        "psr-4": {                                                  
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "example\\": "example"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
