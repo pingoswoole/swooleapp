@@ -15,11 +15,12 @@ class IndexController
 
     public function index($request, $response, $vars = [])
     {
+        $str = random_str(9);
         $response->write(
             json_encode(
                 [
-                    'method' => 'request_method',
-                    'message' => 'Hello pingosswww.',
+                    'method' => 'request_method' . $str,
+                    'message' => 'Hello pingosswww.' . get_rand(),
                     'vars' => $vars
                 ]
             )

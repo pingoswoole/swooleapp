@@ -1,6 +1,13 @@
 <?php
 namespace App;
 
+/**
+ * 应用时间接管初始化
+ *
+ * @author pingo
+ * @created_at 00-00-00
+ */
+use Pingo\Config\Config;
 class SwooleEvent
 {
     /**
@@ -12,7 +19,7 @@ class SwooleEvent
      */
     public static function initialize()
     {
-
+        
     }
     /**
      * 注入全局运行服务
@@ -25,7 +32,11 @@ class SwooleEvent
      */
     public static function globalService(\Swoole\Server $swoole_server)
     {
-        
+        //初始化Redis、mysql进程池
+        $db_setting = Config::getInstance()->get("database");
+        \Pingo\Database\BaseModel::getInstance($db_setting);
+        //$data = new \Pingo\Database\BaseModel($db_setting);
+         
     }
 
     

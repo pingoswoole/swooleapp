@@ -30,7 +30,7 @@ $config['setting'] = [
     'log_file'              => WEB_LOG_PATH . 'swoole.log',
     'daemonize'             => false,
     'task_tmpdir'           => '/dev/shm',
-    'max_request'           => 2000,
+    'max_request'           => 5,
     // Normally this value should be 1~4 times larger according to your cpu cores.
     'reactor_num'           => swoole_cpu_num() * 2,
     'worker_num'            => swoole_cpu_num() * 2,
@@ -41,7 +41,7 @@ $config['setting'] = [
     'socket_buffer_size'    => 128 * 1024 * 1024,
     'reload_async'          => true,
     'max_wait_time'         => 3,
-    'document_root'         => WEB_RUNTIME_PATH . '/public', // 版本小于v4.4.0时必须为绝对路径
+    'document_root'         => WEB_PUBLIC_PATH, // 版本小于v4.4.0时必须为绝对路径
     'enable_coroutine'      => 1,
     'task_enable_coroutine' => 1,
     // 压缩
