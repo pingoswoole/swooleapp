@@ -28,7 +28,7 @@
  
     "require": {                                                    
         "php": "^7.3|^8.0",
-        "pingo/swoolapp": "*"
+        "pingo/framework": "*"
     },
     "autoload": {                                                 
         "files": [
