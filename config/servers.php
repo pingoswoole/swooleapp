@@ -24,7 +24,7 @@ $config['task_pid_file']    = WEB_LOG_PATH . '/task.pid';
 
 //Swoole - IP信息
 $config['ip']   = '0.0.0.0';
-$config['server_type']  = \Pingo\Swoole\Constant::SWOOLE_WEB_SOCKET_SERVER;  //
+$config['server_type']  = \Pingo\Swoole\Constant::SWOOLE_MIX_SERVER;  //
 $config['setting'] = [
     'pid_file'              => WEB_LOG_PATH . '/swoole.pid',
     'log_file'              => WEB_LOG_PATH . '/swoole.log',
@@ -48,6 +48,8 @@ $config['setting'] = [
     'http_compression'      => true,
     // $level 压缩等级，范围是 1-9，等级越高压缩后的尺寸越小，但 CPU 消耗更多。默认为 1, 最高为 9
     'http_compression_level' => 1,
+    'open_http2_protocol'    => true,
+    'upload_tmp_dir'         => WEB_TMP_PATH . '/upload',
 
 ];
 $config['http_setting'] = $config['setting'];
@@ -57,23 +59,18 @@ $config['ws_setting']['open_websocket_protocol'] = true;
 //启动服务端口监听
 $config['protocol'] = [
     //
-    'http'     => [
+    \Pingo\Swoole\Constant::SWOOLE_HTTP_SERVER   => [
         'host'      => $config['ip'], // 监听地址
-        'port'      => 9501, // 监听端口
+        'port'      => 9502, // 监听端口
         'mode'      => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
         'sock_type' => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
         'setting'   => $config['http_setting'],
-        //事件回调接管
-        'callbacks' => [
-            "open" => [\App\Events\WebSocket::class, 'onOpen'],
-            "message" => [\App\Events\WebSocket::class, 'onMessage'],
-            "close" => [\App\Events\WebSocket::class, 'onClose'],
-        ],
+         
     ],
-    'websocket'  => [
+    \Pingo\Swoole\Constant::SWOOLE_WEBSOCKET_SERVER  => [
         'enable'        => false,
         'host'          => $config['ip'],
-        'port'          => 9505,
+        'port'          => 9501,
         'mode'          => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
         'sock_type'     => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
         'handler'       => Handler::class,
@@ -83,17 +80,13 @@ $config['protocol'] = [
         'listen'        => [],
         'subscribe'     => [],
         'setting'       => $config['ws_setting'],
-        //事件回调接管
-        'callbacks' => [
-            "open" => [\App\Events\WebSocket::class, 'onOpen'],
-            "message" => [\App\Events\WebSocket::class, 'onMessage'],
-            "close" => [\App\Events\WebSocket::class, 'onClose'],
-        ],
     ],
-    'tcp'   => [
+    \Pingo\Swoole\Constant::SWOOLE_TCP_SERVER   => [
         'enable'        => false,
         'host'          => $config['ip'],
-        'port'          => 9502,
+        'port'          => 9503,
+        'mode'          => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
+        'sock_type'     => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
         'setting'       => [
             'worker_num'             => 2,
             'max_request'            => 200,
@@ -105,23 +98,37 @@ $config['protocol'] = [
             'package_body_offset'    => '4',
         ],
         'callbacks' => [
-            
+            'Receive' => [\App\Rpc\TcpEvent::class, "onReceive"],
         ],
     ],
-    'udp'   => [
+    \Pingo\Swoole\Constant::SWOOLE_UDP_SERVER   => [
         'enable'    => false,
         'host'      => $config['ip'],
-        'port'      => 9503,
+        'port'      => 9504,
+        'mode'          => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
+        'sock_type'     => SWOOLE_SOCK_UDP, // sock type 默认为SWOOLE_SOCK_TCP
         'setting'   => [
             'worker_num'             => 2,
             'max_request'            => 200,
             'dispatch_mode'          => 2,
         ],
-        //事件回调接管
         'callbacks' => [
-            "open" => [\App\Events\WebSocket::class, 'onOpen'],
-            "message" => [\App\Events\WebSocket::class, 'onMessage'],
-            "close" => [\App\Events\WebSocket::class, 'onClose'],
+            'Packet' => [\App\Rpc\UdpEvent::class, "onPacket"],
+        ],
+    ],
+    \Pingo\Swoole\Constant::SWOOLE_MQTT_SERVER   => [
+        'enable'    => false,
+        'host'      => $config['ip'],
+        'port'      => 9505,
+        'mode'          => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
+        'sock_type'     => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
+        'setting'   => [
+            'worker_num'             => 2,
+            'max_request'            => 200,
+            'dispatch_mode'          => 2,
+        ],
+        'callbacks' => [
+            'Receive' => [\App\Rpc\MqttEvent::class, "onReceive"],
         ],
     ],
     'hot_update' => [

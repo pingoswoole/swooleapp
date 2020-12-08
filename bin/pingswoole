@@ -16,13 +16,15 @@
 
 //定义全局系统常量
 defined("PINGSWOOLE_WEB_ROOT") or define("PINGSWOOLE_WEB_ROOT", dirname(__DIR__, 1));
-defined("WEB_APP_PATH") or define("WEB_APP_PATH", PINGSWOOLE_WEB_ROOT . "app");
-defined("WEB_VIEW_PATH") or define("WEB_VIEW_PATH", PINGSWOOLE_WEB_ROOT . "/view");
-defined("WEB_CONF_PATH") or define("WEB_CONF_PATH", PINGSWOOLE_WEB_ROOT . "/config");
-defined("WEB_PUBLIC_PATH") or define("WEB_PUBLIC_PATH", PINGSWOOLE_WEB_ROOT . "/public");
-defined("WEB_RUNTIME_PATH") or define("WEB_RUNTIME_PATH", PINGSWOOLE_WEB_ROOT . "/runtime");
-defined("WEB_TMP_PATH") or define("WEB_TMP_PATH", WEB_RUNTIME_PATH . "/tmp");
-defined("WEB_LOG_PATH") or define("WEB_LOG_PATH", WEB_RUNTIME_PATH . "/log");
+defined("WEB_APP_PATH") or define("WEB_APP_PATH", PINGSWOOLE_WEB_ROOT . "app/");
+defined("WEB_VIEW_PATH") or define("WEB_VIEW_PATH", PINGSWOOLE_WEB_ROOT . "/view/");
+defined("WEB_CONF_PATH") or define("WEB_CONF_PATH", PINGSWOOLE_WEB_ROOT . "/config/");
+defined("WEB_PUBLIC_PATH") or define("WEB_PUBLIC_PATH", PINGSWOOLE_WEB_ROOT . "/public/");
+defined("WEB_RUNTIME_PATH") or define("WEB_RUNTIME_PATH", PINGSWOOLE_WEB_ROOT . "/runtime/");
+defined("WEB_TMP_PATH") or define("WEB_TMP_PATH", WEB_RUNTIME_PATH . "/tmp/");
+defined("WEB_LOG_PATH") or define("WEB_LOG_PATH", WEB_RUNTIME_PATH . "/log/");
+defined("WEB_CACHE_PATH") or define("WEB_CACHE_PATH", WEB_RUNTIME_PATH . "/cache/");
+defined("WEB_ROUTE_PATH") or define("WEB_ROUTE_PATH", PINGSWOOLE_WEB_ROOT . "/routes/");
 defined("WEB_CLI_ARGV") or define('WEB_CLI_ARGV', $argv);
 defined("WEB_CLI_ARGC") or define('WEB_CLI_ARGC', $argc);
 

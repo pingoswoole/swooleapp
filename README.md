@@ -78,6 +78,7 @@ Test                   项目部署目录
 ├─composer.json           Composer架构
 ├─composer.lock           Composer锁定
 ~~~
+##功能介绍
 
 ## 框架定位
 
