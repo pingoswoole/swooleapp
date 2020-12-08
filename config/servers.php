@@ -14,20 +14,20 @@ $config['worker_process_name']  = 'pingswoole_worker';
 $config['task_process_name']    = 'pingswoole_task';
 
 //错误日志
-$config['error_log_file'] = WEB_LOG_PATH . '/error.log';
+$config['error_log_file'] = WEB_LOG_PATH . 'error.log';
 
 //进程ID存储的文件
-$config['master_pid_file']  = WEB_LOG_PATH . '/master.pid';
-$config['manager_pid_file'] = WEB_LOG_PATH . '/manager.pid';
-$config['worker_pid_file']  = WEB_LOG_PATH . '/worker.pid';
-$config['task_pid_file']    = WEB_LOG_PATH . '/task.pid';
+$config['master_pid_file']  = WEB_LOG_PATH . 'master.pid';
+$config['manager_pid_file'] = WEB_LOG_PATH . 'manager.pid';
+$config['worker_pid_file']  = WEB_LOG_PATH . 'worker.pid';
+$config['task_pid_file']    = WEB_LOG_PATH . 'task.pid';
 
 //Swoole - IP信息
 $config['ip']   = '0.0.0.0';
 $config['server_type']  = \Pingo\Swoole\Constant::SWOOLE_MIX_SERVER;  //
 $config['setting'] = [
-    'pid_file'              => WEB_LOG_PATH . '/swoole.pid',
-    'log_file'              => WEB_LOG_PATH . '/swoole.log',
+    'pid_file'              => WEB_LOG_PATH . 'swoole.pid',
+    'log_file'              => WEB_LOG_PATH . 'swoole.log',
     'daemonize'             => false,
     'task_tmpdir'           => '/dev/shm',
     'max_request'           => 2000,

@@ -19,7 +19,7 @@ class IndexController
             json_encode(
                 [
                     'method' => 'request_method',
-                    'message' => 'Hello Simps.',
+                    'message' => 'Hello pingosswww.',
                     'vars' => $vars
                 ]
             )
