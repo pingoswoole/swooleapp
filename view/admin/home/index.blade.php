@@ -139,8 +139,8 @@
           miniTongji = layui.miniTongji;
 
       var options = {
-          iniUrl: "/asdfasdapi/init.json",    // 初始化接口
-          clearUrl: "api/clear.json", // 缓存清理接口
+          iniUrl: "/backend/home/initMenu",    // 初始化接口
+          clearUrl: "/backend/home/clearApi", // 缓存清理接口
           urlHashLocation: true,      // 是否打开hash定位
           bgColorDefault: false,      // 主题默认配置
           multiModule: true,          // 是否开启多模块

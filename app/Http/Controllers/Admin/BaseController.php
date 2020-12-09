@@ -13,17 +13,36 @@ use Pingo\Http\Response;
  */
 class BaseController extends Controller
 {
-    public $middleware = ['__construct' => 
+   /*  public $middleware = ['__construct' => 
     [
         \App\Http\Middleware\Auth::class . "::run",
         ]
-    ];
+    ]; */
 
     public function initialize()
     {
-
+         
     }
-
+    /**
+     * JSON
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @param integer $code
+     * @param string $msg
+     * @param [type] $data
+     * @return void
+     */
+    public function json($code = 0, $msg = 'success', $data = null)
+    {
+        $format = [
+            'code' => $code,
+            'msg'  => $msg,
+            'data' => $data
+        ];
+        $this->swoole_response->header('Content-type', 'application/json');
+        $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+    }
     /**
 	 * 渲染数据
 	 *

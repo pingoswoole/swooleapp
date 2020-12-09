@@ -12,9 +12,22 @@ use App\Http\Controllers\Admin\BaseController;
 class IndexController extends BaseController
 {
 
+    /**
+     * initMenu
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @return void
+     */
     public function initMenu()
     {
-        
+        $result = (new \App\Service\Admin\RuleService)->getMenuRules();
+        $this->write($result);
+    }
+    
+    public function clearApi()
+    {
+         $this->json(0);
     }
     /**
      * Undocumented function

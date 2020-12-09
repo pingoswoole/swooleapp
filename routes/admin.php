@@ -13,6 +13,7 @@ $route['list'] = [
     [['GET', 'POST'], '/access/login', '\Admin\Common\AccessController@login'],
     ['GET', '/access/captcha', '\Admin\Common\AccessController@captcha'],
     ['GET', '/home/dashboard', '\Admin\Home\IndexController@dashboard'],
+    ['GET', '/home/initMenu', '\Admin\Home\IndexController@initMenu'],
     
 ];
 
