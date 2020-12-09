@@ -24,6 +24,7 @@ defined("WEB_RUNTIME_PATH") or define("WEB_RUNTIME_PATH", PINGSWOOLE_WEB_ROOT . 
 defined("WEB_TMP_PATH") or define("WEB_TMP_PATH", WEB_RUNTIME_PATH . "tmp/");
 defined("WEB_LOG_PATH") or define("WEB_LOG_PATH", WEB_RUNTIME_PATH . "log/");
 defined("WEB_CACHE_PATH") or define("WEB_CACHE_PATH", WEB_RUNTIME_PATH . "cache/");
+defined("WEB_VIEW_CACHE_PATH") or define("WEB_VIEW_CACHE_PATH", WEB_CACHE_PATH . "views/");
 defined("WEB_ROUTE_PATH") or define("WEB_ROUTE_PATH", PINGSWOOLE_WEB_ROOT . "/routes/");
 defined("WEB_CLI_ARGV") or define('WEB_CLI_ARGV', $argv);
 defined("WEB_CLI_ARGC") or define('WEB_CLI_ARGC', $argc);

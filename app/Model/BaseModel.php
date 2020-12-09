@@ -1,9 +1,9 @@
 <?php
 namespace App\Model;
 
-use Pingo\Database\BaseModel as CoreModel;
+use Pingo\Database\Model;
 
-class BaseModel extends CoreModel
+class BaseModel extends Model
 {
     
 }

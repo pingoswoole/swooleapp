@@ -5,7 +5,6 @@ class Auth
 {
     public static function run($handler)
     {
-         
         return function ($request, $response, $vars) use ($handler) {
             // do something
              

@@ -1,23 +1,16 @@
 <?php
+namespace App\Http\Controllers\Admin\Home;
 
-declare(strict_types=1);
- 
-namespace App\Http\Controllers;
+use App\Http\Controllers\Admin\BaseController;
 
-use Pingo\Pool\PoolManager;
-
-class IndexController
+class IndexController extends BaseController
 {
-    public $middleware = ['__construct' => 
-    [
-        \App\Middleware\Test::class . '::run',
-        \App\Middleware\Auth::class . "::run",
-        ]
-    ];
+
 
     public function index($request, $response, $vars = [])
     {
        
+        
         //var_dump(\Pingo\Component\Di::getInstance()->get("aa"));
         //var_dump( \Pingo\Swoole\Context::get('Request'));
         /*  $pool1 = \Pingo\Pool\PoolManager::getInstance()->getConnectionPool(\Pingo\Config\Config::getInstance()->get("database.pool_name"));
@@ -29,11 +22,14 @@ class IndexController
             var_dump($res);
         }
         $pool1->return($mysql);  */
-         $pdo = (new \Pingo\Database\Model)->insert("member", [
+         (new \Pingo\Database\Redis)->set("goods". time() , time() . mt_rand(100, 999));
+        //$this->render("default.404", ['author' => time()]);
+         
+         /* $pdo = (new \App\Model\BaseModel)->insert("member", [
              'name' => random_str(9),
              'sex'  => mt_rand(100, 999)
          ]);
-         var_dump($pdo);
+         var_dump($pdo); */
        // $pool = PoolManager::getInstance()->getConnectionPool("mysql");
         //$pdo = $pool->get();
          /*    $statement = $pdo->prepare('SELECT * from member limit 1');
@@ -51,6 +47,7 @@ class IndexController
             \Pingo\Database\PDOPool::getInstance()->close($pdo);
  */
         $str = random_str(9);
+        
         $response->write(
             json_encode(
                 [
@@ -62,18 +59,4 @@ class IndexController
         );
     }
 
-    public function hello($request, $response, $data)
-    {
-        $name = $data['name'] ?? 'sss';
-
-        $response->write(
-            json_encode(
-                [
-                    'method' => 'request_method',
-                    'message' => "Hello {$name}.",
-                    'vars' => $data
-                ]
-            )
-        );
-    }
-}
+} 

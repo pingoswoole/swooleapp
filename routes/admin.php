@@ -9,9 +9,9 @@ $route['namespace'] = '/backend';
 
 //路由明细列表
 $route['list'] = [
-    ['GET', '/member/', 'Admin\MemberController@index'],
-    ['POST', '/member/', 'Admin\MemberController@index'],
-    ['DELETE', '/member/', 'Admin\MemberController@index'],
+    ['GET', '/home/index', '\Admin\Home\IndexController@index'],
+    [['GET', 'POST'], '/access/login', '\Admin\Common\AccessController@login'],
+    ['GET', '/access/captcha', '\Admin\Common\AccessController@captcha'],
     ['PUT', '/member/', 'Admin\MemberController@index'],
     
 ];
