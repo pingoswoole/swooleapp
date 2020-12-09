@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     'host'      => 'mariadb',
     'port'      => 3306,
-    'database'  => 'spring',
+    'database'  => 'pingoapp',
     'username'  => 'root',
     'password'  => 'Think1688...',
     'charset'   => 'utf8mb4',

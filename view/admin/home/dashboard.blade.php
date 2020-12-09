@@ -1,344 +1,358 @@
-@extends('layouts.admin')
 
+@extends('layouts.admin')
+@section('title', '控制面板')
+@section('header_style')
+<style>
+  .top-panel {
+      border: 1px solid #eceff9;
+      border-radius: 5px;
+      text-align: center;
+  }
+  .top-panel > .layui-card-body{
+      height: 60px;
+  }
+  .top-panel-number{
+      line-height:60px;
+      font-size: 30px;
+      border-right:1px solid #eceff9;
+  }
+  .top-panel-tips{
+      line-height:30px;
+      font-size: 12px
+  }
+</style>
+@endsection
 @section('body')
     
+<div class="layuimini-main">
 
-  <div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-      
-      <div class="layui-col-sm6 layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            访问量
-            <span class="layui-badge layui-bg-blue layuiadmin-badge">周</span>
-          </div>
-          <div class="layui-card-body layuiadmin-card-list">
-            <p class="layuiadmin-big-font">9,999,666</p>
-            <p>
-              总计访问量 
-              <span class="layuiadmin-span-color">88万 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="layui-col-sm6 layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            下载
-            <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span>
-          </div>
-          <div class="layui-card-body layuiadmin-card-list">
-            <p class="layuiadmin-big-font">33,555</p>
-            <p>
-              新下载 
-              <span class="layuiadmin-span-color">10% <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="layui-col-sm6 layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            收入
-            <span class="layui-badge layui-bg-green layuiadmin-badge">年</span>
-          </div>
-          <div class="layui-card-body layuiadmin-card-list">
+  <div class="layui-row layui-col-space15">
+      <div class="layui-col-xs12 layui-col-md3">
 
-            <p class="layuiadmin-big-font">999,666</p>
-            <p>
-              总收入 
-              <span class="layuiadmin-span-color">*** <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="layui-col-sm6 layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            活跃用户
-            <span class="layui-badge layui-bg-orange layuiadmin-badge">月</span>
-          </div>
-          <div class="layui-card-body layuiadmin-card-list">
-
-            <p class="layuiadmin-big-font">66,666</p>
-            <p>
-              最近一个月 
-              <span class="layuiadmin-span-color">15% <i class="layui-inline layui-icon layui-icon-user"></i></span>
-            </p>
-          </div>
-        </div>
-      </div> 
-      
-    
-      
-      <div class="layui-col-sm6 layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            活跃用户
-            <span class="layui-badge layui-bg-orange layuiadmin-badge">月</span>
-          </div>
-          <div class="layui-card-body layuiadmin-card-list">
-
-            <p class="layuiadmin-big-font">66,666</p>
-            <p>
-              最近一个月 
-              <span class="layuiadmin-span-color">15% <i class="layui-inline layui-icon layui-icon-user"></i></span>
-            </p>
-          </div>
-        </div>
-      </div>
- 
-    </div>
-    <!-- 百度Echart插件展示数据，饼状图、 折线图、柱状图、自定义混合-->
-    <div class="layui-row layui-col-space15">
-
-        <div class="layui-col-md6">
-          <div class="layui-card">
-            <div class="layui-card-header layui-bg-blue">用户增长</div>
-            <div class="layui-card-body">
-
-              <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-user-inc">
-                <div carousel-item id="chart_user_inc">
-                  <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-                </div>
+          <div class="layui-card top-panel">
+              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-body">
+                  <div class="layui-row layui-col-space5">
+                      <div class="layui-col-xs9 layui-col-md9 top-panel-number">
+                          9,054,056
+                      </div>
+                      <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
+                          比七日 <a style="color: #bd3004">▼0.06</a>
+                      </div>
+                  </div>
               </div>
-
-            </div>
           </div>
-        </div>
-        <div class="layui-col-md6">
-          <div class="layui-card">
-            <div class="layui-card-header layui-bg-blue">订单销量</div>
-            <div class="layui-card-body">
-              
-              <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-order">
-                <div carousel-item id="chart_order_sales">
-                  <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="layui-col-md6">
-          <div class="layui-card">
-            <div class="layui-card-header layui-bg-blue">资产变化</div>
-            <div class="layui-card-body">
-              
-              <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-finance">
-                <div carousel-item id="chart_finance_change">
-                  <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        
-        <div class="layui-col-md6">
-          <div class="layui-card">
-            <div class="layui-card-header layui-bg-blue">用户活跃度</div>
-            <div class="layui-card-body">
-             
-              <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-user-active">
-                <div carousel-item id="chart_user_active">
-                  <div  ><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
 
       </div>
-        
+      <div class="layui-col-xs12 layui-col-md3">
+
+          <div class="layui-card top-panel">
+              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-body">
+                  <div class="layui-row layui-col-space5">
+                      <div class="layui-col-xs9 layui-col-md9 top-panel-number">
+                          9,054,056
+                      </div>
+                      <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
+                          比七日 <a style="color: #bd3004">▼0.06</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
       </div>
-    </div>
+      <div class="layui-col-xs12 layui-col-md3">
+
+          <div class="layui-card top-panel">
+              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-body">
+                  <div class="layui-row layui-col-space5">
+                      <div class="layui-col-xs9 layui-col-md9 top-panel-number">
+                          9,054,056
+                      </div>
+                      <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
+                          比七日 <a style="color: #bd3004">▼0.06</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      <div class="layui-col-xs12 layui-col-md3">
+
+          <div class="layui-card top-panel">
+              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-body">
+                  <div class="layui-row layui-col-space5">
+                      <div class="layui-col-xs9 layui-col-md9 top-panel-number">
+                          9,054,056
+                      </div>
+                      <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
+                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
+                          比七日 <a style="color: #bd3004">▼0.06</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
   </div>
-  
+
+  <div class="layui-row layui-col-space15">
+      <div class="layui-col-xs12 layui-col-md9">
+          <div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+      </div>
+      <div class="layui-col-xs12 layui-col-md3">
+          <div id="echarts-pies" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+      </div>
+  </div>
+
+
+  <div class="layui-row layui-col-space15">
+      <div class="layui-col-xs12 layui-col-md6">
+          <div id="echarts-dataset" style="background-color:#ffffff;min-height:300px;padding: 10px"></div>
+      </div>
+      <div class="layui-col-xs12 layui-col-md6">
+          <div id="echarts-map" style="background-color:#ffffff;min-height:300px;padding: 10px"></div>
+      </div>
+  </div>
+
+
+</div>
+
 @endsection
 
-@section('javascriptFooter')
-    
-<script type="text/javascript">
+@section('footer_js')
+<script src="/backend/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['layer', 'echarts'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            echarts = layui.echarts;
 
-  
-   layui.use(['index', 'table', 'echarts', 'carousel'], function(){
-    var table = layui.table,
-        echarts = layui.echarts,
-       carousel = layui.carousel,
-       jQuery = layui.$;
-    //设置轮播参数
-    jQuery(".layadmin-carousel").each(function() {
-			var t = jQuery(this);
-			carousel.render({
-				elem: this,
-				width: "100%",
-				arrow: "none",
-				//interval: t.data("interval"),
-				//autoplay: t.data("autoplay") === !0,
-				//trigger: i.ios || i.android ? "click" : "hover",
-				//anim: t.data("anim")
-			})
-    })
-    //用户增长
-    var chartUserInc = echarts.init(jQuery('#chart_user_inc').children("div")[0], layui.echartsTheme)
-    var optionchart = {
-				tooltip: {
-					trigger: "axis"
-				},
-				legend: {
-          data: ["男性", "女性"],
-				},
-				calculable: !0,
-				xAxis: [{
-					type: "category",
-					data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-				}],
-				yAxis: [{
-					type: "value"
-				}],
-				series: [{
-					name: "男性",
-					type: "bar",
-					data: [2, 4.9, 7, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20, 6.4, 3.3],
-				}, {
-					name: "女性",
-					type: "bar",
-					data: [2.6, 5.9, 9, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6, 2.3],
-				}]
-      }
-    
-    chartUserInc.setOption(optionchart, true);
-    window.onresize = chartUserInc.resize
-    //订单销量
-    
-    var chartOrderSales = echarts.init(jQuery('#chart_order_sales').children("div")[0], layui.echartsTheme)
-    //指定图表配置项和数据
-    var optionchart =  
-       {
-			 
-				tooltip: {
-					trigger: "axis"
-				},
-				legend: {
-					data: ["男装", "女装"]
-				},
-				calculable: !0,
-				xAxis: [{
-					type: "category",
-					boundaryGap: !1,
-					data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-				}],
-				yAxis: [{
-					type: "value",
-				 
-				}],
-				series: [{
-					name: "男装",
-					type: "line",
-					data: [100, 3900, 159, 2000, 30000, 1000, 9000],
-				 
-				}, {
-					name: "女装",
-					type: "line",
-					data: [900, 2182, 909, 599, 366, 2000, 1290],
-					 
-				}]
-			}
-    
-      chartOrderSales.setOption(optionchart, true);
-      window.onresize = chartOrderSales.resize
-      //资产变化
-      var chartFinanceChange = echarts.init(jQuery('#chart_finance_change').children("div")[0], layui.echartsTheme)
-      var optionchart = {
-					tooltip: {
-						trigger: "axis"
-					},
-					legend: {
-						data: ["余额", "金币", "积分", "USDT", "BTC"]
-					},
-					calculable: !0,
-					xAxis: [{
-						type: "category",
-						boundaryGap: !1,
-						data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-					}],
-					yAxis: [{
-						type: "value"
-					}],
-					series: [{
-						name: "余额",
-						type: "line",
-						stack: "总量",
-						data: [120, 132, 101, 134, 90, 230, 210]
-					}, {
-						name: "金币",
-						type: "line",
-						stack: "总量",
-						data: [220, 182, 191, 234, 290, 330, 310]
-					}, {
-						name: "积分",
-						type: "line",
-						stack: "总量",
-						data: [150, 232, 201, 154, 190, 330, 410]
-					}, {
-						name: "USDT",
-						type: "line",
-						stack: "总量",
-						data: [320, 332, 301, 334, 390, 330, 320]
-					}, {
-						name: "BTC",
-						type: "line",
-						stack: "总量",
-						data: [820, 932, 901, 934, 1290, 1330, 1320]
-					}]
-				}
+        /**
+         * 报表功能
+         */
+        var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
 
-      chartFinanceChange.setOption(optionchart, true);
-      window.onresize = chartFinanceChange.resize
-      //用户活跃度
-    var chartUserActive = echarts.init(jQuery('#chart_user_active').children("div")[0], layui.echartsTheme)
-    var  optionchart = {
-           
-          tooltip: {
-              trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
-          },
-          legend: {
-              orient: 'vertical',
-              left: 'left',
-              data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-          },
-          series: [
-              {
-                  name: '访问来源',
-                  type: 'pie',
-                  radius: '55%',
-                  center: ['50%', '60%'],
-                  data: [
-                      {value: 335, name: '直接访问'},
-                      {value: 310, name: '邮件营销'},
-                      {value: 234, name: '联盟广告'},
-                      {value: 135, name: '视频广告'},
-                      {value: 1548, name: '搜索引擎'}
-                  ],
-                  emphasis: {
-                      itemStyle: {
-                          shadowBlur: 10,
-                          shadowOffsetX: 0,
-                          shadowColor: 'rgba(0, 0, 0, 0.5)'
-                      }
-                  }
-              }
-          ]
-      };
-      
-      chartUserActive.setOption(optionchart, true);
-      window.onresize = chartUserActive.resize
+        var optionRecords = {
+            title: {
+                text: '指标名称-报表图'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '邮件营销',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: '联盟广告',
+                    type: 'line',
+                    areaStyle: {},
+                    data: [220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: '视频广告',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name: '直接访问',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    stack: '总量',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
+                    areaStyle: {},
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
+        echartsRecords.setOption(optionRecords);
 
 
-  }); 
-  </script>
+        /**
+         * 玫瑰图表
+         */
+        var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
+        var optionPies = {
+            title: {
+                text: '指标名称-玫瑰图',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    roseType: 'radius',
+                    data: [
+                        {value: 335, name: '直接访问'},
+                        {value: 310, name: '邮件营销'},
+                        {value: 234, name: '联盟广告'},
+                        {value: 135, name: '视频广告'},
+                        {value: 368, name: '搜索引擎'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        echartsPies.setOption(optionPies);
 
+
+        /**
+         * 柱状图
+         */
+        var echartsDataset = echarts.init(document.getElementById('echarts-dataset'), 'walden');
+
+        var optionDataset = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                dimensions: ['product', '2015', '2016', '2017'],
+                source: [
+                    {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
+                    {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
+                    {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
+                    {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
+                ]
+            },
+            xAxis: {type: 'category'},
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
+            series: [
+                {type: 'bar'},
+                {type: 'bar'},
+                {type: 'bar'}
+            ]
+        };
+
+        echartsDataset.setOption(optionDataset);
+
+
+        /**
+         * 中国地图
+         */
+        var echartsMap = echarts.init(document.getElementById('echarts-map'), 'walden');
+
+
+        var optionMap = {
+            legend: {},
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            dataset: {
+                source: [
+                    ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                    ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                    ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                    ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                    ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                ]
+            },
+            xAxis: {type: 'category'},
+            yAxis: {gridIndex: 0},
+            grid: {top: '55%'},
+            series: [
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    label: {
+                        formatter: '{b}: {@2012} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'product',
+                        value: '2012',
+                        tooltip: '2012'
+                    }
+                }
+            ]
+        };
+
+        echartsMap.setOption(optionMap);
+
+
+        // echarts 窗口缩放自适应
+        window.onresize = function () {
+            echartsRecords.resize();
+        }
+
+    });
+</script>
 @endsection

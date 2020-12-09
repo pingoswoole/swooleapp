@@ -3,14 +3,33 @@ namespace App\Http\Controllers\Admin\Home;
 
 use App\Http\Controllers\Admin\BaseController;
 
+/**
+ * 首页
+ * 
+ * @author pingo
+ * @created_at 00-00-00
+ */
 class IndexController extends BaseController
 {
 
-
+    public function initMenu()
+    {
+        
+    }
+    /**
+     * Undocumented function
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @param [type] $request
+     * @param [type] $response
+     * @param array $vars
+     * @return void
+     */
     public function index($request, $response, $vars = [])
     {
        
-        
+        $this->render("home.index");
         //var_dump(\Pingo\Component\Di::getInstance()->get("aa"));
         //var_dump( \Pingo\Swoole\Context::get('Request'));
         /*  $pool1 = \Pingo\Pool\PoolManager::getInstance()->getConnectionPool(\Pingo\Config\Config::getInstance()->get("database.pool_name"));
@@ -22,7 +41,7 @@ class IndexController extends BaseController
             var_dump($res);
         }
         $pool1->return($mysql);  */
-         (new \Pingo\Database\Redis)->set("goods". time() , time() . mt_rand(100, 999));
+        // ( new \Pingo\Database\Redis)->set("goods". mt_rand(1000, 9999) . time() , time() . mt_rand(100, 999));
         //$this->render("default.404", ['author' => time()]);
          
          /* $pdo = (new \App\Model\BaseModel)->insert("member", [
@@ -46,17 +65,19 @@ class IndexController extends BaseController
              var_dump($result);
             \Pingo\Database\PDOPool::getInstance()->close($pdo);
  */
-        $str = random_str(9);
-        
-        $response->write(
-            json_encode(
-                [
-                    'method' => 'request_method' . $str,
-                    'message' => 'Hello pingosswww.' . get_rand(),
-                    'vars' => $vars
-                ]
-            )
-        );
+       
+    }
+
+    /**
+     * 数据统计报表
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @return void
+     */
+    public function dashboard()
+    {
+        $this->render("home.dashboard");
     }
 
 } 

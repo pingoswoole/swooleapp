@@ -12,9 +12,10 @@ $route['list'] = [
     ['GET', '/home/index', '\Admin\Home\IndexController@index'],
     [['GET', 'POST'], '/access/login', '\Admin\Common\AccessController@login'],
     ['GET', '/access/captcha', '\Admin\Common\AccessController@captcha'],
-    ['PUT', '/member/', 'Admin\MemberController@index'],
+    ['GET', '/home/dashboard', '\Admin\Home\IndexController@dashboard'],
     
 ];
+
 
 
 return $route;
