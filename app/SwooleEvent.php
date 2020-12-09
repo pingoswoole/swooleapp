@@ -33,8 +33,8 @@ class SwooleEvent
     public static function globalService(\Swoole\Server $swoole_server)
     {
         //初始化Redis、mysql进程池
-        $db_setting = Config::getInstance()->get("database");
-        \Pingo\Database\BaseModel::getInstance($db_setting);
+       // $db_setting = Config::getInstance()->get("database");
+       // \Pingo\Database\BaseModel::getInstance($db_setting);
         //$data = new \Pingo\Database\BaseModel($db_setting);
          
     }

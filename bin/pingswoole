@@ -42,7 +42,7 @@ if(file_exists($bootstrap_file)){
 }
 
 //解析命令参数，启动服务
-\Swoole\Runtime::enableCoroutine();
+\Swoole\Runtime::enableCoroutine(); 
 \Pingo\Swoole\Application::run();
 
 

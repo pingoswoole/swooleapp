@@ -28,7 +28,7 @@
  
     "require": {                                                    
         "php": "^7.3|^8.0",
-        "pingo/framework": "*"
+        "pingo/framework": "^1.0.10"
     },
     "autoload": {                                                 
         "files": [
