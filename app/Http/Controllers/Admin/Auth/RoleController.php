@@ -9,7 +9,7 @@ use App\Service\Admin\AdminRuleService;
 use App\Utility\Log\Log;
 use App\Utility\Message\Status;
 
-class Role extends AdminController
+class RoleController extends AdminController
 {
     private $rule_role      = 'auth.role';
     private $rule_role_view = 'auth.role.view';
@@ -19,9 +19,9 @@ class Role extends AdminController
     private $rule_role_rule = 'auth.role.rule';
     public function index()
     {
-        if(!$this->hasRuleForGet($this->rule_role_view)) return ;
+       // if(!$this->hasRuleForGet($this->rule_role_view)) return ;
 
-        $this->render('admin.auth.role');
+        $this->render('auth.role');
     }
 
     public function getAll()

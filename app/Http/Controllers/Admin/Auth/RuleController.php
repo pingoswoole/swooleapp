@@ -8,7 +8,7 @@ use App\Utility\Log\Log;
 use App\Service\Admin\AdminRuleService;
 use App\Utility\Message\Status;
 
-class Rule extends AdminController
+class RuleController extends AdminController
 {
     private $rule_rule      = 'auth.rule';
     private $rule_rule_view = 'auth.rule.view';
@@ -17,9 +17,9 @@ class Rule extends AdminController
     private $rule_rule_del  = 'auth.rule.del';
     public function index()
     {
-        if(!$this->hasRuleForGet($this->rule_rule_view)) return ;
+        //if(!$this->hasRuleForGet($this->rule_rule_view)) return ;
 
-        $this->render('admin.auth.rule');
+        $this->render('auth.rule');
     }
 
     public function getAll()

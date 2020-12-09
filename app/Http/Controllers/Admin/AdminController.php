@@ -11,7 +11,7 @@ use Pingo\Http\Response;
  * @author pingo
  * @created_at 00-00-00
  */
-class BaseController extends Controller
+class AdminController extends Controller
 {
    /*  public $middleware = ['__construct' => 
     [

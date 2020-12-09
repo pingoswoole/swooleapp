@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Common;
 
-use App\Http\Controllers\Admin\BaseController;
+use App\Http\Controllers\Admin\AdminController;
 
 /**
  * 登录、注册、注销
@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\BaseController;
  * @author pingo
  * @created_at 00-00-00
  */
-class AccessController extends BaseController
+class AccessController extends AdminController
 {
 
     /**

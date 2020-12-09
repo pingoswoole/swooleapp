@@ -8,7 +8,7 @@ use App\Service\Admin\AdminRoleService;
 use App\Utility\Log\Log;
 use App\Utility\Message\Status;
 
-class User extends AdminController
+class UserController extends AdminController
 {
     private $rule_auth      = 'auth.auth';
     private $rule_auth_view = 'auth.auth.view';
@@ -17,9 +17,9 @@ class User extends AdminController
     private $rule_auth_del  = 'auth.auth.del';
     public function index()
     {
-        if(!$this->hasRuleForGet($this->rule_auth_view)) return ;
+        //if(!$this->hasRuleForGet($this->rule_auth_view)) return ;
 
-        $this->render('admin.auth.user');
+        $this->render('auth.user');
     }
 
     // 获取用户数

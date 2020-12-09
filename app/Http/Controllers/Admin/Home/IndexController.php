@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Home;
 
-use App\Http\Controllers\Admin\BaseController;
+use App\Http\Controllers\Admin\AdminController;
 
 /**
  * 首页
@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\BaseController;
  * @author pingo
  * @created_at 00-00-00
  */
-class IndexController extends BaseController
+class IndexController extends AdminController
 {
 
     /**

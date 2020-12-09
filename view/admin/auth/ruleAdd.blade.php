@@ -3,7 +3,7 @@
 @section('body-title')
   {{-- <div class="layui-card-header">@if(isset($info)) {{$info['name']}} -- @endif添加权限</div> --}}
 @endsection
-@section('javascriptFooter')
+@section('footer_js')
 <script>
 
 layui.use('form', function(){

@@ -14,9 +14,14 @@ $route['list'] = [
     ['GET', '/access/captcha', '\Admin\Common\AccessController@captcha'],
     ['GET', '/home/dashboard', '\Admin\Home\IndexController@dashboard'],
     ['GET', '/home/initMenu', '\Admin\Home\IndexController@initMenu'],
+    //
+    [['GET', 'POST'], '/auth/', '\Admin\Auth\UserController@index'],
+    [['GET', 'POST'], '/role/', '\Admin\Auth\RoleController@index'],
+    [['GET', 'POST'], '/rule/', '\Admin\Auth\RuleController@index'],
+   
     
 ];
 
-
+ 
 
 return $route;

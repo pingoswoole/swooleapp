@@ -4,30 +4,27 @@
 <div class="white p20">
     <table class="layui-hide" id="test" lay-filter="test"></table>
     <script type="text/html" id="toolbarDemo">
-        @if($role_group->hasRule('auth.role.add'))
+        
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">添加角色组</button>
             </div>
-        @endif
+         
     </script>
 
     <script type="text/html" id="barDemo">
-        @if($role_group->hasRule('auth.role.rule'))
+        
             <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="editRule">变更权限</a>
-        @endif
-        @if($role_group->hasRule('auth.role.set'))
+        
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        @endif
-
-        @if($role_group->hasRule('auth.role.del'))
+        
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        @endif
+        
     </script>
 </div>
 @endsection
 
 
-@section('javascriptFooter')
+@section('footer_js')
 <script>
 
     layui.use('table', function(){
@@ -42,7 +39,7 @@
         ,cols: [[
         {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
         ,{field:'name', title:'角色组', width:220}
-        ,{field:'detail', title:'描述' @if($role_group->hasRule('auth.role.set')), edit: 'text' , event:'edit_detail' @endif}
+        ,{field:'detail', title:'描述' , edit: 'text' , event:'edit_detail'}
         ,{field:'created_at', title:'创建时间'}
         ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 250}
         ]]
