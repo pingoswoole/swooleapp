@@ -21,7 +21,7 @@ class IndexController extends AdminController
      */
     public function initMenu()
     {
-        $result = (new \App\Service\Admin\RuleService)->getMenuRules();
+        $result = (new \App\Service\Admin\AdminRuleService)->getMenuRules();
         $this->write($result);
     }
     

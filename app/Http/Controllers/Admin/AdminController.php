@@ -43,6 +43,29 @@ class AdminController extends Controller
         $this->swoole_response->header('Content-type', 'application/json');
         $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     }
+
+    /**
+     * 分页数据返回
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @param integer $code
+     * @param integer $count
+     * @param [type] $data
+     * @param string $msg
+     * @return void
+     */
+    public function jsonPage($code = 0, $count = 0, $data = null, $msg = 'success' )
+    {
+        $format = [
+            'code' => $code,
+            'msg'  => $msg,
+            'data' => $data,
+            'count' => $count,
+        ];
+        $this->swoole_response->header('Content-type', 'application/json');
+        $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+    }
     /**
 	 * 渲染数据
 	 *

@@ -25,15 +25,16 @@ class UserController extends AdminController
     // 获取用户数
     public function getAll()
     {
-        if(!$this->hasRuleForPost($this->rule_auth_view)) return ;
-
-        $data = $this->getPage();
+        //if(!$this->hasRuleForPost($this->rule_auth_view)) return ;
+        $page_data = (new \App\Service\Admin\AdminUserService)->getPageList();
+      /*   $data = $this->getPage();
         $service_result = AdminUserService::getInstance()->getPageList($data['page'], $data['limit']);
         list($list_data, $count) = $service_result['data'];
         
         $data       = ['code' => Status::CODE_OK, 'count' => $count, 'data' => $list_data];
         $this->dataJson($data);
-        return;
+        return; */
+        $this->jsonPage(0, $page_data['count'], $page_data['list']);
     }
 
     private function fieldInfo()

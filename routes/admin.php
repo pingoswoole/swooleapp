@@ -16,6 +16,8 @@ $route['list'] = [
     ['GET', '/home/initMenu', '\Admin\Home\IndexController@initMenu'],
     //
     [['GET', 'POST'], '/auth/', '\Admin\Auth\UserController@index'],
+    [['GET', 'POST'], '/auth/get_all', '\Admin\Auth\UserController@getAll'],
+    
     [['GET', 'POST'], '/role/', '\Admin\Auth\RoleController@index'],
     [['GET', 'POST'], '/rule/', '\Admin\Auth\RuleController@index'],
    

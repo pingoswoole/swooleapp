@@ -77,7 +77,7 @@ layui.use('table', function(){
                 layer.open({
                      title: '添加管理员'
                     ,type: 2
-                    ,content: '/backdata/auth/addget'
+                    ,content: '/backend/auth/addget'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
