@@ -38,85 +38,73 @@ class RuleController extends AdminController
     // 获取修改 和 添加的数据 并判断是否完整
     private function fieldInfo()
     {
-        $request = $this->request();
-        $data    = $request->getRequestParam('name', 'node', 'status', 'route_uri', 'route_handler');
-
-        $validate = new \EasySwoole\Validate\Validate();
-        $validate->addColumn('name')->required();
-        $validate->addColumn('node')->required();
-        $validate->addColumn('status')->required();
-        //$validate->addColumn('route_uri')->required();
-        //$validate->addColumn('route_handler')->required();
-        if (!$validate->validate($data)) {
-            $this->writeJson(Status::CODE_ERR, '请勿乱操作');
-            return;
-        }
+        $data    = $this->request->post(['name', 'node', 'status', 'route_uri', 'route_handler']);
 
         return $data;
     }
 
     public function add()
     {
-        if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
+        //if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
 
-        $this->render('admin.auth.ruleAdd');
+        $this->render('auth.ruleAdd');
     }
 
     public function addData()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
+       // if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
             return;
         }
         if (AdminRuleService::getInstance()->add($data)) {
-            $this->writeJson(Status::CODE_OK);
+            $this->json(Status::CODE_OK);
         } else {
-            $this->writeJson(Status::CODE_ERR, '添加失败');
-            Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
+            $this->json(Status::CODE_ERR, '添加失败');
+            //Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
         }
     }
 
     public function addChild()
     {
 
-        if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
+        //if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
 
-        $id = $this->request()->getRequestParam('id');
+        $id = $this->request->route('id');
         $info = AdminRuleService::getInstance()->getById($id);
         if (!$info) {
             $this->show404();
             return;
         }
-        $this->render('admin.auth.ruleAdd', ['id' => $id,'info'=>$info]);
+        $this->render('auth.ruleAdd', ['id' => $id,'info'=>$info]);
     }
 
     public function addChildData()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
+        //if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
             return;
         }
 
-        $data['pid'] = $this->request()->getRequestParam('id');
+        $data['pid'] = $this->request->route('id');
 
         if (AdminRuleService::getInstance()->add($data)) {
-            $this->writeJson(Status::CODE_OK);
+            $this->json(Status::CODE_OK);
         } else {
-            $this->writeJson(Status::CODE_ERR, '添加失败');
-            Log::getInstance()->error("rule--addChildData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
+            $this->json(Status::CODE_ERR, '添加失败');
+            //Log::getInstance()->error("rule--addChildData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
         }
     }
 
     // 修改数据的页面
     public function edit()
     {
-        if(!$this->hasRuleForGet($this->rule_rule_set)) return ;
+       // if(!$this->hasRuleForGet($this->rule_rule_set)) return ;
 
-        $id = $this->request()->getRequestParam('id');
+        $id = $this->request->route('id');
 
         if (!$id) {
             $this->show404();
@@ -128,75 +116,58 @@ class RuleController extends AdminController
             $this->show404();
             return;
         }
-
+        
         $data = AdminRuleService::getInstance()->getAllList([], ['pid' => 0]);
-        $this->render('admin.auth.ruleEdit', ['data' => $data, 'info' => $info]);
+        $this->render('auth.ruleEdit', ['data' => $data, 'info' => $info]);
     }
 
     // 修改数据
     public function editData()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
+       // if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
             return;
         }
 
-        $id = $this->request()->getRequestParam('id');
+        $id = $this->request->route('id');
 
         if (AdminRuleService::getInstance()->setById($id, $data)) {
-            $this->writeJson(Status::CODE_OK);
+            $this->json(Status::CODE_OK);
         } else {
-            $this->writeJson(Status::CODE_ERR, '保存失败');
-            Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
+            $this->json(Status::CODE_ERR, '保存失败');
+           // Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
         }
     }
 
     // 单字段修改
     public function set()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
+        //if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
-        $request  = $this->request();
-        $data     = $request->getRequestParam('id', 'key', 'value');
-        $validate = new \EasySwoole\Validate\Validate();
-
-        $validate->addColumn('key')->required()->func(function ($params, $key) {
-            return $params instanceof \EasySwoole\Spl\SplArray
-            && 'key' == $key && in_array($params[$key], ['status', 'node']);
-        }, '请勿乱操作');
-
-        $validate->addColumn('id')->required();
-        $validate->addColumn('value')->required();
-
-        if (!$validate->validate($data)) {
-            $this->writeJson(Status::CODE_ERR, '请勿乱操作');
-            return;
-        }
+        $data     = $this->request->post(['id', 'key', 'value']);
 
         $bool = AdminRuleService::getInstance()->setById($data['id'], [$data['key'] => $data['value']]);
 
         if ($bool) {
-            $this->writeJson(Status::CODE_OK);
+            $this->json(Status::CODE_OK);
         } else {
-            $this->writeJson(Status::CODE_ERR, '设置失败');
-            Log::getInstance()->error("rule--set:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有设置成功");
+            $this->json(Status::CODE_ERR, '设置失败');
+           // Log::getInstance()->error("rule--set:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有设置成功");
         }
     }
 
     public function del()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_del)) return ;
-
-        $request = $this->request();
-        $id      = $request->getRequestParam('id');
+        //if(!$this->hasRuleForPost($this->rule_rule_del)) return ;
+        $id      = $this->request->route('id');
         $bool    = AdminRuleService::getInstance()->delete($id);
         if ($bool) {
-            $this->writeJson(Status::CODE_OK, '');
+            $this->json(Status::CODE_OK, '');
         } else {
-            $this->writeJson(Status::CODE_ERR, '删除失败');
-            Log::getInstance()->error("rule--del:" . $id . "没有删除失败");
+            $this->json(Status::CODE_ERR, '删除失败');
+           // Log::getInstance()->error("rule--del:" . $id . "没有删除失败");
         }
     }
 

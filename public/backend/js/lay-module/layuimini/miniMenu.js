@@ -1,8 +1,7 @@
 /**
- * date:2020/02/27
- * author:Mr.Chung
+ * date:2020/
  * version:2.0
- * description:layuimini 菜单框架扩展
+ * description: 菜单框架扩展
  */
 layui.define(["element","laytpl" ,"jquery"], function (exports) {
     var element = layui.element,

@@ -28,7 +28,7 @@ class AdminUserService
             '[>]admin_role' => ['admin_user.role_id' => 'id']
         ];
         $where = [
-            //'admin_user.deleted[!]' => 0,
+            'admin_user.deleted[!]' => 1,
             'LIMIT' => [($page - 1) * $page_size, $page_size],
             'ORDER' => ['admin_user.id' => 'DESC']
         ];
@@ -85,7 +85,8 @@ class AdminUserService
      */
     public function modify(array $where = [], array $data)
     {
-        return model()->update('admin_user', $data, $where);
+        $pdoStmt = model()->update('admin_user', $data, $where);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
     /**
      * 根据ID查询
@@ -107,7 +108,12 @@ class AdminUserService
      */
     public function setUserById(int $id, array $data): bool
     {
-        return model()->update('admin_user', $data, ['id' => $id]);
+        if(isset($data['pwd'])){
+            $user = $this->getUserById($id);
+            $data['pwd'] = encrypt($data['pwd'], $user['encry']);
+        }
+        $pdoStmt = model()->update('admin_user', $data, ['id' => $id]);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
     /**
      * 新增

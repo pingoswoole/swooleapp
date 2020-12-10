@@ -27,7 +27,7 @@ class IndexController extends AdminController
     
     public function clearApi()
     {
-         $this->json(0);
+         $this->json(1);
     }
     /**
      * Undocumented function

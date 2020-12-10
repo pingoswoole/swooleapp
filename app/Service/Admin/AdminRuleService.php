@@ -21,11 +21,10 @@ class AdminRuleService
     * @created_at 00-00-00
     * @return void
     */
-   public function getAllList()
+   public function getAllList($column = "*", $where = [])
    {
-      $where = [];
-      $column = ['id', 'title(name)','node', 'status','is_menu', 'href', 'icon', 'route_handler', 'pid'];
       $table = 'admin_rule';
+      if(empty($column)) $column = "*";
       $rules_list = model()->select($table, $column, $where);
       $count =  model()->count($table, $where);
       
@@ -128,7 +127,8 @@ class AdminRuleService
      */
     public function setById(int $id, array $data): bool
     {
-        return model()->update('admin_rule', $data, ['id' => $id]);
+        $pdoStmt = model()->update('admin_rule', $data, ['id' => $id]);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
     /**
      * 删除
@@ -139,7 +139,8 @@ class AdminRuleService
     public function delete($ids)
     {
         if(is_string($ids)) $ids = [$ids];
-        return model()->delete('admin_rule', ['id' => $ids]);
+        $pdoStmt = model()->delete('admin_rule', ['id' => $ids]);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
 
 }

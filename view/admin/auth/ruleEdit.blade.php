@@ -7,10 +7,10 @@ layui.use('form', function(){
 	var form = layui.form;
 
 	form.val("form", {
-		"name": "{{ $info['name'] }}"
+		"title": "{{ $info['title'] }}"
 		,"node": "{{ $info['node'] }}"
 		,"status": {{ $info['status'] }}
-		,"route_uri": "{!! $info['route_uri'] !!}"
+		,"route_uri": "{!! $info['href'] !!}"
 		,"route_handler": "{!! $info['route_handler'] !!}"
 	});
 

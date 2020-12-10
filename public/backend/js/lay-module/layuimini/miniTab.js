@@ -1,8 +1,7 @@
 /**
- * date:2020/02/27
- * author:Mr.Chung
+ * date:2020/
  * version:2.0
- * description:layuimini tab框架扩展
+ * description: tab框架扩展
  */
 layui.define(["element", "layer", "jquery"], function (exports) {
     var element = layui.element,

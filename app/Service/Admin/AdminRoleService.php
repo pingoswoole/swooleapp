@@ -58,7 +58,8 @@ class AdminRoleService
      */
     public function setById(int $id, array $data): bool
     {
-        return model()->update('admin_role', $data, ['id' => $id]);
+        $pdoStmt = model()->update('admin_role', $data, ['id' => $id]);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
     /**
      * 根据ID查询
@@ -68,7 +69,7 @@ class AdminRoleService
      */
     public function getById(int $id):array
     {
-        return model()->get("admin_role", [], ['id' => $id]);
+        return model()->get("admin_role", "*", ['id' => $id]);
     }
     /**
      * 删除
@@ -79,7 +80,8 @@ class AdminRoleService
     public function delete($ids)
     {
         if(is_string($ids)) $ids = [$ids];
-        return model()->delete('admin_role', [ 'id' => $ids]);
+        $pdoStmt = model()->delete('admin_role', [ 'id' => $ids]);
+        return $pdoStmt->rowCount() > 0 ? true : false;
     }
     /**
      * Undocumented function

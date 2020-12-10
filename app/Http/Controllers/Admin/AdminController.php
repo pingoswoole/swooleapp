@@ -92,5 +92,10 @@ class AdminController extends Controller
 		return $data;
     }
     
-     
+    public function show404()
+    {
+        $this->render('default.404');
+    }
+
+    
 }
