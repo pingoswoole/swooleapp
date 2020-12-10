@@ -46,7 +46,7 @@
         ,title: '权限'
         ,cols: [[
         {field:'id', title:'ID', width:80, fixed: 'left'}
-        ,{field:'name', title:'权限名', width:220}
+        ,{field:'title', title:'权限名', width:220}
         ,{field:'node', title:'节点标记', width:220 , event:'edit_node'}
         ,{field:'href', title:'请求URI'}
         ,{field:'route_handler', title:'请求处理器'}

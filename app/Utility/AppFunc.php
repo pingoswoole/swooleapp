@@ -54,7 +54,7 @@ class AppFunc
                 $v[$name] = $pre . $v[$name];
                 $tree[]    = $v;
                 if (isset($v[$child])) {
-                    self::treeRule($v[$child], $tree, $pre . '&nbsp;|------&nbsp;');
+                    self::treeRule($v[$child], $tree, $pre . '&nbsp;|------&nbsp;', $name, $child);
                 }
             }
         }

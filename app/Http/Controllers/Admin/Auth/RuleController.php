@@ -30,7 +30,7 @@ class RuleController extends AdminController
         
         $tree_data = AppFunc::arrayToTree($rule_data['list'], 'pid');
         $data      = [];
-        AppFunc::treeRule($tree_data, $data);
+        AppFunc::treeRule($tree_data, $data, '', 'title');
         $this->jsonPage(0, $rule_data['count'], $data);
         
     }
