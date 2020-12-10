@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Common\AppFunc;
+use App\Utility\AppFunc;
 use App\Utility\Log\Log;
 use App\Service\Admin\AdminRuleService;
-use App\Utility\Message\Status;
+use App\Utility\Status;
 
 class RuleController extends AdminController
 {
@@ -24,16 +24,15 @@ class RuleController extends AdminController
 
     public function getAll()
     {
-        if(!$this->hasRuleForPost($this->rule_rule_view)) return ;
+        //if(!$this->hasRuleForPost($this->rule_rule_view)) return ;
 
-        $rule_data =  AdminRuleService::getInstance()->getAllList();
-
-        $tree_data = AppFunc::arrayToTree($rule_data, 'pid');
+        $rule_data = (new AdminRuleService)->getAllList();
+        
+        $tree_data = AppFunc::arrayToTree($rule_data['list'], 'pid');
         $data      = [];
         AppFunc::treeRule($tree_data, $data);
-         
-        $data = ['code' => Status::CODE_OK, 'data' => $data];
-        $this->dataJson($data);
+        $this->jsonPage(0, $rule_data['count'], $data);
+        
     }
 
     // 获取修改 和 添加的数据 并判断是否完整

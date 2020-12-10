@@ -15,7 +15,7 @@ layui.use('form', function(){
   form.on('submit(submit)', function(data){
     data.field.status = data.field.status ? 1 : 0;
     form_field = data;
-    let url = '/backdata/rule/add'
+    let url = '/backend/rule/add'
     @if(isset($id))
       url += '/{{$id}}'
     @endif

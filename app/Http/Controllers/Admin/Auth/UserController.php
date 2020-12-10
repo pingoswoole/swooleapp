@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Service\Admin\AdminUserService;
 use App\Service\Admin\AdminRoleService;
 use App\Utility\Log\Log;
-use App\Utility\Message\Status;
+use App\Utility\Status;
 
 class UserController extends AdminController
 {
@@ -39,46 +39,35 @@ class UserController extends AdminController
 
     private function fieldInfo()
     {
-        $request = $this->request();
-        $data    = $request->getRequestParam('uname', 'pwd', 'status', 'display_name', 'role_id');
-
-        $validate = new \EasySwoole\Validate\Validate();
-        $validate->addColumn('uname')->required();
-        $validate->addColumn('pwd')->required();
-        $validate->addColumn('status')->required();
-        $validate->addColumn('display_name')->required();
-        $validate->addColumn('role_id')->required();
-
-        if (!$validate->validate($data)) {
-            $this->writeJson(Status::CODE_ERR, '请勿乱操作');
-            return;
-        }
+         
+        $data    = $this->request->post(['uname', 'pwd', 'status', 'display_name', 'role_id']);
+        
         return $data;
     }
 
     public function add()
     {
-        if(!$this->hasRuleForGet($this->rule_auth_add)) return ;
+        //if(!$this->hasRuleForGet($this->rule_auth_add)) return ;
 
-        $role_data = AdminRoleService::getInstance()->getAllList();
+        $role_data =  AdminRoleService::getInstance()->getAllList();
 
-        $this->render('admin.auth.userAdd', ['role_data' => $role_data]);
+        $this->render('auth.userAdd', ['role_data' => $role_data]);
     }
 
     public function addData()
     {
-        if(!$this->hasRuleForPost($this->rule_auth_add)) return ;
+        //if(!$this->hasRuleForPost($this->rule_auth_add)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
             return;
         }
-
+        
         if (AdminUserService::getInstance()->add($data)) {
-            $this->writeJson(Status::CODE_OK);
+            $this->json(Status::CODE_OK);
         } else {
-            $this->writeJson(Status::CODE_ERR, '添加失败');
-            Log::getInstance()->error("user--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
+            $this->json(Status::CODE_ERR, '添加失败');
+            //Log::getInstance()->error("user--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "添加失败");
         }
 
         return;
@@ -87,7 +76,7 @@ class UserController extends AdminController
     // 多字段修改
     public function edit()
     {
-        if(!$this->hasRuleForGet($this->rule_auth_set)) return ;
+        //if(!$this->hasRuleForGet($this->rule_auth_set)) return ;
 
         $id        = $this->request()->getRequestParam('id');
         $role_data = AdminRoleService::getInstance()->getAllList();
@@ -96,13 +85,13 @@ class UserController extends AdminController
             $this->show404();
             return;
         }
-        $this->render('admin.auth.userEdit', ['id' => $id, 'role_data' => $role_data, 'user_data' => $user_data]);
+        $this->render('auth.userEdit', ['id' => $id, 'role_data' => $role_data, 'user_data' => $user_data]);
     }
 
     // 多字段修改
     public function editData()
     {
-        if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
+        //if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
@@ -123,7 +112,7 @@ class UserController extends AdminController
     // 修改密码
     public function editPwd()
     {
-        $this->render('admin.auth.userPwd');
+        $this->render('auth.userPwd');
     }
 
     public function editPwdData()
@@ -144,7 +133,7 @@ class UserController extends AdminController
     // 修改基本资料
     public function info()
     {
-        $this->render('admin.auth.userInfo');
+        $this->render('auth.userInfo');
     }
 
     public function infoData()
@@ -155,7 +144,7 @@ class UserController extends AdminController
     // 单字段修改
     public function set()
     {
-        if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
+       // if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
 
         $request  = $this->request();
         $data     = $request->getRequestParam('id', 'key', 'value');
@@ -181,18 +170,17 @@ class UserController extends AdminController
         }
     }
 
-    public function del()
+    public function del($request, $response, $vars = [])
     {
-        if(!$this->hasRuleForPost($this->rule_auth_del)) return ;
-
-        $request = $this->request();
-        $id      = $request->getRequestParam('id');
+        //if(!$this->hasRuleForPost($this->rule_auth_del)) return ;
+        $id      = $this->request->get('id');
+        var_dump($id, $vars);exit;
         $bool    = AdminUserService::getInstance()->setUserById($id, ['deleted' => 1]);
         if ($bool) {
-            $this->writeJson(Status::CODE_OK, '');
+            $this->json(Status::CODE_OK, '');
         } else {
-            $this->writeJson(Status::CODE_ERR, '删除失败');
-            Log::getInstance()->error("user--del:" . $id . "没有删除失败");
+            $this->json(Status::CODE_ERR, '删除失败');
+           // Log::getInstance()->error("user--del:" . $id . "没有删除失败");
         }
     }
 }

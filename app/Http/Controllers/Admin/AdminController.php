@@ -82,5 +82,15 @@ class AdminController extends Controller
         $content =  $blade->render($template, $data);
         $this->response->write($content);
     }
+
+    // 获取 page limit 信息
+	public function getPage()
+	{
+		$data = $this->request->get(['page', 'limit']);
+		$data['page'] =  $data['page']?:1;
+		$data['limit'] =  $data['limit']?:10;
+		return $data;
+    }
+    
      
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Common\AppFunc;
+use App\Utility\AppFunc;
 use App\Service\Admin\AdminRoleService;
 use App\Service\Admin\AdminRuleService;
 use App\Utility\Log\Log;
-use App\Utility\Message\Status;
+use App\Utility\Status;
 
 class RoleController extends AdminController
 {
@@ -26,19 +26,16 @@ class RoleController extends AdminController
 
     public function getAll()
     {
-        if(!$this->hasRuleForPost($this->rule_role_view)) return ;
+        //if(!$this->hasRuleForPost($this->rule_role_view)) return ;
 
         $data = $this->getPage();
 
-        $service_result =  AdminRoleService::getInstance()->getPageList($data['page'], $data['limit']);
-        list($role_data, $role_count) = $service_result['data'];
-         
-        $tree_data = AppFunc::arrayToTree($role_data, 'pid');
+        $service_result = (new AdminRoleService)->getPageList($data['page'], $data['limit']);
+        $tree_data = AppFunc::arrayToTree($service_result['list'], 'pid');
         $data      = [];
         AppFunc::treeRule($tree_data, $data);
-        $data       = ['code' => Status::CODE_OK, 'data' => $data, 'count' => $role_count];
-        $this->dataJson($data);
-        return;
+        
+        $this->jsonPage(0, $service_result['count'], $data);
     }
 
     private function fieldInfo()

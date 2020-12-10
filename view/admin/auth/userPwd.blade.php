@@ -66,12 +66,12 @@ layui.use('form', function(){
     form.on('submit(submit)', function(data){
         form_field = data;
         delete data.field.verify_pwd;
-        http_post('/backdata/auth/pwd',data.field, function(result){
+        http_post('/backend/auth/pwd',data.field, function(result){
             if(result.code != 0) {
                 layer.msg(result.msg);
             } else {
                 layer.msg('添加成功',{time:1000},function(){
-                    location.href = '/backdata/auth';
+                    location.href = '/backend/auth';
                 });
 
             }

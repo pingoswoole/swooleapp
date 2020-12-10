@@ -32,7 +32,7 @@
 
     var datatable = table.render({
         elem: '#test'
-        ,'url' :'/backdata/role/get_all'
+        ,'url' :'/backend/role/get_all'
         ,method:'post'
         ,toolbar: '#toolbarDemo'
         ,title: '角色权限表'
@@ -54,11 +54,11 @@
     table.on('toolbar(test)', function(obj){
         switch(obj.event){
             case 'add':
-                //location.href="/backdata/role/add";
+                //location.href="/backend/role/add";
                 layer.open({
                      title: '添加角色'
                     ,type: 2
-                    ,content: '/backdata/role/addget'
+                    ,content: '/backend/role/addget'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -97,7 +97,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'detail', value:value};
-                    $.post('/backdata/role/set/' + data.id ,datajson,function(data){
+                    $.post('/backend/role/set/' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {
@@ -110,7 +110,7 @@
             break;
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backdata/role/del/' + data.id ,'',function(data){
+                    $.post('/backend/role/del/' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -124,7 +124,7 @@
                 layer.open({
                      title: '编辑角色组'
                     ,type: 2
-                    ,content: '/backdata/role/editget/' + data.id
+                    ,content: '/backend/role/editget/' + data.id
                     ,area:['500px', '350px']
                 });
             break;
@@ -134,7 +134,7 @@
                     maxmin: true, // 显示最大最小化按钮
                     area: ['500px', '450px'],
                     title: '变更权限',
-                    content: '/backdata/role/edit_ruleget/' + data.id,
+                    content: '/backend/role/edit_ruleget/' + data.id,
                 });
             break;
         }

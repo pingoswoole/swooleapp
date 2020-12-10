@@ -25,7 +25,7 @@
 							<div class="layui-input-block">
 								<input type="text" name="route_uri" required   placeholder="请输入请求URI" autocomplete="off" class="layui-input">
 							</div>
-							<div class="layui-form-mid layui-word-aux">多个请使用分隔符&&，例如/backdata/index/a&&/backdata/index/b</div>
+							<div class="layui-form-mid layui-word-aux">多个请使用分隔符&&，例如/backend/index/a&&/backend/index/b</div>
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-form-label">请求处理器</label>

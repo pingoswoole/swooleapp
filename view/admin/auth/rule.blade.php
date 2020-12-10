@@ -40,7 +40,7 @@
 
     var datatable = table.render({
         elem: '#test'
-        ,url:'/backdata/rule/get_all'
+        ,url:'/backend/rule/get_all'
         ,method:'post'
         ,toolbar: '#toolbarDemo'
         ,title: '权限'
@@ -48,7 +48,7 @@
         {field:'id', title:'ID', width:80, fixed: 'left'}
         ,{field:'name', title:'权限名', width:220}
         ,{field:'node', title:'节点标记', width:220 , event:'edit_node'}
-        ,{field:'route_uri', title:'请求URI'}
+        ,{field:'href', title:'请求URI'}
         ,{field:'route_handler', title:'请求处理器'}
         /* ,{field:'created_at', title:'创建时间'} */
         ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100}
@@ -72,7 +72,7 @@
                 layer.open({
                      title: '添加最高权限'
                     ,type: 2
-                    ,content: '/backdata/rule/addget'
+                    ,content: '/backend/rule/addget'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -86,7 +86,7 @@
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backdata/rule/set/' + this.value ,datajson,function(data){
+        $.post('/backend/rule/set/' + this.value ,datajson,function(data){
             if(data.code != 0) {
                 layer.msg(data.msg);
                 obj.elem.checked = !obj.elem.checked;
@@ -104,17 +104,17 @@
                 layer.open({
                      title: '添加权限'
                     ,type: 2
-                    ,content: '/backdata/rule/addget/' + data.id
+                    ,content: '/backend/rule/addget/' + data.id
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
                     }
                 });
-               // location.href = '/backdata/rule/add/' + data.id;
+               // location.href = '/backend/rule/add/' + data.id;
             break;
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backdata/rule/del/' + data.id ,'',function(data){
+                    $.post('/backend/rule/del/' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -128,7 +128,7 @@
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backdata/rule/editget/' + data.id
+                    ,content: '/backend/rule/editget/' + data.id
                     ,area:['70%', '500px']
                 });
             break;
@@ -139,7 +139,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'node', value:value};
-                    $.post('/backdata/rule/set/' + data.id ,datajson,function(data){
+                    $.post('/backend/rule/set/' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {

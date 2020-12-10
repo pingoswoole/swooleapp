@@ -14,7 +14,7 @@ layui.use('form', function(){
 
   //监听提交
   form.on('submit(submit)', function(data){
-    http_post("/backdata/role/edit/{{$id}}", data.field, function(result){
+    http_post("/backend/role/edit/{{$id}}", data.field, function(result){
        if(result.code != 0) {
             layer.msg(result.msg);
         } else {
