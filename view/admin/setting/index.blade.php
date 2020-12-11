@@ -30,13 +30,13 @@
         <div class="layui-form-item">
           <label class="layui-form-label">服务协议</label>
           <div class="layui-input-block">
-            @component('admin.template.form.editor', ['name' => 'protocol', 'value' => '请输入'])@endcomponent
+            @component('admin.template.form.editor', ['name' => 'protocol', 'value' => $setting['web']['protocol']??''])@endcomponent
           </div>
         </div>
         <div class="layui-form-item">
           <label class="layui-form-label">隐私政策</label>
           <div class="layui-input-block">
-            @component('admin.template.form.editor', ['name' => 'privacy', 'value' => '请输入'])@endcomponent
+            @component('admin.template.form.editor', ['name' => 'privacy', 'value' => $setting['web']['privacy']??''])@endcomponent
           </div>
         </div>
          
@@ -208,12 +208,15 @@ layui.use(['form','miniTab'], function () {
         form.on('submit(SettingSbt)', function (data) {
             
              console.log(data.field);
+             $.post("/backend/setting/index", data.field, function(result){
+                layer.msg(result.msg)
+             })
             return false;
         });
 
         //表单初始赋值
         form.val('setting_web', {
-            "title": "2222" // "name": "value"
+            "title": "{{$setting['web']['title']??''}}" // "name": "value"
             , "password": "123456"
             , "interest": 1
             , "like[write]": true //复选框选中状态
