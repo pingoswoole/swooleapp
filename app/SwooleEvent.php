@@ -7,7 +7,11 @@ namespace App;
  * @author pingo
  * @created_at 00-00-00
  */
+
+use Pingo\Component\Di;
 use Pingo\Config\Config;
+use Pingo\Swoole\Constant;
+
 class SwooleEvent
 {
     /**
@@ -32,6 +36,8 @@ class SwooleEvent
      */
     public static function globalService(\Swoole\Server $swoole_server)
     {
+         
+        Di::getInstance()->set(Constant::HTTP_EXCEPTION_HANDLER, [\App\Exception\HttpException::class, 'handle']);
         //初始化Redis、mysql进程池
        // $db_setting = Config::getInstance()->get("database");
        // \Pingo\Database\BaseModel::getInstance($db_setting);

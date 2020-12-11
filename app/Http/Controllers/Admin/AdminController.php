@@ -19,6 +19,8 @@ class AdminController extends Controller
     const ADMIN_SESSION_COOKIE_ID = 'PingoSwooleAdminSession';
     //登录用户信息
     protected $auth_user_data = [];
+    //是否鉴权
+    protected $auth_flag = true;
     /**
      * 验证器
      *
@@ -34,25 +36,30 @@ class AdminController extends Controller
 
     public function onRequest(?string $action = null)
     {   
-
+        if($this->auth_flag){
+            return $this->checkAuth();
+        }
         return true;
     }
     public function initialize()
     {
-        //$this->checkAuth();
+        $this->checkAuth();
     }
 
     public  function checkAuth()
     {
         $session_cookie_val = $this->request->cookie(self::ADMIN_SESSION_COOKIE_ID);
         if(empty($session_cookie_val)){
-            
-            $this->response->getSwooleResponse()->header('location','/backend/access/login');
-            
+            var_dump($this->isPost(), $this->isGet(), $this->request()->getServer(), $this->request()->getBody()->__toString());
+           // $this->write("<script>alert(22)</script>");
+            //$this->write("getSwooleResponse");
+            //$this->response()->withHeader('location','/backend/access/login');
+             
            /*  return $response->json([
                 'code' => Status::CODE_VERIFY_ERR,
                 'msg'  => '请登录后操作',
             ]); */
+            return false;
         }
         //
         $session_data = cache($session_cookie_val);
@@ -61,8 +68,10 @@ class AdminController extends Controller
                 'code' => Status::CODE_VERIFY_ERR,
                 'msg'  => '会话过期，请重试登录！',
             ]); */
+            return false;
         }
 
+        return true;
         //$this->auth_user_data = json_decode($user_data, true);
     }
     /**
