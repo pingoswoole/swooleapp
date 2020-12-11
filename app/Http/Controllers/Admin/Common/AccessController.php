@@ -12,6 +12,13 @@ use App\Http\Controllers\Admin\AdminController;
 class AccessController extends AdminController
 {
 
+    public $middleware = [];
+
+    public function initialize()
+    {
+        
+    }
+
     /**
      * 登录
      *
@@ -24,8 +31,8 @@ class AccessController extends AdminController
      */
     public function login($request, $response, $vars = [])
     {
-        
-        $this->render("access.login", ['author' => time()]);
+         
+         $this->render("access.login", ['author' => time()]);
          
     }
 

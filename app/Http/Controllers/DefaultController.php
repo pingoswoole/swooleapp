@@ -45,8 +45,8 @@ class DefaultController
      */
     public function requestMethodForbid($request, $response, $uri = [])
     {
-        $response->status(405);
-        $response->end("requestMethodForbid");
+        //$response->status(405);
+        $response->write("requestMethodForbid");
     }  
     /**
      * 方法不存在
@@ -60,7 +60,7 @@ class DefaultController
      */
     public function methodNotFound($request, $response, $uri = [])
     {
-        $response->end("methodNotFound");
+        $response->write("methodNotFound");
     }
     /**
      * 其他路由
@@ -74,8 +74,8 @@ class DefaultController
      */
     public function unedfined($request, $response, $uri = [])
     {
-        $response->status(400);
-        $response->end("unedfined");
+        //$response->status(400);
+        $response->write("unedfined");
     }
    
 }

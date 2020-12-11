@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
+
+use App\Utility\Status;
 use duncan3dc\Laravel\BladeInstance;
 use Pingo\Http\Controller;
 use Pingo\Http\Request;
@@ -13,15 +15,55 @@ use Pingo\Http\Response;
  */
 class AdminController extends Controller
 {
-   /*  public $middleware = ['__construct' => 
-    [
-        \App\Http\Middleware\Auth::class . "::run",
-        ]
-    ]; */
 
+    const ADMIN_SESSION_COOKIE_ID = 'PingoSwooleAdminSession';
+    //登录用户信息
+    protected $auth_user_data = [];
+    /**
+     * 验证器
+     *
+     * @var array
+     * @author pingo
+     * @created_at 00-00-00
+     */
+    public $middleware = ['__construct' => 
+    [
+            \App\Http\Middleware\AdminAuth::class . "::run",
+        ]
+    ];
+
+    public function onRequest(?string $action = null)
+    {   
+
+        return true;
+    }
     public function initialize()
     {
-         
+        //$this->checkAuth();
+    }
+
+    public  function checkAuth()
+    {
+        $session_cookie_val = $this->request->cookie(self::ADMIN_SESSION_COOKIE_ID);
+        if(empty($session_cookie_val)){
+            
+            $this->response->getSwooleResponse()->header('location','/backend/access/login');
+            
+           /*  return $response->json([
+                'code' => Status::CODE_VERIFY_ERR,
+                'msg'  => '请登录后操作',
+            ]); */
+        }
+        //
+        $session_data = cache($session_cookie_val);
+        if(empty($session_data)){
+           /*  return $this->json([
+                'code' => Status::CODE_VERIFY_ERR,
+                'msg'  => '会话过期，请重试登录！',
+            ]); */
+        }
+
+        //$this->auth_user_data = json_decode($user_data, true);
     }
     /**
      * JSON
@@ -63,7 +105,7 @@ class AdminController extends Controller
             'data' => $data,
             'count' => $count,
         ];
-        $this->swoole_response->header('Content-type', 'application/json');
+        $this->response()->withHeader('Content-type', 'application/json');
         $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     }
     /**
@@ -80,7 +122,7 @@ class AdminController extends Controller
         $blade = new BladeInstance(WEB_VIEW_PATH, WEB_VIEW_CACHE_PATH);
         $template = "admin/" . $template;
         $content =  $blade->render($template, $data);
-        $this->response->write($content);
+        $this->write($content);
     }
 
     // 获取 page limit 信息
