@@ -10,7 +10,7 @@ use Pingo\Traits\Singleton;
  * @author pingo
  * @created_at 00-00-00
  */
-class AdminRuleService
+class AdminRuleService extends Base
 {  
 
    use Singleton;

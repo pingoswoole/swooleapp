@@ -40,7 +40,7 @@ class RoleController extends AdminController
 
     private function fieldInfo()
     {
-        $data    = $this->request->post(['name', 'detail','pid']);
+        $data    = $this->request()->post(['name', 'detail','pid']);
 
         return $data;
     }
@@ -73,8 +73,9 @@ class RoleController extends AdminController
     {
         //if(!$this->hasRuleForGet($this->rule_role_set)) return ;
 
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
 
+        
         $info = AdminRoleService::getInstance()->getById($id);
         $role_data = AdminRoleService::getInstance()->getAllList(['id', 'name'], ['id' =>[$id, '<>']]);
 
@@ -90,7 +91,7 @@ class RoleController extends AdminController
             return;
         }
        
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
         if (AdminRoleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);
         } else {
@@ -104,7 +105,7 @@ class RoleController extends AdminController
     {
        // if(!$this->hasRuleForPost($this->rule_role_set)) return ;
 
-        $data     = $this->request->post(['id', 'key', 'value']);
+        $data     = $this->request()->post(['id', 'key', 'value']);
 
         $bool = AdminRoleService::getInstance()->setById($data['id'], [$data['key'], $data['value']]);
         if ($bool) {
@@ -119,11 +120,12 @@ class RoleController extends AdminController
     {
        // if(!$this->hasRuleForPost($this->rule_role_del)) return ;
 
-        $id      = $this->request->route('id');
+        $id      = $this->request()->route('id');
         $bool    = AdminRoleService::getInstance()->delete($id);
         if ($bool) {
             $this->json(Status::CODE_OK, '');
         } else {
+             
             $this->json(Status::CODE_ERR, '删除失败');
             //Log::getInstance()->error("role--del:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有删除失败");
         }
@@ -132,12 +134,13 @@ class RoleController extends AdminController
     public function editRule()
     {
         //if(!$this->hasRuleForGet($this->rule_role_view)) return ;
-
+        
         $rule_data = AdminRuleService::getInstance()->getAllList(['id', 'title', 'pid'], ['status' => 1]);
          
         $data      = AppFunc::arrayToTree($rule_data['list']);
-         
-        $id        = $this->request->route('id');
+        
+        $id        = $this->request()->route('id');
+        
         $role_info = AdminRoleService::getInstance()->getById($id);
         $this->render('auth.editRule', ['id' => $id, 'data' => $data, 'checked' => explode(',', $role_info['rules_checked'])]);
     }
@@ -146,9 +149,9 @@ class RoleController extends AdminController
     {
         //if(!$this->hasRuleForPost($this->rule_role_rule)) return ;
 
-        $info = $this->request->post(['id', 'rules_checked', 'rules']);
+        $info = $this->request()->post(['id', 'rules_checked', 'rules']);
          
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
         
         if (AdminRoleService::getInstance()->saveIdRules($id, $info['rules_checked'] ?? "", $info['rules'] ?? "")) {
             $this->json(Status::CODE_OK);

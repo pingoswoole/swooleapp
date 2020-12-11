@@ -9,7 +9,7 @@ use Pingo\Traits\Singleton;
  * @author pingo
  * @created_at 00-00-00
  */
-class AdminUserService
+class AdminUserService extends Base
 {
 
     use Singleton;
@@ -64,14 +64,14 @@ class AdminUserService
             $where['deleted'] = 0;
             $where['uname'] = $username;
              
-            $AdminUser = AdminUser::create()->get($where);
-            if(is_null($AdminUser) ) return  $this->returnData(false, "账号或密码不正确！！！");
+            $admin_user = model()->get('admin_user', '*', $where);
+            if(empty($admin_user) ) return  $this->_return(false, "账号或密码不正确！！！");
             
-            if($AdminUser->pwd !== encrypt($password, $AdminUser->encry)) return $this->returnData(false, "账号或密码错误！！");
-            return $this->returnData(true, "登录成功。", $AdminUser->toArray());
+            if($admin_user['pwd'] !== encrypt($password, $admin_user['encry'])) return $this->_return(false, "账号或密码错误！！");
+            return $this->_return(true, "登录成功", $admin_user);
         } catch (\Throwable $th) {
             //throw $th;
-            return $this->returnData(false, $th->getMessage());
+            return $this->_return(false, $th->getMessage());
         }
          
     }

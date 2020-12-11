@@ -38,7 +38,7 @@ class RuleController extends AdminController
     // 获取修改 和 添加的数据 并判断是否完整
     private function fieldInfo()
     {
-        $data    = $this->request->post(['name', 'node', 'status', 'route_uri', 'route_handler']);
+        $data    = $this->request()->post(['name', 'node', 'status', 'route_uri', 'route_handler']);
 
         return $data;
     }
@@ -71,7 +71,7 @@ class RuleController extends AdminController
 
         //if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
 
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
         $info = AdminRuleService::getInstance()->getById($id);
         if (!$info) {
             $this->show404();
@@ -89,7 +89,7 @@ class RuleController extends AdminController
             return;
         }
 
-        $data['pid'] = $this->request->route('id');
+        $data['pid'] = $this->request()->route('id');
 
         if (AdminRuleService::getInstance()->add($data)) {
             $this->json(Status::CODE_OK);
@@ -104,7 +104,7 @@ class RuleController extends AdminController
     {
        // if(!$this->hasRuleForGet($this->rule_rule_set)) return ;
 
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
 
         if (!$id) {
             $this->show404();
@@ -131,7 +131,7 @@ class RuleController extends AdminController
             return;
         }
 
-        $id = $this->request->route('id');
+        $id = $this->request()->route('id');
 
         if (AdminRuleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);
@@ -146,7 +146,7 @@ class RuleController extends AdminController
     {
         //if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
-        $data     = $this->request->post(['id', 'key', 'value']);
+        $data     = $this->request()->post(['id', 'key', 'value']);
 
         $bool = AdminRuleService::getInstance()->setById($data['id'], [$data['key'] => $data['value']]);
 
@@ -161,7 +161,7 @@ class RuleController extends AdminController
     public function del()
     {
         //if(!$this->hasRuleForPost($this->rule_rule_del)) return ;
-        $id      = $this->request->route('id');
+        $id      = $this->request()->route('id');
         $bool    = AdminRuleService::getInstance()->delete($id);
         if ($bool) {
             $this->json(Status::CODE_OK, '');

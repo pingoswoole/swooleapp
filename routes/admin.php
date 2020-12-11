@@ -12,6 +12,7 @@ $route['list'] = [
 
     ['GET', '/home/index', '\Admin\Home\IndexController@index'],
     [['GET', 'POST'], '/access/login', '\Admin\Common\AccessController@login'],
+    [['GET', 'POST'], '/access/logout', '\Admin\Common\AccessController@logout'],
     ['GET', '/access/captcha', '\Admin\Common\AccessController@captcha'],
     ['GET', '/home/dashboard', '\Admin\Home\IndexController@dashboard'],
     ['GET', '/home/initMenu', '\Admin\Home\IndexController@initMenu'],
@@ -51,6 +52,11 @@ $route['list'] = [
     ['POST', '/rule/add', '\Admin\Auth\RuleController@addData'],
     ['GET', '/rule/editget/{id:\d+}', '\Admin\Auth\RuleController@edit'],
     ['POST', '/rule/edit/{id:\d+}', '\Admin\Auth\RuleController@editData'],
+
+    //设置
+    [['GET', 'POST'], '/setting/index', '\Admin\Setting\CommonController@index'],
+    ['POST', '/upload/handle', '\Admin\Common\UploadController@handle'],
+
 
     
 ];

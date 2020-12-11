@@ -139,9 +139,18 @@
                 layer.msg('验证码不能为空');
                 return false;
             }
-            layer.msg('登录成功', function () {
-                window.location = '../index.html';
+            $.post('/backend/access/login', data, function(result){
+
+                console.log(result);
+                layer.msg(result.msg, {time: 2000}, function(){
+                    if(result.code == 0){
+                        window.location = '/backend/home/index';
+                    }
+                })
             });
+           /*  layer.msg('登录成功', function () {
+                window.location = '../index.html';
+            }); */
             return false;
         });
     });

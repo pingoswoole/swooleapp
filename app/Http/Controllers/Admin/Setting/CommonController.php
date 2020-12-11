@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Admin\AdminController;
 
-class User extends AdminController
+class CommonController extends AdminController
 {
     public function index()
     {
-        $this->render('admin.setting.user.index');
+        var_dump("asdfasdfasdf");
+        $this->render('setting.index');
     }
 }

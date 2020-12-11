@@ -156,7 +156,7 @@
           $.post("/backend/access/logout", {}, function(){
 
                 layer.msg('退出登录成功', function () {
-                    window.location = 'page/login-3.html';
+                    window.location = '/backend/access/login';
                 });
           })
       });

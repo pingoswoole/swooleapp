@@ -34,6 +34,13 @@ class AdminController extends Controller
         ]
     ];
 
+
+    public function initialize()
+    {
+        
+    }
+
+
     public function onRequest(?string $action = null)
     {   
         if($this->auth_flag){
@@ -41,38 +48,64 @@ class AdminController extends Controller
         }
         return true;
     }
-    public function initialize()
-    {
-        $this->checkAuth();
-    }
 
+    
+    /**
+     * 是否登录
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @return void
+     */
     public  function checkAuth()
     {
         $session_cookie_val = $this->request->cookie(self::ADMIN_SESSION_COOKIE_ID);
         if(empty($session_cookie_val)){
-            var_dump($this->isPost(), $this->isGet(), $this->request()->getServer(), $this->request()->getBody()->__toString());
-           // $this->write("<script>alert(22)</script>");
-            //$this->write("getSwooleResponse");
-            //$this->response()->withHeader('location','/backend/access/login');
-             
-           /*  return $response->json([
-                'code' => Status::CODE_VERIFY_ERR,
-                'msg'  => '请登录后操作',
-            ]); */
+            if($this->isJson()){
+                $this->json(0, '请登录后操作');
+            }else{
+                $this->write("<script>window.location.href='/backend/access/login'</script>");
+            }
             return false;
         }
         //
         $session_data = cache($session_cookie_val);
         if(empty($session_data)){
-           /*  return $this->json([
-                'code' => Status::CODE_VERIFY_ERR,
-                'msg'  => '会话过期，请重试登录！',
-            ]); */
+            if($this->isJson()){
+                $this->json(0, '会话过期，请重试登录！');
+            }else{
+                $this->write("<script>window.location.href='/backend/access/login'</script>");
+            }
             return false;
         }
 
+        $this->auth_user_data = json_decode($session_data, true);
         return true;
-        //$this->auth_user_data = json_decode($user_data, true);
+    }
+
+    /**
+     * 是否json请求
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @return boolean
+     */
+    protected function isJson():bool
+    {
+        $headers = $this->request()->getHeaders();
+        if(!empty($headers)){
+            foreach ($headers as $key => $header) {
+                # code...
+                $key = strtolower($key);
+                if(FALSE !== strstr($key, "content-type")){
+                    $content = array_shift($header);
+                    if(is_string($content)){
+                       if( FALSE !== strstr(strtolower($content), "json")) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     /**
      * JSON
@@ -91,7 +124,8 @@ class AdminController extends Controller
             'msg'  => $msg,
             'data' => $data
         ];
-        $this->swoole_response->header('Content-type', 'application/json');
+         
+        $this->response()->withHeader('Content-type','application/json;charset=utf-8');
         $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     }
 
