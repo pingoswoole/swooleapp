@@ -38,7 +38,7 @@ class RuleController extends AdminController
     // 获取修改 和 添加的数据 并判断是否完整
     private function fieldInfo()
     {
-        $data    = $this->request()->post(['name', 'node', 'status', 'route_uri', 'route_handler']);
+        $data    = $this->request()->post(['title', 'node', 'status', 'href']);
 
         return $data;
     }
@@ -68,7 +68,7 @@ class RuleController extends AdminController
 
     public function addChild()
     {
-
+         
         //if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
 
         $id = $this->request()->route('id');
@@ -77,6 +77,7 @@ class RuleController extends AdminController
             $this->show404();
             return;
         }
+        
         $this->render('auth.ruleAdd', ['id' => $id,'info'=>$info]);
     }
 
@@ -116,9 +117,9 @@ class RuleController extends AdminController
             $this->show404();
             return;
         }
-        
+         
         $data = AdminRuleService::getInstance()->getAllList([], ['pid' => 0]);
-        $this->render('auth.ruleEdit', ['data' => $data, 'info' => $info]);
+        $this->render('auth.ruleEdit', ['data' => $data['list'], 'info' => $info]);
     }
 
     // 修改数据
@@ -132,7 +133,7 @@ class RuleController extends AdminController
         }
 
         $id = $this->request()->route('id');
-
+         
         if (AdminRuleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);
         } else {
@@ -147,8 +148,8 @@ class RuleController extends AdminController
         //if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
-
-        $bool = AdminRuleService::getInstance()->setById($data['id'], [$data['key'] => $data['value']]);
+        $id    = $this->request()->route('id');
+        $bool = AdminRuleService::getInstance()->setById($id, [$data['key'] => $data['value']]);
 
         if ($bool) {
             $this->json(Status::CODE_OK);

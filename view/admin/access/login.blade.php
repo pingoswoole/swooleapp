@@ -78,7 +78,8 @@
 
                 <div id="validatePanel" class="item" style="width: 137px;">
                     <input type="text" name="captcha" placeholder="请输入验证码" maxlength="4">
-                    <img id="refreshCaptcha" class="validateImg"  src="/backend/access/captcha?v=1" >
+                    <img id="refreshCaptcha" class="validateImg"  src="" >
+                    <input type="hidden" name="check_code" id="check_code">
                 </div>
 
             </div>
@@ -102,7 +103,17 @@
         var $ = layui.jquery,
             form = layui.form,
             layer = layui.layer;
-
+         
+         get_captcha()
+         function get_captcha()
+         {
+            $.get('/backend/access/captcha?v=1', {}, function(result){
+                console.log(result)
+                $('#refreshCaptcha').attr('src', result.data.image);
+                $("#check_code").val(result.data.check_code)
+            })
+         }
+         $('#refreshCaptcha').click(function(){get_captcha()})
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
 

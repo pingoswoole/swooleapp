@@ -11,7 +11,7 @@ class SettingService
             $set_value = json_encode($data);
             if($result){
                 //update
-                model()->update($table, ['set_value' => $set_value], ['set_key' => $data]);
+                model()->update($table, ['set_value' => $set_value], ['set_key' => $key]);
             }else{
                 model()->insert($table, ['set_value' => $set_value, 'set_key' => $key, 'created_at' => time()]);
             }
@@ -20,7 +20,7 @@ class SettingService
         }
 
         
-        public function get($key = null)
+        public function get($key = null, $default = null)
         {   
             $data = [];
             $table = 'common_setting';
@@ -35,8 +35,20 @@ class SettingService
                 }
             }else{
                 //
-                $result = model()->get($table, '*', ['set_key' => $key]);
-                $data = $result ? json_decode($result['set_value'], true) : null; 
+                $keys = explode(".", $key);
+                $result = model()->get($table, '*', ['set_key' => array_shift($keys)]);
+                if(isset($result['set_value'])){
+                    $data = json_decode($result['set_value'], true);
+                    while($keys){
+                        $key = array_shift($keys);
+                        if(!isset($data[$key])){
+                            $data = $default;
+                            break;
+                        }
+                        $data = $data[$key];
+                    }
+                }
+
             }
 
             return $data;

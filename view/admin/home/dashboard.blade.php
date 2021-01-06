@@ -30,15 +30,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">用户</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                        {{$member['total']}}
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          会员 <a style="color: #1aa094">{{$member['vip']}}</a><br>
+                          代理商 <a style="color: #bd3004">{{$member['agent']}}</a>
                       </div>
                   </div>
               </div>
@@ -48,15 +48,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">商城订单</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                        {{$order['total']}}
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          未付款 <a style="color: #1aa094">{{$order['pay']}}</a><br>
+                          已付款 <a style="color: #bd3004">{{$order['unpay']}}</a>
                       </div>
                   </div>
               </div>
@@ -66,15 +66,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">提现</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                        {{$withdraw['total']}}
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          已打款 <a style="color: #1aa094">{{$withdraw['check']}}</a><br>
+                          未打款 <a style="color: #bd3004">{{$withdraw['uncheck']}}</a>
                       </div>
                   </div>
               </div>
@@ -84,15 +84,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">卡包</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                        {{$coupon['total']}}
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          付款 <a style="color: #1aa094">{{$coupon['pay']}}</a><br>
+                          未付款 <a style="color: #bd3004">{{$coupon['unpay']}}</a>
                       </div>
                   </div>
               </div>
@@ -100,7 +100,7 @@
 
       </div>
   </div>
-
+{{-- 
   <div class="layui-row layui-col-space15">
       <div class="layui-col-xs12 layui-col-md9">
           <div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
@@ -119,7 +119,7 @@
           <div id="echarts-map" style="background-color:#ffffff;min-height:300px;padding: 10px"></div>
       </div>
   </div>
-
+ --}}
 
 </div>
 

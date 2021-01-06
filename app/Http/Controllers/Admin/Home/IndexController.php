@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin\Home;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Service\Admin\DashboardService;
 
 /**
  * 首页
@@ -90,7 +91,10 @@ class IndexController extends AdminController
      */
     public function dashboard()
     {
-        $this->render("home.dashboard");
+        //获取统计数据
+        $data = (new DashboardService)->getStatis();
+        
+        $this->render("home.dashboard", $data);
     }
 
 } 

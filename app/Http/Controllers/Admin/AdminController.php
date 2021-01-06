@@ -140,13 +140,14 @@ class AdminController extends Controller
      * @param string $msg
      * @return void
      */
-    public function jsonPage($code = 0, $count = 0, $data = null, $msg = 'success' )
+    public function jsonPage($code = 0, $count = 0, $data = null, $extra = [], $msg = 'success' )
     {
         $format = [
             'code' => $code,
             'msg'  => $msg,
             'data' => $data,
             'count' => $count,
+            'extra' => $extra,
         ];
         $this->response()->withHeader('Content-type', 'application/json');
         $this->write(json_encode($format, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));

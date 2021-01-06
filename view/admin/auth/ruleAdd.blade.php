@@ -24,7 +24,9 @@ layui.use('form', function(){
             layer.msg(result.msg);
         } else {
             layer.msg('添加成功', {time:1000}, function(){
-                form_field.form.reset();
+                //关闭iframe页面
+                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                parent.layer.close(index);
             });
         }
     })

@@ -18,6 +18,9 @@
         <input type="checkbox" name="status" value="@{{d.id}}" lay-skin="switch"  lay-text="启动|禁用" lay-filter="status" @{{ d.status == 1 ? 'checked' : '' }}>
     </script>
 
+    <script type="text/html" id="switchMenu">
+        <input type="checkbox" name="is_menu" value="@{{d.id}}" lay-skin="switch"  lay-text="启动|禁用" lay-filter="is_menu" @{{ d.is_menu == 1 ? 'checked' : '' }}>
+    </script>
 
     <!-- 操作 -->
     <script type="text/html" id="barDemo">
@@ -48,10 +51,10 @@
         {field:'id', title:'ID', width:80, fixed: 'left'}
         ,{field:'title', title:'权限名', width:220}
         ,{field:'node', title:'节点标记', width:220 , event:'edit_node'}
-        ,{field:'href', title:'请求URI'}
-        ,{field:'route_handler', title:'请求处理器'}
+        ,{field:'href', title:'菜单URI'}
         /* ,{field:'created_at', title:'创建时间'} */
-        ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100}
+        /* ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100} */
+        ,{field:'is_menu', title:'是否菜单', templet: '#switchMenu', width:100}
         ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 180}
         ]]
         ,defaultToolbar:[]
@@ -85,6 +88,18 @@
 
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
+
+        $.post('/backend/rule/set/' + this.value ,datajson,function(data){
+            if(data.code != 0) {
+                layer.msg(data.msg);
+                obj.elem.checked = !obj.elem.checked;
+                form.render();
+            }
+        });
+    });
+
+    form.on('switch(is_menu)', function(obj){
+        let datajson = {key:'is_menu', value:obj.elem.checked ? '1':'0'};
 
         $.post('/backend/rule/set/' + this.value ,datajson,function(data){
             if(data.code != 0) {

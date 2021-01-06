@@ -34,10 +34,21 @@ class AccessController extends AdminController
     public function login($request, $response, $vars = [])
     {
         if($this->isPost()){
+            try {
+                //code...
             
-             $request_params = $this->request()->post();
+             $request_params = $this->request()->post(['username', 'password', 'captcha', 'check_code']);
              $username = $request_params['username']?? null;
              $pwd = $request_params['password']?? null;
+             //检查验证码
+             $check_code = $request_params['check_code']?? null;
+             $check_code = strtolower($check_code);
+             $captcha_res = cache()->get($check_code);
+             $captcha_res = $captcha_res ? strtolower($captcha_res) : null;
+             if(empty($captcha_res) || $captcha_res !== $request_params['captcha']){
+                 $this->json(Status::CODE_ERR, '验证码错误或过期！');
+                 return;
+             }
              $result = (new \App\Service\Admin\AdminUserService)->login($username, $pwd);
              if($result['flag']){
                  $session_key = 'AdminSession' . uniqid(true) . mt_rand(100, 999);
@@ -46,6 +57,11 @@ class AccessController extends AdminController
              }
              $code = $result['flag']? Status::CODE_OK : Status::CODE_ERR;
              $this->json($code, $result['msg']);
+
+            } catch (\Throwable $th) {
+                //throw $th;
+                 
+            }
 
         }else{
 
@@ -82,7 +98,14 @@ class AccessController extends AdminController
     {
         $code = new \Pingo\Captcha\VerifyCode();
         $this->swoole_response->header('Content-Type','image/png');
-        $this->swoole_response->write($code->DrawCode()->getImageByte());
+        $Result = $code->DrawCode();
+        //$this->swoole_response->write($Result->getImageBase64());
+        $check_code =  rand_uniqid_str('captcha');
+        cache()->setEx($check_code, 90, strtolower($Result->getImageCode()));
+        $this->json(Status::CODE_OK, 'success', ['image' => $Result->getImageBase64(), 'check_code' => $check_code]);
+        //var_dump($Result->getImageCode());
     }
+
+      
 
 } 

@@ -10,8 +10,8 @@ layui.use('form', function(){
 		"title": "{{ $info['title'] }}"
 		,"node": "{{ $info['node'] }}"
 		,"status": {{ $info['status'] }}
-		,"route_uri": "{!! $info['href'] !!}"
-		,"route_handler": "{!! $info['route_handler'] !!}"
+		,"href": "{!! $info['href'] !!}"
+		 
 	});
 
 

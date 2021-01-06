@@ -106,8 +106,9 @@ class RoleController extends AdminController
        // if(!$this->hasRuleForPost($this->rule_role_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
+        $id    = $this->request()->route('id');
 
-        $bool = AdminRoleService::getInstance()->setById($data['id'], [$data['key'], $data['value']]);
+        $bool = AdminRoleService::getInstance()->setById($id, [$data['key'], $data['value']]);
         if ($bool) {
             $this->json(Status::CODE_OK);
         } else {
