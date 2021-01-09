@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 return [
-    'host'      => 'mariadb',
-    'port'      => 3306,
-    'database'  => 'backend_shop1',
-    'username'  => 'root',
-    'password'  => 'Think1688...',
-    'charset'   => 'utf8mb4',
+    'host'      => env_get('DB_HOST', 'mariadb'),
+    'port'      => intval(env_get('DB_PORT', 3306)),
+    'database'  => env_get('DB_DATABASE', 'spring'),
+    'username'  => env_get('DB_USERNAME', 'root'),
+    'password'  => env_get('DB_PASSWORD', 'root'),
+    'charset'   => env_get('DB_CHARSET', 'utf8mb4'),
     'options'   => [
         \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
         \PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8mb4",

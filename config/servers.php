@@ -30,7 +30,7 @@ $config['setting'] = [
     'log_file'              => WEB_LOG_PATH . 'swoole.log',
     'daemonize'             => false,
     'task_tmpdir'           => '/dev/shm',
-    'max_request'           => 1000,
+    'max_request'           => 500,
     // Normally this value should be 1~4 times larger according to your cpu cores.
     'reactor_num'           => swoole_cpu_num() * 2,
     'worker_num'            => 8,

@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 return [
-    'host'           => 'redis',
-    'port'           => 6379,
-    'auth'           => '',
+    'host'           => env_get('REDIS_HOST', 'mariadb'),
+    'port'           => intval(env_get('REDIS_PORT', 6379)),
+    'auth'           => env_get('REDIS_PASSWORD'),
     'db_index'       => 0,
     'time_out'       => 3,
-     'pool_size'    => 100,
+    'pool_size'      => 100,
+    
     ///
     'pool_name'      => 'redis',
     'pool_min'          => 10,

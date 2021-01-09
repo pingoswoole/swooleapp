@@ -2,9 +2,11 @@
 namespace App\Http\Controllers\App\Common;
 
 use App\Http\Controllers\App\AppController;
+use App\Model\Member\User;
 use App\Service\App\PlatformService;
 use App\Service\Common\SettingService;
 use App\Utility\Status;
+use Pingo\Database\DB;
 use Pingo\Pool\PoolManager;
 use Pingo\Validate\Validate;
 
@@ -40,8 +42,31 @@ class PlatformController extends AppController
         
         //model()->insert('goods', ['title' => time()]);
 
-        $data = (new SettingService)->get("web.privacy");
-        $this->json(Status::CODE_OK, 'success', $data);
+        //$res = DB::table('user')->insert(['user' => random_str(8), 'pwd' => time()]);
+        //$res = DB::table('user')->insert(['user' => random_str(8), 'pwd' => time()]);
+        try {
+            //code...
+            //$res = db()->table('user')->insert([['user' => random_str(8), 'pwd' => time()],['user' => random_str(8), 'pwd' => time()]]);
+            //$res1 = db()->table('user')->where('pwd', 11)->decrement(['money' => 1, 'score'=> 2]);
+            //$res = db()->query('select * from user where id=:id', ['id' => 1]);
+           /*  $User = new User();
+            $res = $User->where('id', 'in', [11, 22])->with(['goods' => function($Query){
+                $Query->select("id", 'uid');
+            },'role'])->first();
+            var_dump($res); */
+            $User = new User();
+            //$res = $User->insert(['user' => random_str(6), 'pwd' => random_str(5)]);
+            $res = $User->where('id', '>', 100)->sum('id');
+            $res1 = $User->where('id', '>', 100)->avg('id');
+            $res2 = $User->where('id', '>', 100)->max('id');
+            $res2 = $User->where('id', '=', 22)->update(['pwd' => 'bbbbbbbbb']);
+            var_dump($res, $res1, $res2, $User->_sql()); 
+            //$data = (new SettingService)->get("web.privacy");
+            //$this->json(Status::CODE_OK, 'success', $data);
+        } catch (\Throwable $th) {
+            //throw $th;
+            var_dump($th->getMessage(), $th->getFile(), $th->getLine());
+        }
     }
     /**
      * 服务协议
