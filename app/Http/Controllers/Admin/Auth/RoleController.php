@@ -77,7 +77,7 @@ class RoleController extends AdminController
 
         
         $info = AdminRoleService::getInstance()->getById($id);
-        $role_data = AdminRoleService::getInstance()->getAllList(['id', 'name'], ['id' =>[$id, '<>']]);
+        $role_data = AdminRoleService::getInstance()->getAllList(['id', 'name'], [['id' , '<>', $id]]);
 
         $this->render('auth.roleEdit', ['id' => $id, 'info' => $info, 'role_data'=>$role_data]);
     }

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\App\Common;
 
 use App\Http\Controllers\App\AppController;
+use App\Model\Admin\AdminUser;
 use App\Model\Member\User;
 use App\Service\App\PlatformService;
 use App\Service\Common\SettingService;
@@ -54,13 +55,20 @@ class PlatformController extends AppController
                 $Query->select("id", 'uid');
             },'role'])->first();
             var_dump($res); */
-            $User = new User();
+            $User = new AdminUser();
+            $page = 1;
+            $page_size = 10;
             //$res = $User->insert(['user' => random_str(6), 'pwd' => random_str(5)]);
-            $res = $User->where('id', '>', 100)->sum('id');
-            $res1 = $User->where('id', '>', 100)->avg('id');
-            $res2 = $User->where('id', '>', 100)->max('id');
-            $res2 = $User->where('id', '=', 22)->update(['pwd' => 'bbbbbbbbb']);
-            var_dump($res, $res1, $res2, $User->_sql()); 
+            $where[] = ['admin_user.deleted', '!=', 1];
+            $res = $User->leftJoin('admin_role', 'admin_user.role_id', '=', 'admin_role.id')
+            ->where($where)
+            ->select(['id', 'name'])
+            ->limit(($page - 1) * $page_size . ", {$page_size}")
+            ->orderBy('admin_user.id', 'DESC')
+            ->selectRaw("admin_user.id, uname, display_name, admin_user.created_at, logined_at, status, admin_role.name as role_name")
+            ->get();
+            
+            var_dump($res, $User->_sql()); 
             //$data = (new SettingService)->get("web.privacy");
             //$this->json(Status::CODE_OK, 'success', $data);
         } catch (\Throwable $th) {

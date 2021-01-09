@@ -14,6 +14,7 @@ class AdminRuleService extends Base
 {  
 
    use Singleton;
+   protected $model_class = \App\Model\Admin\AdminRule::class;
    /**
     * Undocumented function
     *
@@ -21,13 +22,12 @@ class AdminRuleService extends Base
     * @created_at 00-00-00
     * @return void
     */
-   public function getAllList($column = "*", $where = [])
+   public function getAllList($column = "", $where = [])
    {
-      $table = 'admin_rule';
-      if(empty($column)) $column = "*";
-      $rules_list = model()->select($table, $column, $where);
-      $count =  model()->count($table, $where);
-      
+       
+      $rules_list = $this->model->where($where)->select($column)->get();
+      $count =  $this->model->where($where)->count();
+       
       return ['count' => $count, 'list' => $rules_list];
    }  
 
@@ -39,17 +39,17 @@ class AdminRuleService extends Base
       */
       public function getNodesByRoleId(int $role_id): array
       {
-          try{
-              $rules = AdminRole::create()->where(['id' => $role_id])->scalar('rules');
-              if(!is_array($rules)) $rules = explode(",", $rules);
-              $nodes = AdminRule::create()->where('status', 1)->where('id', $rules, 'IN')->column('node');
+        //   try{
+        //       $rules = AdminRole::create()->where(['id' => $role_id])->scalar('rules');
+        //       if(!is_array($rules)) $rules = explode(",", $rules);
+        //       $nodes = AdminRule::create()->where('status', 1)->where('id', $rules, 'IN')->column('node');
               
-              return empty($nodes)? [] : $nodes;
+        //       return empty($nodes)? [] : $nodes;
   
-          }catch(\Throwable $e){
+        //   }catch(\Throwable $e){
               
-              return [];
-          }
+        //       return [];
+        //   }
       }
 
     /**
@@ -61,7 +61,8 @@ class AdminRuleService extends Base
      */
     public function getMenuRules()
     {
-       $rules_list = model()->select("admin_rule", ['id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu'], []);
+
+       $rules_list = $this->model->select('id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu')->get();
        $menu_list['homeInfo'] = [
           'title' => '首页',
           'href' => '/backend/home/dashboard',
@@ -92,7 +93,7 @@ class AdminRuleService extends Base
      */
     public function getRuleRoutes()
     {
-          $rules_list = model()->select("admin_rule", ['id', 'href', 'route_handler', 'is_menu'], []);
+          $rules_list = $this->model->select('id', 'href', 'route_handler', 'is_menu')->get();
           
           return $rules_list;
     }
@@ -105,7 +106,7 @@ class AdminRuleService extends Base
      */
     public function add(array $data)
     {
-        return model()->insert("admin_rule", $data);
+        return $this->model->insert($data);
     }
     /**
      * 根据ID查询
@@ -115,7 +116,7 @@ class AdminRuleService extends Base
      */
     public function getById(int $id):array
     {
-         return  model()->get('admin_rule', "*", ['id' => $id]);
+         return  $this->model->where('id', $id)->first();
     }
 
     /**
@@ -127,8 +128,8 @@ class AdminRuleService extends Base
      */
     public function setById(int $id, array $data): bool
     {
-        $pdoStmt = model()->update('admin_rule', $data, ['id' => $id]);
-        return $pdoStmt->rowCount() > 0 ? true : false;
+        $rowCount = $this->model->where('id', $id)->update( $data);
+        return $rowCount > 0 ? true : false;
     }
     /**
      * 删除
@@ -139,8 +140,8 @@ class AdminRuleService extends Base
     public function delete($ids)
     {
         if(is_string($ids)) $ids = [$ids];
-        $pdoStmt = model()->delete('admin_rule', ['id' => $ids]);
-        return $pdoStmt->rowCount() > 0 ? true : false;
+        $rowCount = $this->model->whereIn('id', $ids)->delete();
+        return $rowCount > 0 ? true : false;
     }
 
 }

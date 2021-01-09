@@ -85,10 +85,12 @@ class UserController extends AdminController
         $id        = $this->request()->route('id');
         $role_data = AdminRoleService::getInstance()->getAllList();
         $user_data = AdminUserService::getInstance()->getUserById($id);
+       
         if (!$user_data) {
             $this->show404();
             return;
         }
+        
         $this->render('auth.userEdit', ['id' => $id, 'role_data' => $role_data, 'user_data' => $user_data]);
     }
 

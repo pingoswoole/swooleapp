@@ -12,14 +12,14 @@ use Pingo\Traits\Singleton;
 class AdminRoleService extends Base
 {
     use Singleton;
+    
+    protected $model_class = \App\Model\Admin\AdminRole::class;
 
     public function getPageList($page, $page_size)
     {
         $where = [];
-        $column = "*";
-        $table = 'admin_role';
-        $rules_list = model()->select($table, $column, $where);
-        $count =  model()->count($table, $where);
+        $rules_list = $this->model->where($where)->get();
+        $count =  $this->model->where($where)->count();
         
         return ['count' => $count, 'list' => $rules_list];
     }
@@ -31,12 +31,12 @@ class AdminRoleService extends Base
      * @param array $fields
      * @return array
      */
-    public function getAllList( $fields = "*", array $where = []):array
+    public function getAllList( $fields = "", array $where = []):array
     {
-        //$column = "*";
-        $table = 'admin_role';
-        $list = model()->select($table, $fields, $where);
-        return $list;
+        
+        $list = $this->model->select($fields)->where($where)->get();
+         
+        return (array ) $list;
     }
 
     /**
@@ -47,7 +47,7 @@ class AdminRoleService extends Base
      */
     public function add(array $data)
     {
-         return model()->insert("admin_role", $data);
+         return $this->model->insert($data);
     }
     /**
      * 根据ID修改
@@ -58,8 +58,8 @@ class AdminRoleService extends Base
      */
     public function setById(int $id, array $data): bool
     {
-        $pdoStmt = model()->update('admin_role', $data, ['id' => $id]);
-        return $pdoStmt->rowCount() > 0 ? true : false;
+        $rowCount = $this->model->where('id', $id)->update($data);
+        return $rowCount > 0 ? true : false;
     }
     /**
      * 根据ID查询
@@ -69,7 +69,7 @@ class AdminRoleService extends Base
      */
     public function getById(int $id):array
     {
-        return model()->get("admin_role", "*", ['id' => $id]);
+        return $this->model->where('id', $id)->first();
     }
     /**
      * 删除
@@ -80,8 +80,8 @@ class AdminRoleService extends Base
     public function delete($ids)
     {
         if(is_string($ids)) $ids = [$ids];
-        $pdoStmt = model()->delete('admin_role', [ 'id' => $ids]);
-        return $pdoStmt->rowCount() > 0 ? true : false;
+        $rowCount = $this->model->whereIn('id', $ids)->delete();
+        return $rowCount > 0 ? true : false;
     }
     /**
      * Undocumented function
