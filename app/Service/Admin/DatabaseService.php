@@ -7,6 +7,7 @@ use Carbon\Carbon;
 class DatabaseService extends Base
 {
     
+     
     /**
      * 获取数据表
      *
@@ -19,8 +20,8 @@ class DatabaseService extends Base
             $data = ['count' => 0, 'list' => []];
             try {
                 //code...
-                $pdoStmt = model()->query("SHOW TABLE STATUS");
-                if($list = $pdoStmt->fetchAll()){
+                $list = db()->query("SHOW TABLE STATUS");
+                if($list){
                     foreach ($list as $key => $row) {
                         # code...
                         $data['list'][] = [

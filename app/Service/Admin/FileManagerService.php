@@ -6,7 +6,9 @@ use Carbon\Carbon;
 
 class FileManagerService extends Base
 {
-    protected $table = 'common_uploadfile';  
+    protected $model_class = \App\Model\Common\CommonUploadfile::class;
+
+
     /**
      * 条件查询列表所有
      *
@@ -17,16 +19,15 @@ class FileManagerService extends Base
      * @param array $where
      * @return array
      */
-      public function getPageList($page, $pageSize, array $where = []):array
+      public function getPageList($page = 1, $pageSize = 10, array $where = []):array
       {
           $data = ['count' => 0, 'list' => []];
           try {
               //code...
-              $count = model()->count($this->table, $where);
-              $where['ORDER'] = ['id' => 'DESC'];
-              $where['LIMIT'] = [($page - 1)*$pageSize, $pageSize];
-              $column = "*";
-              $list = model()->select($this->table, $column, $where);
+
+              $count = $this->model->where($where)->count();
+              $list = $this->model->where($where)->page($page, $pageSize)->orderBy('id', 'DESC')->get();
+
               return  ['count' => $count, 'list' => $list];
           } catch (\Throwable $th) {
               //throw $th;

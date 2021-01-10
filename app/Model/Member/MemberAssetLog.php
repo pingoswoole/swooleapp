@@ -3,7 +3,7 @@
 namespace App\Model\Member;
 use App\Model\BaseModel;
 
-class Role extends BaseModel
+class MemberAssetLog extends BaseModel
 {
     //protected $table = ''; 
     /**
@@ -12,8 +12,7 @@ class Role extends BaseModel
      * @var array
      */
     protected $casts = [
-        
-        'rule_path' => 'json',
+         
     ];
     
     protected $appends = []; 

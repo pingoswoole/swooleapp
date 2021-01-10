@@ -1,19 +1,21 @@
 <?php
 namespace App\Service\Common;
 
+use App\Model\Common\CommonSetting;
+
 class SettingService
 {
-
+        
         public function store($key, $data)
         {
-            $table = 'common_setting';
-            $result = model()->get($table, ['id', 'set_key'], ['set_key' => $key]);
+            $CommonSetting = new CommonSetting;
+            $result = $CommonSetting->where(['set_key' => $key])->select(['id', 'set_key'])->first();
             $set_value = json_encode($data);
             if($result){
                 //update
-                model()->update($table, ['set_value' => $set_value], ['set_key' => $key]);
+                $CommonSetting->where(['set_key' => $key])->update(['set_value' => $set_value]);
             }else{
-                model()->insert($table, ['set_value' => $set_value, 'set_key' => $key, 'created_at' => time()]);
+                $CommonSetting->insert(['set_value' => $set_value, 'set_key' => $key]);
             }
 
             return true;
@@ -23,10 +25,10 @@ class SettingService
         public function get($key = null, $default = null)
         {   
             $data = [];
-            $table = 'common_setting';
+            $CommonSetting = new CommonSetting;
             if(is_null($key)){
                 //获取所有
-                $result = model()->select($table, '*', []);
+                $result = $CommonSetting->get();
                 if($result){
                     foreach ($result as $key => $item) {
                         # code...
@@ -36,7 +38,7 @@ class SettingService
             }else{
                 //
                 $keys = explode(".", $key);
-                $result = model()->get($table, '*', ['set_key' => array_shift($keys)]);
+                $result = $CommonSetting->where(['set_key' => array_shift($keys)])->first();
                 if(isset($result['set_value'])){
                     $data = json_decode($result['set_value'], true);
                     while($keys){

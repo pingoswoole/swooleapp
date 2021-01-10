@@ -15,7 +15,7 @@ class AdminRoleService extends Base
     
     protected $model_class = \App\Model\Admin\AdminRole::class;
 
-    public function getPageList($page, $page_size)
+    public function getPageList(int $page, int $page_size)
     {
         $where = [];
         $rules_list = $this->model->where($where)->get();

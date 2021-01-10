@@ -3,7 +3,7 @@
 namespace App\Model\Member;
 use App\Model\BaseModel;
 
-class Goods extends BaseModel
+class MemberRealnameauth extends BaseModel
 {
     //protected $table = ''; 
     /**

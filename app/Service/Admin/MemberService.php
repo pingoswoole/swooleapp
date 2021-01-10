@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class MemberService extends Base
 {
     
-    protected $table = 'member';  
+    protected $model_class = \App\Model\Member\Member::class;
     /**
      * 条件查询列表所有
      *
@@ -22,8 +22,11 @@ class MemberService extends Base
       {
           $data = ['count' => 0, 'list' => []];
           try {
+
+              $count =  $this->model->where($where)->count();
+              $list =  $this->model->where($where)->orderBy('id', 'DESC')->page($page, $pageSize)->with(['asset'])->get();
               //code...
-              $count = model()->count($this->table, $where);
+             /*  $count = model()->count($this->table, $where);
               $where['ORDER'] = ['id' => 'DESC'];
               $where['LIMIT'] = [($page - 1)*$pageSize, $pageSize];
               $column = [
@@ -51,7 +54,7 @@ class MemberService extends Base
                       $grade_names = ['游客', '会员', '代理商', '运营商'];
                       $row['grade_name'] = $grade_names[$row['grade']]?? '';
                   }
-              }
+              } */
               return  ['count' => $count, 'list' => $list];
           } catch (\Throwable $th) {
               //throw $th;

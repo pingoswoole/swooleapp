@@ -1,6 +1,7 @@
 <?php
 namespace App\Logic\Admin;
 
+use App\Model\Common\CommonUploadfile;
 use Carbon\Carbon;
 
 /**
@@ -48,8 +49,8 @@ class UploadLogic
                 $field['size'] = $size;
                 $field['types'] = $types;
                 $field['path'] = $path;
-                $field['created_at'] = Carbon::now()->timestamp;
-                $insertId = model()->insert('common_uploadfile', $field);
+                $CommonUploadfile = new CommonUploadfile;
+                $insertId = $CommonUploadfile->insert($field);
                 return ['id' => $insertId, 'url' => setting("web.app_url") . $path];
             } catch (\Throwable $th) {
                 //throw $th;

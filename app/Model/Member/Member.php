@@ -3,7 +3,8 @@
 namespace App\Model\Member;
 use App\Model\BaseModel;
 
-class User extends BaseModel
+
+class Member extends BaseModel
 {
     //protected $table = ''; 
     /**
@@ -12,14 +13,19 @@ class User extends BaseModel
      * @var array
      */
     protected $casts = [
-        'score' => 'float',
         
     ];
     //integer，real，float，double，decimal:<digits>，string，boolean，object，array，collection，date，datetime 和
-    protected $appends = []; 
+    protected $appends = ['grade_name']; 
 
     protected $attributes = [];
 
+
+    public function asset()
+    {
+        return $this->hasOne(MemberAsset::class, 'mid', 'id', 'asset');
+    }
+    
     public function goods()
     {
         
@@ -38,26 +44,34 @@ class User extends BaseModel
     {
         return $this->belongsToMany(Role::class, RoleUser::class, 'user_id', 'role_id', 'role_item');
     }
-    /**
-     * 获取用户名
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getFirstNameAttribute($value)
+     
+    public function getGradeNameAttribute($val, $data)
     {
-        return ucfirst($value);
-    }
-    /**
-     * 设置用户名
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setFirstNameAttribute($value)
-    {
-        $this->attributes['first_name'] = strtolower($value);
-    }
+        $default = $val;
+        switch ($data['grade']) {
+            case 0:
+                # code...
+                $default = '游客';
+                break;
+            case 1:
+                # code...
+                $default = 'VIP';
+                break;
+            case 2:
+                # code...
+                $default = '代理商';
+                break;
+            case 3:
+                # code...
+                $default = '运营商';
+                break;
+            
+            default:
+                # code...
+                break;
+        }
 
+        return $default;
+    }
 
 }

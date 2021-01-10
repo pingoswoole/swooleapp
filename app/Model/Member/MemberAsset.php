@@ -3,7 +3,7 @@
 namespace App\Model\Member;
 use App\Model\BaseModel;
 
-class RoleUser extends BaseModel
+class MemberAsset extends BaseModel
 {
     //protected $table = ''; 
     /**

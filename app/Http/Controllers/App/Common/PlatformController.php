@@ -56,7 +56,7 @@ class PlatformController extends AppController
             },'role'])->first();
             var_dump($res); */
             $User = new AdminUser();
-            $page = 1;
+            /* $page = 1;
             $page_size = 10;
             //$res = $User->insert(['user' => random_str(6), 'pwd' => random_str(5)]);
             $where[] = ['admin_user.deleted', '!=', 1];
@@ -66,9 +66,17 @@ class PlatformController extends AppController
             ->limit(($page - 1) * $page_size . ", {$page_size}")
             ->orderBy('admin_user.id', 'DESC')
             ->selectRaw("admin_user.id, uname, display_name, admin_user.created_at, logined_at, status, admin_role.name as role_name")
-            ->get();
-            
-            var_dump($res, $User->_sql()); 
+            ->get(); */
+            //$res =  $User->query('select * from admin_role');
+            //$res = $User->where('id', 7)->value('uname');
+            /* $res = $User->chunk(2, function($data){
+                foreach ($data as $key => $row) {
+                    # code...
+                    var_dump($row);
+                }
+            }); */
+             
+            //var_dump($res, $User->_sql()); 
             //$data = (new SettingService)->get("web.privacy");
             //$this->json(Status::CODE_OK, 'success', $data);
         } catch (\Throwable $th) {
