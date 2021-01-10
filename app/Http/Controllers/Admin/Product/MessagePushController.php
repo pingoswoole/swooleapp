@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use App\Service\Admin\Product\MessagePushService;
 /**
  * 消息推送
  *
@@ -36,7 +36,7 @@ class MessagePushController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\MessagePushService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new MessagePushService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -52,16 +52,15 @@ class MessagePushController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'content']);
                  
-                $result = (new \App\Service\Admin\MessagePushService)->addItem($post_data);
+                $result = (new MessagePushService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
                  
-                return $this->render('product.message_push.add', ['catelist' => $data]);
+                return $this->render('product.message_push.add');
             }
         }
 
@@ -75,10 +74,9 @@ class MessagePushController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\MessagePushService)->getItem(['id' => $id]);
-            $data['cate_list'] = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
+            $data = (new MessagePushService)->getItem(['id' => $id]);
             
-            return $this->render('product.message_push.edit', $data);
+            return $this->render('product.message_push.edit');
         }
         /**
          * 编辑一项
@@ -91,7 +89,7 @@ class MessagePushController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'content']);
-            $result = (new \App\Service\Admin\MessagePushService)->editItem($post_data, ['id' => $id]);
+            $result = (new MessagePushService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +108,7 @@ class MessagePushController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\MessagePushService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new MessagePushService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +125,7 @@ class MessagePushController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\MessagePushService)->delItem($id);
+            $result = (new MessagePushService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

@@ -55,10 +55,10 @@
 </script>
 
 <script type="text/html" id="tableToolbar">
-    <div class="layui-btn-container">
+    {{-- <div class="layui-btn-container">
         <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
         <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
-    </div>
+    </div> --}}
 </script>
 
 <table class="layui-hide" id="dataTable" lay-filter="dataTableFilter"></table>
@@ -93,9 +93,10 @@
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'cate_title',  title: '用户', templet: function(data){
-                    let html = '<p>' + data.nickname + '</p>'
-                      html += '<p>' + data.account_mobile + '</p>'
-                    return html
+                  /*   let html = '<p>' + data.member.nickname + '</p>'
+                      html += '<p>' + data.member.account + '</p>'
+                    return html */
+                    return (data.member? data.member.account : '无')
                 }},
                 {field: 'contact_name',  title: '联系人'},
                 {field: 'mobile',  title: '手机'},

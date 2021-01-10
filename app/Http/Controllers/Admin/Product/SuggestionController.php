@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\SuggestionService;
 class SuggestionController extends AdminController
 {
         /**
@@ -28,7 +28,7 @@ class SuggestionController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\SuggestionService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new SuggestionService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
 
@@ -42,7 +42,7 @@ class SuggestionController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\SuggestionService)->delItem($id);
+            $result = (new SuggestionService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

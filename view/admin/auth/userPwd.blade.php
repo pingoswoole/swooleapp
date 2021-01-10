@@ -70,8 +70,8 @@ layui.use('form', function(){
             if(result.code != 0) {
                 layer.msg(result.msg);
             } else {
-                layer.msg('添加成功',{time:1000},function(){
-                    location.href = '/backend/auth';
+                layer.msg(result.msg,{time:1000},function(){
+                   // location.href = '/backend/auth';
                 });
 
             }

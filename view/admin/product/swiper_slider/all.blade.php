@@ -82,7 +82,6 @@
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'title',  title: '标题'},
-                {field: 'goods_id',  title: '商品ID'},
                 {field: 'path',  title: '图片', templet: function(data){
                     return '<img src="'+data.path+'" width="100px" />'
                 }},

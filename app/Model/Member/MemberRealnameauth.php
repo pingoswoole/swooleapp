@@ -20,5 +20,9 @@ class MemberRealnameauth extends BaseModel
 
     protected $attributes = [];
 
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'mid', 'id', 'member');
+    }
 
 }

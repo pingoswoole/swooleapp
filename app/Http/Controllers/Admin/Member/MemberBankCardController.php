@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Member;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Member\MemberBankCardService;
 /**
  * 用户银行卡
  *
@@ -36,7 +36,7 @@ class MemberBankCardController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\MemberBankCardService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new MemberBankCardService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -52,15 +52,14 @@ class MemberBankCardController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'cate_id', 'price','expires', 'state', 'thumb', 'onlineshop_goodsid', 'description']);
                  
-                $result = (new \App\Service\Admin\MemberBankCardService)->addItem($post_data);
+                $result = (new MemberBankCardService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\CouponShopCategoryService)->getAll();
-                 
+                
                 return $this->render('member.bankcard.add', ['catelist' => $data]);
             }
         }
@@ -75,8 +74,8 @@ class MemberBankCardController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\MemberBankCardService)->getItem($id);
-            $data['cate_list'] = (new \App\Service\Admin\CouponShopCategoryService)->getAll();
+            $data = (new MemberBankCardService)->getItem($id);
+            
             
             return $this->render('member.bankcard.edit', $data);
         }
@@ -91,7 +90,7 @@ class MemberBankCardController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'cate_id', 'price', 'state', 'expires', 'thumb', 'onlineshop_goodsid', 'description']);
-            $result = (new \App\Service\Admin\MemberBankCardService)->editItem($post_data, ['id' => $id]);
+            $result = (new MemberBankCardService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +109,7 @@ class MemberBankCardController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\MemberBankCardService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new MemberBankCardService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +126,7 @@ class MemberBankCardController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\MemberBankCardService)->delItem($id);
+            $result = (new MemberBankCardService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

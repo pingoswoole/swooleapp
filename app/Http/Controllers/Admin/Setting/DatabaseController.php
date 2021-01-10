@@ -3,7 +3,8 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Common\DatabaseService;
+use \App\Service\Admin\Product\SuggestionService;
 class DatabaseController extends AdminController
 {
         /**
@@ -28,7 +29,7 @@ class DatabaseController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\DatabaseService)->getTables();
+            $data = (new  DatabaseService)->getTables();
             $this->jsonPage(0, $data['count'], $data['list']);
         }
 
@@ -42,7 +43,7 @@ class DatabaseController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\SuggestionService)->delItem($id);
+            $result = (new SuggestionService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

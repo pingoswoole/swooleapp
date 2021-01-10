@@ -3,7 +3,8 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\OnlineShopGoodsService;
+use \App\Service\Admin\Product\OnlineShopCategoryService;
 /**
  * 商品
  *
@@ -36,7 +37,7 @@ class OnlineShopGoodsController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\OnlineShopGoodsService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new OnlineShopGoodsService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -52,14 +53,14 @@ class OnlineShopGoodsController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'short_title', 'cate_id', 'price', 'state', 'thumb', 'morepic', 'description']);
                  
-                $result = (new \App\Service\Admin\OnlineShopGoodsService)->addItem($post_data);
+                $result = (new OnlineShopGoodsService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
+                $data = (new OnlineShopCategoryService)->getAll();
                  
                 return $this->render('product.onlineshop.goods.add', ['catelist' => $data]);
             }
@@ -75,8 +76,8 @@ class OnlineShopGoodsController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\OnlineShopGoodsService)->getItem(['id' => $id]);
-            $data['cate_list'] = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
+            $data = (new OnlineShopGoodsService)->getItem(['id' => $id]);
+            $data['cate_list'] = (new OnlineShopCategoryService)->getAll();
             
             return $this->render('product.onlineshop.goods.edit', $data);
         }
@@ -91,7 +92,7 @@ class OnlineShopGoodsController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'short_title', 'cate_id', 'price', 'state', 'thumb', 'morepic', 'description']);
-            $result = (new \App\Service\Admin\OnlineShopGoodsService)->editItem($post_data, ['id' => $id]);
+            $result = (new OnlineShopGoodsService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +111,7 @@ class OnlineShopGoodsController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\OnlineShopGoodsService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new OnlineShopGoodsService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +128,7 @@ class OnlineShopGoodsController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\OnlineShopGoodsService)->delItem($id);
+            $result = (new OnlineShopGoodsService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Member;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use App\Service\Admin\Member\MemberAssetLogService;
 /**
  * 用户资产收支
  *
@@ -39,7 +39,7 @@ class MemberAssetLogController extends AdminController
             $get_data = $this->request()->get(['searchParams']);
             $get_data = json_decode($get_data, true);
              
-            $data = (new \App\Service\Admin\MemberAssetLogService)
+            $data = (new MemberAssetLogService)
                             ->getPageList(
                                 $page_data['page'], 
                                 $page_data['limit'], 
@@ -63,7 +63,7 @@ class MemberAssetLogController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'cate_id', 'price','expires', 'state', 'thumb', 'onlineshop_goodsid', 'description']);
                  
-                $result = (new \App\Service\Admin\MemberAssetLogService)->addItem($post_data);
+                $result = (new MemberAssetLogService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
@@ -86,7 +86,7 @@ class MemberAssetLogController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\MemberAssetLogService)->getItem($id);
+            $data = (new MemberAssetLogService)->getItem($id);
             $data['cate_list'] = (new \App\Service\Admin\CouponShopCategoryService)->getAll();
             
             return $this->render('member.assetlog.edit', $data);
@@ -102,7 +102,7 @@ class MemberAssetLogController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'cate_id', 'price', 'state', 'expires', 'thumb', 'onlineshop_goodsid', 'description']);
-            $result = (new \App\Service\Admin\MemberAssetLogService)->editItem($post_data, ['id' => $id]);
+            $result = (new MemberAssetLogService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -121,7 +121,7 @@ class MemberAssetLogController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\MemberAssetLogService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new MemberAssetLogService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -138,7 +138,7 @@ class MemberAssetLogController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\MemberAssetLogService)->delItem($id);
+            $result = (new MemberAssetLogService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

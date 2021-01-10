@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\AppFunc;
-use App\Service\Admin\AdminRoleService;
-use App\Service\Admin\AdminRuleService;
+use App\Service\Admin\Auth\AdminRoleService;
+use App\Service\Admin\Auth\AdminRuleService;
 use App\Utility\Log\Log;
 use App\Utility\Status;
 

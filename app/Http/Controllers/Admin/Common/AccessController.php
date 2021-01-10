@@ -49,7 +49,7 @@ class AccessController extends AdminController
                  $this->json(Status::CODE_ERR, '验证码错误或过期！');
                  return;
              }
-             $result = (new \App\Service\Admin\AdminUserService)->login($username, $pwd);
+             $result = (new \App\Service\Admin\Auth\AdminUserService)->login($username, $pwd);
              if($result['flag']){
                  $session_key = 'AdminSession' . uniqid(true) . mt_rand(100, 999);
                  cache()->setEx($session_key, 7200, json_encode($result['data']));

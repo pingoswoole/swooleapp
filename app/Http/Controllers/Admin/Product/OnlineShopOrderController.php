@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\OnlineShopOrderService;
 /**
  * 商品订单
  *
@@ -36,7 +36,7 @@ class OnlineShopOrderController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\OnlineShopOrderService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new OnlineShopOrderService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -51,7 +51,7 @@ class OnlineShopOrderController extends AdminController
             if($this->isPost()){
                  
                 $post_data = $this->request()->post();
-                $result = (new \App\Service\Admin\OnlineShopOrderService)->addItem($post_data);
+                $result = (new OnlineShopOrderService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
@@ -72,7 +72,7 @@ class OnlineShopOrderController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\OnlineShopOrderService)->getItem(['id' => $id]);
+            $data = (new OnlineShopOrderService)->getItem(['id' => $id]);
             return $this->render('product.onlineshop.order.edit', $data);
         }
         /**
@@ -86,7 +86,7 @@ class OnlineShopOrderController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post();
-            $result = (new \App\Service\Admin\OnlineShopOrderService)->editItem($post_data, ['id' => $id]);
+            $result = (new OnlineShopOrderService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -104,7 +104,7 @@ class OnlineShopOrderController extends AdminController
         public function setItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\OnlineShopOrderService)->getItem(['id' => $id]);
+            $data = (new OnlineShopOrderService)->getItem(['id' => $id]);
         }
         /**
          * 删除一项
@@ -116,7 +116,7 @@ class OnlineShopOrderController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\OnlineShopOrderService)->delItem($id);
+            $result = (new OnlineShopOrderService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

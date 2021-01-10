@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use App\Service\Admin\Common\FileManagerService;
 class FileManagerController extends AdminController
 {
         /**
@@ -28,7 +28,7 @@ class FileManagerController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\FileManagerService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new FileManagerService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
 

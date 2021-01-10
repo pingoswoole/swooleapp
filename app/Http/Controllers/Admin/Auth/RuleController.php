@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\AppFunc;
 use App\Utility\Log\Log;
-use App\Service\Admin\AdminRuleService;
+use App\Service\Admin\Auth\AdminRuleService;
 use App\Utility\Status;
 
 class RuleController extends AdminController

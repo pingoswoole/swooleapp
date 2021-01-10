@@ -14,12 +14,7 @@
             <input type="text" name="title" lay-verify="required" value="{{$title}}" autocomplete="off" placeholder="请输入标题" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">商品ID</label>
-        <div class="layui-input-block">
-            <input type="text" name="goods_id" id="choose_onlinegoods" lay-verify="required" value="{{$goods_id}}" autocomplete="off" placeholder="请输入标题" class="layui-input">
-        </div>
-    </div>
+    
     <div class="layui-form-item">
         <label class="layui-form-label">图片</label>
         <div class="layui-input-block">

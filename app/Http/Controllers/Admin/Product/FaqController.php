@@ -3,7 +3,8 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\FaqService;
+use \App\Service\Admin\Product\OnlineShopCategoryService;
 /**
  * 常见问题
  *
@@ -36,7 +37,7 @@ class FaqController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\FaqService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new FaqService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -52,14 +53,14 @@ class FaqController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'content']);
                  
-                $result = (new \App\Service\Admin\FaqService)->addItem($post_data);
+                $result = (new FaqService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
+                $data = (new OnlineShopCategoryService)->getAll();
                  
                 return $this->render('product.faq.add', ['catelist' => $data]);
             }
@@ -75,8 +76,8 @@ class FaqController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\FaqService)->getItem(['id' => $id]);
-            $data['cate_list'] = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
+            $data = (new FaqService)->getItem(['id' => $id]);
+            $data['cate_list'] = (new OnlineShopCategoryService)->getAll();
             
             return $this->render('product.faq.edit', $data);
         }
@@ -91,7 +92,7 @@ class FaqController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'content']);
-            $result = (new \App\Service\Admin\FaqService)->editItem($post_data, ['id' => $id]);
+            $result = (new FaqService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +111,7 @@ class FaqController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\FaqService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new FaqService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +128,7 @@ class FaqController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\FaqService)->delItem($id);
+            $result = (new FaqService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

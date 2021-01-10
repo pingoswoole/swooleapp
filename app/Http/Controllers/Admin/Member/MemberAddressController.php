@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Member;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use App\Service\Admin\Member\MemberAddressService;
 /**
  * 用户收货地址
  *
@@ -36,7 +36,7 @@ class MemberAddressController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\MemberAddressService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new MemberAddressService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -52,14 +52,14 @@ class MemberAddressController extends AdminController
                  
                 $post_data = $this->request()->post(['title', 'cate_id', 'price','expires', 'state', 'thumb', 'onlineshop_goodsid', 'description']);
                  
-                $result = (new \App\Service\Admin\MemberAddressService)->addItem($post_data);
+                $result = (new MemberAddressService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\CouponShopCategoryService)->getAll();
+             
                  
                 return $this->render('member.address.add', ['catelist' => $data]);
             }
@@ -75,8 +75,7 @@ class MemberAddressController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\MemberAddressService)->getItem($id);
-            $data['cate_list'] = (new \App\Service\Admin\CouponShopCategoryService)->getAll();
+            $data = (new MemberAddressService)->getItem($id);
             
             return $this->render('member.address.edit', $data);
         }
@@ -91,7 +90,7 @@ class MemberAddressController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'cate_id', 'price', 'state', 'expires', 'thumb', 'onlineshop_goodsid', 'description']);
-            $result = (new \App\Service\Admin\MemberAddressService)->editItem($post_data, ['id' => $id]);
+            $result = (new MemberAddressService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +109,7 @@ class MemberAddressController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\MemberAddressService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new MemberAddressService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +126,7 @@ class MemberAddressController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\MemberAddressService)->delItem($id);
+            $result = (new MemberAddressService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

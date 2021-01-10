@@ -92,7 +92,15 @@ $route['list'] = [
     ['POST', '/member/bankcard/editItem/{id:\d+}', '\Admin\Member\MemberBankCardController@editItem'],
     ['POST', '/member/bankcard/setItem/{id:\d+}', '\Admin\Member\MemberBankCardController@setItem'],
     ['POST', '/member/bankcard/delItem/{id:\d+}', '\Admin\Member\MemberBankCardController@delItem'],
-    
+    //实名认证
+    ['GET', '/member/realnameauth/viewAll', '\Admin\Member\MemberRealnameauthController@viewAll'],
+    [['GET', 'POST'], '/member/realnameauth/getPageList', '\Admin\Member\MemberRealnameauthController@getPageList'],
+    [['GET', 'POST'], '/member/realnameauth/addItem', '\Admin\Member\MemberRealnameauthController@addItem'],
+    ['GET', '/member/realnameauth/viewItem/{id:\d+}', '\Admin\Member\MemberRealnameauthController@viewItem'],
+    ['POST', '/member/realnameauth/editItem/{id:\d+}', '\Admin\Member\MemberRealnameauthController@editItem'],
+    ['POST', '/member/realnameauth/setItem/{id:\d+}', '\Admin\Member\MemberRealnameauthController@setItem'],
+    ['POST', '/member/realnameauth/delItem/{id:\d+}', '\Admin\Member\MemberRealnameauthController@delItem'],
+        
 
 
     //产品中心
@@ -120,31 +128,7 @@ $route['list'] = [
     ['POST', '/product/onlineshop_order/editItem/{id:\d+}', '\Admin\Product\OnlineShopOrderController@editItem'],
     ['POST', '/product/onlineshop_order/setItem/{id:\d+}', '\Admin\Product\OnlineShopOrderController@setItem'],
     ['POST', '/product/onlineshop_order/delItem/{id:\d+}', '\Admin\Product\OnlineShopOrderController@delItem'],
-    //卡券商城
-    //卡券商城分类
-    ['GET', '/product/couponshop_category/viewAll', '\Admin\Product\CouponShopCategoryController@viewAll'],
-    [['GET', 'POST'], '/product/couponshop_category/getPageList', '\Admin\Product\CouponShopCategoryController@getPageList'],
-    [['GET', 'POST'], '/product/couponshop_category/addItem', '\Admin\Product\CouponShopCategoryController@addItem'],
-    ['GET', '/product/couponshop_category/viewItem/{id:\d+}', '\Admin\Product\CouponShopCategoryController@viewItem'],
-    ['POST', '/product/couponshop_category/editItem/{id:\d+}', '\Admin\Product\CouponShopCategoryController@editItem'],
-    ['POST', '/product/couponshop_category/setItem/{id:\d+}', '\Admin\Product\CouponShopCategoryController@setItem'],
-    ['POST', '/product/couponshop_category/delItem/{id:\d+}', '\Admin\Product\CouponShopCategoryController@delItem'],
-    //卡券商城商品
-    ['GET', '/product/couponshop_goods/viewAll', '\Admin\Product\CouponShopGoodsController@viewAll'],
-    [['GET', 'POST'], '/product/couponshop_goods/getPageList', '\Admin\Product\CouponShopGoodsController@getPageList'],
-    [['GET', 'POST'], '/product/couponshop_goods/addItem', '\Admin\Product\CouponShopGoodsController@addItem'],
-    ['GET', '/product/couponshop_goods/viewItem/{id:\d+}', '\Admin\Product\CouponShopGoodsController@viewItem'],
-    ['POST', '/product/couponshop_goods/editItem/{id:\d+}', '\Admin\Product\CouponShopGoodsController@editItem'],
-    ['POST', '/product/couponshop_goods/setItem/{id:\d+}', '\Admin\Product\CouponShopGoodsController@setItem'],
-    ['POST', '/product/couponshop_goods/delItem/{id:\d+}', '\Admin\Product\CouponShopGoodsController@delItem'],
-    //卡券商城订单
-    ['GET', '/product/couponshop_order/viewAll', '\Admin\Product\CouponShopOrderController@viewAll'],
-    [['GET', 'POST'], '/product/couponshop_order/getPageList', '\Admin\Product\CouponShopOrderController@getPageList'],
-    [['GET', 'POST'], '/product/couponshop_order/addItem', '\Admin\Product\CouponShopOrderController@addItem'],
-    ['GET', '/product/couponshop_order/viewItem/{id:\d+}', '\Admin\Product\CouponShopOrderController@viewItem'],
-    ['POST', '/product/couponshop_order/editItem/{id:\d+}', '\Admin\Product\CouponShopOrderController@editItem'],
-    ['POST', '/product/couponshop_order/setItem/{id:\d+}', '\Admin\Product\CouponShopOrderController@setItem'],
-    ['POST', '/product/couponshop_order/delItem/{id:\d+}', '\Admin\Product\CouponShopOrderController@delItem'],
+     
 
     //提现管理
     ['GET', '/product/withdraw/viewAll', '\Admin\Product\WithdrawController@viewAll'],

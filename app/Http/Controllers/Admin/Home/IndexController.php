@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin\Home;
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Service\Admin\DashboardService;
+use App\Service\Admin\Common\DashboardService;
 
 /**
  * 首页
@@ -22,7 +22,7 @@ class IndexController extends AdminController
      */
     public function initMenu()
     {
-        $result = (new \App\Service\Admin\AdminRuleService)->getMenuRules();
+        $result = (new \App\Service\Admin\Auth\AdminRuleService)->getMenuRules();
         $this->write($result);
     }
     

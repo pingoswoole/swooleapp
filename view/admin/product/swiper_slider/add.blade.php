@@ -14,13 +14,7 @@
             <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">跳转商品ID</label>
-        <div class="layui-input-block">
-            <input type="text" name="goods_id" id="choose_onlinegoods" lay-verify="required" autocomplete="off" placeholder="请选择" class="layui-input">
-            
-        </div>
-    </div>
+    
    {{--  <div class="layui-form-item">
         <label class="layui-form-label">外链</label>
         <div class="layui-input-block">

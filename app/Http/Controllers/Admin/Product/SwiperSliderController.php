@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\SwiperSliderService;
 /**
  * 幻灯片
  *
@@ -36,7 +36,7 @@ class SwiperSliderController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\SwiperSliderService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new SwiperSliderService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
         /**
@@ -50,18 +50,17 @@ class SwiperSliderController extends AdminController
         {
             if($this->isPost()){
                  
-                $post_data = $this->request()->post(['title', 'link','goods_id', 'path']);
+                $post_data = $this->request()->post(['title', 'path']);
                  
-                $result = (new \App\Service\Admin\SwiperSliderService)->addItem($post_data);
+                $result = (new SwiperSliderService)->addItem($post_data);
                 if($result){
                     $this->json(Status::CODE_OK, 'success');
                 }else{
                     $this->json(Status::CODE_ERR, 'error');
                 }
             }else{
-                $data = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
                  
-                return $this->render('product.swiper_slider.add', ['catelist' => $data]);
+                return $this->render('product.swiper_slider.add');
             }
         }
 
@@ -75,9 +74,8 @@ class SwiperSliderController extends AdminController
         public function viewItem()
         {
             $id = $this->request()->route("id");
-            $data = (new \App\Service\Admin\SwiperSliderService)->getItem(['id' => $id]);
-            $data['cate_list'] = (new \App\Service\Admin\OnlineShopCategoryService)->getAll();
-            
+            $data = (new SwiperSliderService)->getItem(['id' => $id]);
+          
             return $this->render('product.swiper_slider.edit', $data);
         }
         /**
@@ -91,7 +89,7 @@ class SwiperSliderController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['title', 'link','goods_id', 'path']);
-            $result = (new \App\Service\Admin\SwiperSliderService)->editItem($post_data, ['id' => $id]);
+            $result = (new SwiperSliderService)->editItem($post_data, ['id' => $id]);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -110,7 +108,7 @@ class SwiperSliderController extends AdminController
         {
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
-            $result = (new \App\Service\Admin\SwiperSliderService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new SwiperSliderService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -127,7 +125,7 @@ class SwiperSliderController extends AdminController
         public function delItem()
         {
             $id = $this->request()->route("id");
-            $result = (new \App\Service\Admin\SwiperSliderService)->delItem($id);
+            $result = (new SwiperSliderService)->delItem($id);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

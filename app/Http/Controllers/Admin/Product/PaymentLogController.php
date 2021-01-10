@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
+use \App\Service\Admin\Product\PaymentLogService;
 
 class PaymentLogController extends AdminController
 {
@@ -28,7 +29,7 @@ class PaymentLogController extends AdminController
         public function getPageList()
         {    
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\PaymentLogService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new PaymentLogService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
 

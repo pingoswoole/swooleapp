@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Utility\Status;
-
+use \App\Service\Admin\Product\WithdrawService;
 class WithdrawController extends AdminController
 {
         /**
@@ -28,7 +28,7 @@ class WithdrawController extends AdminController
         public function getPageList()
         {
             $page_data = $this->getPage();
-            $data = (new \App\Service\Admin\WithdrawService)->getPageList($page_data['page'], $page_data['limit'], []);
+            $data = (new WithdrawService)->getPageList($page_data['page'], $page_data['limit'], []);
             $this->jsonPage(0, $data['count'], $data['list']);
         }
 
@@ -44,7 +44,7 @@ class WithdrawController extends AdminController
             $id = $this->request()->route("id");
             $post_data = $this->request()->post(['key', 'value']);
              
-            $result = (new \App\Service\Admin\WithdrawService)->setItem($id, $post_data['key'], $post_data['value']);
+            $result = (new WithdrawService)->setItem($id, $post_data['key'], $post_data['value']);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{
@@ -62,7 +62,7 @@ class WithdrawController extends AdminController
         {
             $id = $this->request()->route("id");
             $state = $this->request()->post('state');
-            $result = (new \App\Service\Admin\WithdrawService)->audit($id, $state);
+            $result = (new WithdrawService)->audit($id, $state);
             if($result){
                 $this->json(Status::CODE_OK, 'success');
             }else{

@@ -121,7 +121,7 @@
                 {field: 'cate_title',  title: '用户', templet:function(data){
                    // let html = '<p>' +data.nickname + '</p>'
 
-                    let  html = '<p>' +data.mobile + '</p>'
+                    let  html = '<p>' +(data.member ? data.member.mobile : '无') + '</p>'
                     return html
                 }},
                 {field: 'title',  title: '标题'},
