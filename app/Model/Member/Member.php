@@ -26,24 +26,11 @@ class Member extends BaseModel
         return $this->hasOne(MemberAsset::class, 'mid', 'id', 'asset');
     }
     
-    public function goods()
+    public function realnameauth()
     {
-        
-        return $this->hasMany(Goods::class, 'uid', 'id', 'goods_item');
-        /* return $this->belongsTo('App\Models\User', 'foreign_key', 'other_key');
-
-        return $this->hasMany('App\Models\Comment', 'foreign_key', 'local_key');
-        return $this->belongsTo('App\Models\Post', 'foreign_key', 'other_key');
-
-        return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
-
-        return $this->belongsToMany('App\Models\User')->using('App\Models\RoleUser'); */
+        return $this->hasOne(MemberRealnameauth::class, 'mid', 'id', 'realnameauth');
     }
 
-    public function role()
-    {
-        return $this->belongsToMany(Role::class, RoleUser::class, 'user_id', 'role_id', 'role_item');
-    }
      
     public function getGradeNameAttribute($val, $data)
     {

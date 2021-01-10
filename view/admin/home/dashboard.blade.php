@@ -34,11 +34,11 @@
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                        {{$member['total']}}
+                        6666
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          会员 <a style="color: #1aa094">{{$member['vip']}}</a><br>
-                          代理商 <a style="color: #bd3004">{{$member['agent']}}</a>
+                          会员 <a style="color: #1aa094">666</a><br>
+                          代理商 <a style="color: #bd3004">666</a>
                       </div>
                   </div>
               </div>
@@ -52,11 +52,11 @@
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                        {{$order['total']}}
+                       6666
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          未付款 <a style="color: #1aa094">{{$order['pay']}}</a><br>
-                          已付款 <a style="color: #bd3004">{{$order['unpay']}}</a>
+                          未付款 <a style="color: #1aa094">666</a><br>
+                          已付款 <a style="color: #bd3004">666</a>
                       </div>
                   </div>
               </div>
@@ -70,11 +70,11 @@
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                        {{$withdraw['total']}}
+                      999
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          已打款 <a style="color: #1aa094">{{$withdraw['check']}}</a><br>
-                          未打款 <a style="color: #bd3004">{{$withdraw['uncheck']}}</a>
+                          已打款 <a style="color: #1aa094">999</a><br>
+                          未打款 <a style="color: #bd3004">999</a>
                       </div>
                   </div>
               </div>
@@ -88,17 +88,32 @@
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                        {{$coupon['total']}}
+                       22222
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          付款 <a style="color: #1aa094">{{$coupon['pay']}}</a><br>
-                          未付款 <a style="color: #bd3004">{{$coupon['unpay']}}</a>
+                          付款 <a style="color: #1aa094">00000</a><br>
+                          未付款 <a style="color: #bd3004">0000</a>
                       </div>
                   </div>
               </div>
           </div>
 
       </div>
+      <div class="layui-col-xs12 layui-col-md3">
+
+        <div class="layui-card top-panel">
+            <div class="layui-card-header">卡包</div>
+            <div class="layui-card-body">
+                <div class="layui-row layui-col-space5">
+                    <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                     22222
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
   </div>
 {{-- 
   <div class="layui-row layui-col-space15">

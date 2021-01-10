@@ -3,6 +3,7 @@ namespace App\Http\Controllers\App\Common;
 
 use App\Http\Controllers\App\AppController;
 use App\Model\Admin\AdminUser;
+use App\Model\Member\Member;
 use App\Model\Member\User;
 use App\Service\App\PlatformService;
 use App\Service\Common\SettingService;
@@ -55,7 +56,8 @@ class PlatformController extends AppController
                 $Query->select("id", 'uid');
             },'role'])->first();
             var_dump($res); */
-            $User = new AdminUser();
+            $Member = new Member();
+            $res = $Member->where('id', 25)->with(['asset'])->first();
             /* $page = 1;
             $page_size = 10;
             //$res = $User->insert(['user' => random_str(6), 'pwd' => random_str(5)]);
@@ -76,7 +78,7 @@ class PlatformController extends AppController
                 }
             }); */
              
-            //var_dump($res, $User->_sql()); 
+            var_dump($res, $Member->_sql()); 
             //$data = (new SettingService)->get("web.privacy");
             //$this->json(Status::CODE_OK, 'success', $data);
         } catch (\Throwable $th) {

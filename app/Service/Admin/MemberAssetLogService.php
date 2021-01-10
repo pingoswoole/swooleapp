@@ -7,7 +7,8 @@ use Carbon\Carbon;
 class  MemberAssetLogService extends Base
 {
     
-    protected $table = 'member_asset_log';  
+    protected $model_class = \App\Model\Member\MemberAssetLog::class;
+
     /**
      * 条件查询列表所有
      *
@@ -18,48 +19,29 @@ class  MemberAssetLogService extends Base
      * @param array $where
      * @return array
      */
-      public function getPageList($page, $pageSize, $mobile = '', $flow = '', $from = '', $type = ''):array
+      public function getPageList($page, $pageSize, $mobile = '', $flow = null, $from = '', $type = ''):array
       {
           $data = ['count' => 0, 'list' => [], 'total_amount' => 0];
           try {
               //code...
               $where = [];
               
-              if($flow !== ''){
-                    $where['member_asset_log.flow'] = $flow;
+              if(!is_null($flow)){
+                   $where[] = ['member_asset_log.flow', '=', $flow];
                }
               if($from){
-                    $where['member_asset_log.from_type'] = $from;
+                    $where[] = ['member_asset_log.from_type', '=', $from];
                 }
                if($type){
-                    $where['member_asset_log.asset_type'] = $type;
+                    $where[] = ['member_asset_log.asset_type', '=', $type];
                 }
-              
-              $count = model()->count($this->table, $where);
+              $count = $this->model->where($where)->count();
               if($mobile){
-                $where['member.mobile'] = $mobile;
+                $where[] = ['member.mobile', '=', $mobile];
                }
-              $where['ORDER'] = ['member_asset_log.id' => 'DESC'];
-              $where['LIMIT'] = [($page - 1)*$pageSize, $pageSize];
-              $column = [
-                'member_asset_log.id',
-                'member_asset_log.title',
-                'member_asset_log.flow',
-                'member_asset_log.money',
-                'member_asset_log.from_type',
-                'member_asset_log.asset_type',
-                'member_asset_log.remark',
-                'member_asset_log.created_at',
-                'member.nickname',
-                'member.mobile',
-                
-              ];
-              $join = [
-                  '[>]member' => ["mid" => "id"]
-              ];
-              $model = model();
-              $list = $model->select($this->table, $join, $column, $where);
-              $total_amount = 0;
+
+               $list = $this->model->where($where)->orderBy('member_asset_log.id', 'DESC')->page($page, $pageSize)->with(['member'])->get();
+               $total_amount = 0;
                
               if ($list) {
                    # code...
@@ -68,19 +50,19 @@ class  MemberAssetLogService extends Base
                    foreach ($list as $key => &$row) {
                        # code...
                        $total_amount += $row['money'];
-                       $row['created_at'] = date("Y-m-d H:i:s", $row['created_at']);
                        $row['flow'] = $row['flow'] == 0 ? "出账" : "进账";
                        $row['asset_type'] = $asset_types[$row['asset_type']]?? '其他';
                        $row['from_type'] = $from_types[$row['from_type']]?? '其他';
                    }
                    
                }
+              
               return  ['count' => $count, 'list' => $list, 'total_amount' => $total_amount];
           } catch (\Throwable $th) {
               //throw $th;
-                
+                 
           }
-
+           
           return  $data;
       }
       
