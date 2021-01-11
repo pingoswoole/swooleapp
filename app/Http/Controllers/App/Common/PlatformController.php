@@ -10,6 +10,7 @@ use App\Service\Common\SettingService;
 use App\Utility\Status;
 use Pingo\Database\DB;
 use Pingo\Pool\PoolManager;
+use Pingo\Swoole\Manager;
 use Pingo\Validate\Validate;
 
 use function GuzzleHttp\Promise\settle;
@@ -56,6 +57,7 @@ class PlatformController extends AppController
                 $Query->select("id", 'uid');
             },'role'])->first();
             var_dump($res); */
+            
             $Member = new Member();
             $res = $Member->where('id', 25)->with(['asset'])->first();
             /* $page = 1;
@@ -77,8 +79,16 @@ class PlatformController extends AppController
                     var_dump($row);
                 }
             }); */
-             
-            var_dump($res, $Member->_sql()); 
+            $taskid = Manager::getInstance()->getSwooleServer()->task(['AA'=> 2222222222222]);
+          /*   \Swoole\Timer::tick(1000, function (int $timer_id, $param1, $param2) {
+                echo "timer_id #$timer_id, after 3000ms.\n";
+                echo "param1 is $param1, param2 is $param2.\n";
+            
+                \Swoole\Timer::tick(14000, function ($timer_id) {
+                    echo "timer_id #$timer_id, after 14000ms.\n";
+                });
+            }, "A", "B"); */
+            var_dump($taskid); 
             //$data = (new SettingService)->get("web.privacy");
             //$this->json(Status::CODE_OK, 'success', $data);
         } catch (\Throwable $th) {
