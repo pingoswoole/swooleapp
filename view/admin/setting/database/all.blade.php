@@ -19,9 +19,10 @@
 </script>
 
 <script type="text/html" id="tableToolbar">
-    <div class="layui-btn-container layui-hide">
-        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+    <div class="layui-btn-container ">
+        <button type="button" class="layui-btn layui-btn-danger" lay-event="clearData">清空生产数据</button>
+        {{-- <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button> --}}
     </div>
 </script>
 
@@ -94,21 +95,16 @@
          * toolbar监听事件
          */
         table.on('toolbar(dataTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['90%', '90%'],
-                    content: '/backend/setting/database/addItem',
-                    end: function(){
-                        table.reload('dataTable')
-                    }
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
+            if (obj.event === 'clearData') {  //  
+                layer.confirm('仅供测试用，生产环境慎重，真的清空数据吗？', function (index) {
+                    
+                   let loadindex = layer.load(0, {shade: false});
+                   $.post('/backend/setting/database/clearData', {}, function(result){
+                        layer.close(loadindex)
+                        layer.msg(result.msg, {time: 2000}, function(){
+                            layer.close(index);
+                        })
+                    })
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('dataTable')
@@ -135,10 +131,12 @@
 
         table.on('tool(dataTableFilter)', function (obj) {
             var data = obj.data;
+
             if (obj.event === 'edit') {
 
                 layer.msg('ok')
                 return false;
+            
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     $.post('/backend/setting/database/delItem/'+data.id, {}, function(result){

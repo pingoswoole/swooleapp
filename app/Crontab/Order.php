@@ -1,34 +1,35 @@
 <?php
 namespace App\Crontab;
 
+use App\Model\Admin\AdminUser;
 use Pingo\Crontab\CrontabInterface;
 
-class Order extends CrontabInterface
+class Order implements CrontabInterface
 {
 
     public  function getMin():string
     {
-        return '1';
+        return '*';
     }
 
     public  function getHour():string
     {
-        return '2';
+        return '*';
     }
 
     public  function getDay():string
     {
-        return '3';
+        return '*';
     }
 
     public  function getMonth():string
     {
-        return '5';
+        return '*';
     }
 
     public  function getWeek():string
     {
-        return '6';
+        return '*';
     }
     /**
      * 执行入口
@@ -39,7 +40,8 @@ class Order extends CrontabInterface
      */
     public   function run()
     {
-        
+       /*  $res = (new AdminUser())->first();
+        var_dump($res, __METHOD__, date("Y-m-d H:i:s")); */
     }
 
 }

@@ -40,12 +40,13 @@ class AccessController extends AdminController
              $request_params = $this->request()->post(['username', 'password', 'captcha', 'check_code']);
              $username = $request_params['username']?? null;
              $pwd = $request_params['password']?? null;
+             $captcha = $request_params['captcha']?? null;
              //检查验证码
              $check_code = $request_params['check_code']?? null;
              $check_code = strtolower($check_code);
              $captcha_res = cache()->get($check_code);
              $captcha_res = $captcha_res ? strtolower($captcha_res) : null;
-             if(empty($captcha_res) || $captcha_res !== $request_params['captcha']){
+             if(empty($captcha_res) || $captcha_res !== $captcha){
                  $this->json(Status::CODE_ERR, '验证码错误或过期！');
                  return;
              }
@@ -96,7 +97,9 @@ class AccessController extends AdminController
      */
     public function captcha()
     {
-        $code = new \Pingo\Captcha\VerifyCode();
+        $Conf = new \Pingo\Captcha\Conf;
+        $Conf->setCharset("0123456789");
+        $code = new \Pingo\Captcha\VerifyCode($Conf);
         $this->swoole_response->header('Content-Type','image/png');
         $Result = $code->DrawCode();
         //$this->swoole_response->write($Result->getImageBase64());

@@ -57,6 +57,7 @@
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'storage',  title: '存储位置'},
+                {field: 'path',  title: '路径'},
                 {field: 'title',  title: '标题'},
                 {field: 'size',  title: '大小'},
                 {field: 'path',  title: '图片', templet: function(data){

@@ -28,6 +28,11 @@ return [
     'pool_waittime'     => 5,
     'pool_idletime'     => 30,
     'pool_checkintval'  => 20,
-    
+    //生产数据表，清楚数据使用
+    'clear_table'   => [
+        'member',
+        'member_asset',
+    ],
+
 ];
 

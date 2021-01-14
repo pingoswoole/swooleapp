@@ -20,7 +20,9 @@ class DatabaseService extends Base
             $data = ['count' => 0, 'list' => []];
             try {
                 //code...
-                $list = db()->query("SHOW TABLE STATUS");
+                $pdoStmt = db()->query("SHOW TABLE STATUS");
+                $list = $pdoStmt->fetchAll();
+                 
                 if($list){
                     foreach ($list as $key => $row) {
                         # code...
@@ -43,4 +45,44 @@ class DatabaseService extends Base
             return $data;
 
         }
+
+        /**
+         * 清理生产数据
+         *
+         * @author pingo
+         * @created_at 00-00-00
+         * @return void
+         */
+        public function clearData()
+        {
+            try {
+                $tables = config('database.clear_table');
+                //备份数据
+                if($tables){
+                    $db = db();
+                    foreach ($tables as $key => $table_name) {
+                        # 备份表数据： create table tmp_article_info  select * from article_info
+                        $tmp_table = "{$table_name}_backup_" . date("Y_m_d_His");
+                        $sql = "CREATE table `{$tmp_table}`  SELECT * FROM `{$table_name}`";
+                        $pdoStm = $db->query($sql);
+                        if($pdoStm->rowCount() > 0){
+                            $sql = "TRUNCATE  TABLE `{$table_name}`";
+                            $pdoStm = $db->query($sql);
+                        }
+                    }
+                     
+                }
+
+                return $this->_return(true, '成功清理，备份成功');
+                
+            } catch (\Throwable $th) {
+                //throw $th;
+                return $this->_return(false, $th->getMessage());
+            }
+            return $this->_return(false, 'error');
+             
+        }
+
+
+
 }

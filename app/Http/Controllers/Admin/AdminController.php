@@ -183,5 +183,18 @@ class AdminController extends Controller
         $this->render('default.404');
     }
 
+    /**
+     * 服务数据处理结果
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @param array $data
+     * @return void
+     */
+    protected function __service(array $data)
+    {
+        $code = $data['flag'] ? 0 : -1;
+        $this->json($code, $data['msg'], $data['data']);
+    }
     
 }

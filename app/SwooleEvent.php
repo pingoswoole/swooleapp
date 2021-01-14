@@ -46,9 +46,9 @@ class SwooleEvent
         $cron = new \Pingo\Crontab\Cron($cront_list );
         $cron->start();
        
-        //添加自定义进程
+        //添加进程消费队列 
+        //$swoole_server->addProcess(new \App\Proccess\ss);
         
-        //定时器
         //
          
     }
@@ -61,9 +61,20 @@ class SwooleEvent
         $data = $Task->data;
         //data = ['type' => 'crontab', 'data' => []]
         //type：crontab 定时器，wechat：聊天，
-        var_dump($data);
+        switch ($data['type']) {
+            case 'crontab':
+                # code...
+                (new $data['data']['class'])->run();
+                break;
+            case 'wechat':
+                break;
+            default:
+                # code...
+                break;
+        }
+        //var_dump($data);
 
-        $Task->finish('6666');
+        //$Task->finish('6666');
     }
     
      

@@ -16,6 +16,7 @@
 
 //定义全局系统常量
 defined("PINGSWOOLE_WEB_ROOT") or define("PINGSWOOLE_WEB_ROOT", dirname(__DIR__, 1));
+defined("WEB_BIN_PATH") or define("WEB_BIN_PATH", PINGSWOOLE_WEB_ROOT . "bin/");
 defined("WEB_APP_PATH") or define("WEB_APP_PATH", PINGSWOOLE_WEB_ROOT . "app/");
 defined("WEB_VIEW_PATH") or define("WEB_VIEW_PATH", PINGSWOOLE_WEB_ROOT . "/view/");
 defined("WEB_CONF_PATH") or define("WEB_CONF_PATH", PINGSWOOLE_WEB_ROOT . "/config/");

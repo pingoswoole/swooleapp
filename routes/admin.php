@@ -171,6 +171,8 @@ $route['list'] = [
 
     //数据库
     ['GET', '/setting/database/viewAll', '\Admin\Setting\DatabaseController@viewAll'],
+    ['POST', '/setting/database/clearData', '\Admin\Setting\DatabaseController@clearData'],
+    
     [['GET', 'POST'], '/setting/database/getPageList', '\Admin\Setting\DatabaseController@getPageList'],
     //文件管理
     ['GET', '/setting/filemanager/viewAll', '\Admin\Setting\FileManagerController@viewAll'],

@@ -79,7 +79,38 @@ class PlatformController extends AppController
                     var_dump($row);
                 }
             }); */
-            $taskid = Manager::getInstance()->getSwooleServer()->task(['AA'=> 2222222222222]);
+            /* $rk = new \RdKafka\Producer();
+            //$rk->setLogLevel(LOG_DEBUG); // 设置日志级别
+            $rk->addBrokers('kafka'); // 添加经纪人，就是ip地址
+            
+            $topic = $rk->newTopic("test2"); // 新建主题
+            
+            // 第一个参数：是分区。RD_KAFKA_PARTITION_UA代表未分配，并让librdkafka选择分区
+            // 第二个参数：是消息标志，必须为0
+            // 第三个参数：消息，如果不为NULL，它将被传递给主题分区程序
+            $topic->produce(RD_KAFKA_PARTITION_UA, 0, 'Message'); // 生成并发送单个消息 */
+           /* $rk = new \RdKafka\Consumer();
+            //$rk->setLogLevel(LOG_DEBUG); // 设置日志级别
+            $rk->addBrokers("kafka"); // 添加经纪人，就是ip地址
+
+            $topic = $rk->newTopic("test2"); // 这里的$rk和生产者是不同的类哦
+
+            // 第一个参数分区ID
+            // 第二个参数是开始消费的偏移量，有效值
+            $topic->consumeStart(0, RD_KAFKA_OFFSET_BEGINNING); 
+
+            while (true) {
+                // 第一个参数是要消耗的分区
+                // 第二个参数是等待收到消息的最长时间，1000是一秒
+                $msg = $topic->consume(0, 1000);
+                if ($msg->err) {
+                    echo $msg->errstr(), "\n"; // 输出错误
+                    break;
+                } else {
+                    echo @$msg->payload, "\n"; // 输出消息
+                }
+            } */
+            
           /*   \Swoole\Timer::tick(1000, function (int $timer_id, $param1, $param2) {
                 echo "timer_id #$timer_id, after 3000ms.\n";
                 echo "param1 is $param1, param2 is $param2.\n";
@@ -88,7 +119,7 @@ class PlatformController extends AppController
                     echo "timer_id #$timer_id, after 14000ms.\n";
                 });
             }, "A", "B"); */
-            var_dump($taskid); 
+            
             //$data = (new SettingService)->get("web.privacy");
             //$this->json(Status::CODE_OK, 'success', $data);
         } catch (\Throwable $th) {

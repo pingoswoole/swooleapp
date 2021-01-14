@@ -95,7 +95,7 @@
     </div>
 </div>
 <div class="footer">
-    ©版权所有 2020-2099 Pingo<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备666666666</a>
+    ©版权所有 2020-2099 <span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备666666666</a>
 </div>
 <script src="/backend/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script>
