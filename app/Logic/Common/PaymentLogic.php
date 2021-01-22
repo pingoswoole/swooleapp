@@ -13,7 +13,7 @@ class PaymentLogic
     {
         
     }
-
+    
     /**
      * 获取配置
      *
@@ -48,7 +48,7 @@ class PaymentLogic
                 'connect_timeout' => 5.0,
                 // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
             ],
-            'mode' => 'dev', // optional,设置此参数，将进入沙箱模式
+            'mode' => 'normal', // optional,设置此参数，normal: 普通模式 dev: 沙箱模式
         ]; 
 
         self::$wechat_config = [
@@ -71,7 +71,7 @@ class PaymentLogic
                 'connect_timeout' => 5.0,
                 // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
             ],
-            'mode' => 'dev', // optional, dev/hk;当为 `hk` 时，为香港 gateway。
+            'mode' => 'normal', // optional, normal: 普通模式 dev: 沙箱模式 dev/hk;当为 `hk` 时，为香港 gateway。
         ];
 
         return $type === 'alipay' ? self::$alipay_config : self::$wechat_config;
@@ -87,23 +87,16 @@ class PaymentLogic
      */
     public function notify($type, $raw_data)
     {
-       
-        
          
         try{
             //Log::debug('pAY notify', json_encode($raw_data)); 
             switch ($type) {
                 case 'alipay':
                     # code...
-                    $data = $raw_data;
                     $pay = Pay::alipay(self::getConfig('alipay'));
-                    $total_money = $data['total_amount'];
                     break;
                 case 'wechat':
-                    @libxml_disable_entity_loader(true);
-                    $data = json_decode(json_encode(simplexml_load_string($raw_data, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
                     $pay = Pay::wechat(self::getConfig('wechat'));
-                    $total_money = $data['total_fee'] * 0.01;
                     break;
                 default:
                     # code...
@@ -111,7 +104,7 @@ class PaymentLogic
                     break;
             }
 
-            $dataObj = $pay->verify($data); // 是的，验签就这么简单！
+            $dataObj = $pay->verify($raw_data); // 是的，验签就这么简单！
             // 请自行对 trade_status 进行判断及其它逻辑进行判断，在支付宝的业务通知中，只有交易通知状态为 TRADE_SUCCESS 或 TRADE_FINISHED 时，支付宝才会认定为买家付款成功。
             // 1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号；
             // 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额）；
@@ -119,7 +112,13 @@ class PaymentLogic
             // 4、验证app_id是否为该商户本身。
             // 5、其它业务逻辑情况
             $data = $dataObj->all();
-            $data['total_money'] = floatval($total_money);
+            
+            if($type === 'alipay'){
+                $data['total_money'] = floatval($data['total_amount']);
+            }else{
+                $data['total_money'] = floatval($data['total_fee'] * 0.01);
+            }
+            
              //微信返回数据
              /* {"appid":"wx80c292c443a2fd9c","bank_type":"OTHERS","cash_fee":"2","fee_type":"CNY","is_subscribe":"N",
                 "mch_id":"1604162097","nonce_str":"eLkiKxbQhBUBrjQ4","openid":"o3nrh5rvYQ4RfZ2_bY18UfYN-0tk",
