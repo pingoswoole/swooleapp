@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\AdminController;
 use App\Utility\AppFunc;
-use App\Service\Admin\AdminRoleService;
-use App\Service\Admin\AdminRuleService;
+use App\Service\Admin\Auth\AdminRoleService;
+use App\Service\Admin\Auth\AdminRuleService;
 use App\Utility\Log\Log;
 use App\Utility\Status;
 
@@ -77,7 +77,7 @@ class RoleController extends AdminController
 
         
         $info = AdminRoleService::getInstance()->getById($id);
-        $role_data = AdminRoleService::getInstance()->getAllList(['id', 'name'], ['id' =>[$id, '<>']]);
+        $role_data = AdminRoleService::getInstance()->getAllList(['id', 'name'], [['id' , '<>', $id]]);
 
         $this->render('auth.roleEdit', ['id' => $id, 'info' => $info, 'role_data'=>$role_data]);
     }
@@ -106,8 +106,9 @@ class RoleController extends AdminController
        // if(!$this->hasRuleForPost($this->rule_role_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
+        $id    = $this->request()->route('id');
 
-        $bool = AdminRoleService::getInstance()->setById($data['id'], [$data['key'], $data['value']]);
+        $bool = AdminRoleService::getInstance()->setById($id, [$data['key'], $data['value']]);
         if ($bool) {
             $this->json(Status::CODE_OK);
         } else {

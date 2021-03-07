@@ -8,6 +8,14 @@
 			<div class="layui-row">
 				 
 					<form class="layui-form" action="" lay-filter="form">
+						@if (isset($info))
+							<div class="layui-form-item">
+								<label class="layui-form-label">父节点</label>
+								<div class="layui-input-block">
+									<input type="text" name="" value="{{$info['title']}} {{$info['href']}}" class="layui-input" disabled >
+								</div>
+							</div>
+						@endif
 						<div class="layui-form-item">
 							<label class="layui-form-label">名称</label>
 							<div class="layui-input-block">
@@ -23,17 +31,11 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">请求URI</label>
 							<div class="layui-input-block">
-								<input type="text" name="route_uri" required   placeholder="请输入请求URI" autocomplete="off" class="layui-input">
+								<input type="text" name="href" required   placeholder="请输入请求URI" autocomplete="off" class="layui-input">
 							</div>
-							<div class="layui-form-mid layui-word-aux">多个请使用分隔符&&，例如/backend/index/a&&/backend/index/b</div>
+							<div class="layui-form-mid layui-word-aux">例如/backend/index/a</div>
 						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">请求处理器</label>
-							<div class="layui-input-block">
-								<input type="text" name="route_handler" required   placeholder="请输入/module/controller/method" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-form-mid layui-word-aux">多个请使用分隔符&&，例如/Admin/Index/a&&/Admin/Index/b</div>
-						</div>
+						 
 						<div class="layui-form-item">
 							<label class="layui-form-label">是否启动</label>
 							<div class="layui-input-block">

@@ -5,7 +5,9 @@ declare(strict_types=1);
  * swoole 配置
  * @author pingo <pingstrong@163.com>
  */
-if(!defined("WEB_RUNTIME_PATH")) exit("No Access");
+if (!defined("WEB_RUNTIME_PATH")) {
+    exit("No Access");
+}
 
 //进程名称
 $config['master_process_name']  = 'pingswoole_master';
@@ -24,13 +26,14 @@ $config['task_pid_file']    = WEB_LOG_PATH . 'task.pid';
 
 //Swoole - IP信息
 $config['ip']   = '0.0.0.0';
-$config['server_type']  = \Pingo\Swoole\Constant::SWOOLE_MIX_SERVER;  //
+$config['port'] = 9501;
+ 
 $config['setting'] = [
     'pid_file'              => WEB_LOG_PATH . 'swoole.pid',
     'log_file'              => WEB_LOG_PATH . 'swoole.log',
     'daemonize'             => false,
     'task_tmpdir'           => '/dev/shm',
-    'max_request'           => 1000,
+    'max_request'           => 2000,
     // Normally this value should be 1~4 times larger according to your cpu cores.
     'reactor_num'           => swoole_cpu_num() * 2,
     'worker_num'            => 8,
@@ -40,14 +43,14 @@ $config['setting'] = [
     'buffer_output_size'    => 10 * 1024 * 1024,
     'socket_buffer_size'    => 128 * 1024 * 1024,
     'reload_async'          => true,
-    'max_wait_time'         => 3,
+    'max_wait_time'         => 10,
     'document_root'         => WEB_PUBLIC_PATH, // 版本小于v4.4.0时必须为绝对路径
     'enable_coroutine'      => 1,
     'task_enable_coroutine' => 1,
     // 压缩
     'http_compression'      => true,
     // $level 压缩等级，范围是 1-9，等级越高压缩后的尺寸越小，但 CPU 消耗更多。默认为 1, 最高为 9
-    'http_compression_level' => 1,
+    'http_compression_level' => 2,
     'open_http2_protocol'    => true,
     'upload_tmp_dir'         => WEB_TMP_PATH . '/upload',
 
@@ -58,19 +61,11 @@ $config['ws_setting']['open_websocket_protocol'] = true;
 
 //启动服务端口监听
 $config['protocol'] = [
-    //
-    \Pingo\Swoole\Constant::SWOOLE_HTTP_SERVER   => [
-        'host'      => $config['ip'], // 监听地址
-        'port'      => 9502, // 监听端口
-        'mode'      => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
-        'sock_type' => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
-        'setting'   => $config['http_setting'],
-         
-    ],
+    //启动的主服务
     \Pingo\Swoole\Constant::SWOOLE_WEBSOCKET_SERVER  => [
-        'enable'        => false,
+        
         'host'          => $config['ip'],
-        'port'          => 9501,
+        'port'          => $config['port'],
         'mode'          => SWOOLE_PROCESS, // 运行模式 默认为SWOOLE_PROCESS
         'sock_type'     => SWOOLE_SOCK_TCP, // sock type 默认为SWOOLE_SOCK_TCP
         'handler'       => Handler::class,

@@ -1,6 +1,6 @@
  
 
-        <textarea name="{{$name}}" id="editor_con_{{$name}}" hidden cols="30" rows="10">{!! $value !!}</textarea>
+        <textarea name="{{$name}}" id="editor_con_{{$name}}" hidden cols="30" rows="10">{!! $value?? '' !!}</textarea>
         <div id="editor_{{$name}}" style="margin: 50px 0 50px 0">
            
         </div>
@@ -29,7 +29,7 @@
                     var url = result.data;
                     url.forEach(function (e) {
                        
-                        insertImg(e);
+                        insertImg(e.url);
                     })
                 } else {
                     layer.msg(result.msg);

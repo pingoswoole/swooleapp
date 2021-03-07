@@ -6,7 +6,7 @@
  *   php bin/pingswoole 服务名称:操作
  *   服务类型
  *    server:[start|stop|reload|restart|status]
- *    config:[set|get|delete] key value 
+ *    config:[set|get|delete] key value
  *    crontab show|stop|run
  *    task show
  *    process kill|show
@@ -16,11 +16,14 @@
 
 //定义全局系统常量
 defined("PINGSWOOLE_WEB_ROOT") or define("PINGSWOOLE_WEB_ROOT", dirname(__DIR__, 1));
-defined("WEB_APP_PATH") or define("WEB_APP_PATH", PINGSWOOLE_WEB_ROOT . "app/");
+defined("WEB_BIN_PATH") or define("WEB_BIN_PATH", PINGSWOOLE_WEB_ROOT . "/bin/");
+defined("WEB_APP_PATH") or define("WEB_APP_PATH", PINGSWOOLE_WEB_ROOT . "/app/");
 defined("WEB_VIEW_PATH") or define("WEB_VIEW_PATH", PINGSWOOLE_WEB_ROOT . "/view/");
 defined("WEB_CONF_PATH") or define("WEB_CONF_PATH", PINGSWOOLE_WEB_ROOT . "/config/");
 defined("WEB_PUBLIC_PATH") or define("WEB_PUBLIC_PATH", PINGSWOOLE_WEB_ROOT . "/public/");
 defined("WEB_STORAGE_FILE_PATH") or define("WEB_STORAGE_FILE_PATH", WEB_PUBLIC_PATH . "/storage/");
+defined("WEB_QRCODE_FILE_PATH") or define("WEB_QRCODE_FILE_PATH", WEB_STORAGE_FILE_PATH . "qrcode/");
+
 defined("WEB_RUNTIME_PATH") or define("WEB_RUNTIME_PATH", PINGSWOOLE_WEB_ROOT . "/runtime/");
 defined("WEB_TMP_PATH") or define("WEB_TMP_PATH", WEB_RUNTIME_PATH . "tmp/");
 defined("WEB_LOG_PATH") or define("WEB_LOG_PATH", WEB_RUNTIME_PATH . "log/");
@@ -32,19 +35,17 @@ defined("WEB_CLI_ARGC") or define('WEB_CLI_ARGC', $argc);
 
 //引入自动加载文件PSR4
 $autload_file = PINGSWOOLE_WEB_ROOT . '/vendor/autoload.php';
-if(!file_exists($autload_file)){
+if (!file_exists($autload_file)) {
     die('vendor autoload.php include fail, please make sure use composer install !!! \n');
 }
 require $autload_file;
 
 //引入全局功能文件
 $bootstrap_file = PINGSWOOLE_WEB_ROOT . "/bootstrap/app.php";
-if(file_exists($bootstrap_file)){
+if (file_exists($bootstrap_file)) {
     require_once $bootstrap_file;
 }
 
 //解析命令参数，启动服务
-\Swoole\Runtime::enableCoroutine(); 
+//\Swoole\Runtime::enableCoroutine();
 \Pingo\Swoole\Application::run();
-
-

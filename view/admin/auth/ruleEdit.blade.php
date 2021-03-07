@@ -10,15 +10,15 @@ layui.use('form', function(){
 		"title": "{{ $info['title'] }}"
 		,"node": "{{ $info['node'] }}"
 		,"status": {{ $info['status'] }}
-		,"route_uri": "{!! $info['href'] !!}"
-		,"route_handler": "{!! $info['route_handler'] !!}"
+		,"href": "{!! $info['href'] !!}"
+		 
 	});
 
 
 	//监听提交
 	form.on('submit(submit)', function(data){
 		data.field.status = data.field.status ? 1 : 0;
-		$.post('/backend/rule/edit/'+{{ $info['id'] }},data.field,function(info){
+		$.post('/backadmin/auth/rule/edit/'+{{ $info['id'] }},data.field,function(info){
 		    if(info.code != 0) {
 				layer.msg(info.msg);
 			} else {

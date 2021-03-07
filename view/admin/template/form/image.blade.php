@@ -2,7 +2,7 @@
 <div class="layui-upload">
     <button type="button" class="layui-btn" id="upload_{{$name}}">{{$title}}</button>
     <div class="layui-upload-list">
-      <img class="layui-upload-img" id="preview_{{$name}}">
+      <img class="layui-upload-img" id="preview_{{$name}}"  @if(!empty($value)) src="{{$value}}" @endif>
       <p id="demoText"></p>
     </div>
 </div>   
@@ -28,7 +28,8 @@
             return layer.msg('上传失败');
           }
           //上传成功
-          $("#image_{{$name}}").val(res.data[0])
+          let return_field = "{{$return??'url'}}"
+          $("#image_{{$name}}").val(res.data[0][return_field])
         }
         ,error: function(){
           //演示失败状态，并实现重传

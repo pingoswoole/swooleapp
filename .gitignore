@@ -6,3 +6,5 @@
 *.lock
 /runtime
 /.env
+/public/storage/
+*.log

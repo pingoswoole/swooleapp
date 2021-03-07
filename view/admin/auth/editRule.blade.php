@@ -64,7 +64,7 @@ layui.use(['tree', 'util'], function(){
         getCheck(checkedData);
 
         let datajson = {'rules_checked':rules_checked, 'rules' : rules };
-        http_post('/backend/role/edit_rule/{{$id}}', datajson, function(result){
+        http_post('/backadmin/auth/role/edit_rule/{{$id}}', datajson, function(result){
             if(result.code !== 0) {
                 layer.msg(result.msg);
             } else {

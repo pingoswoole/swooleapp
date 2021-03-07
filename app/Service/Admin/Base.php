@@ -3,7 +3,17 @@ namespace App\Service\Admin;
 
 abstract class Base
 {
+    protected $model; //默认模型实例
 
+    protected $model_class = null; //默认模型类
+
+
+    public function __construct()
+    {
+            if($this->model_class){
+                $this->model = new $this->model_class;
+            }
+    }
     /**
      * 返回消息
      *

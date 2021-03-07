@@ -46,7 +46,7 @@ layui.use('table', function(){
 
   var datatable = table.render({
     elem: '#test'
-    ,url:'/backend/auth/get_all'
+    ,url:'/backadmin/auth/user/get_all'
     ,method:'post'
     ,toolbar: '#toolbarDemo'
     ,page: true
@@ -73,11 +73,11 @@ layui.use('table', function(){
     table.on('toolbar(test)', function(obj){
         switch(obj.event){
             case 'add':
-                //location.href="/backend/auth/add";
+                //location.href="/backadmin/auth/user/add";
                 layer.open({
                      title: '添加管理员'
                     ,type: 2
-                    ,content: '/backend/auth/addget'
+                    ,content: '/backadmin/auth/user/addget'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -90,7 +90,7 @@ layui.use('table', function(){
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backend/auth/set/' + this.value ,datajson,function(data){
+        $.post('/backadmin/auth/user/set/' + this.value ,datajson,function(data){
             layer.msg(data.msg);
             if(data.code != 0) {
                 //layer.msg(data.msg);
@@ -108,7 +108,7 @@ layui.use('table', function(){
         switch(obj.event){
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backend/auth/del/' + data.id ,'',function(data){
+                    $.post('/backadmin/auth/user/del/' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -122,7 +122,7 @@ layui.use('table', function(){
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backend/auth/editget/' + data.id
+                    ,content: '/backadmin/auth/user/editget/' + data.id
                     ,area:['550px', '470px']
                 });
             break;
@@ -133,7 +133,7 @@ layui.use('table', function(){
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'uname', value:value};
-                    $.post('/backend/auth/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/user/set/' + data.id ,datajson,function(data){
                         layer.msg(data.msg);
                         if(data.code != 0) {
                             //layer.msg(data.msg);
@@ -152,7 +152,7 @@ layui.use('table', function(){
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'display_name', value:value};
-                    $.post('/backend/auth/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/user/set/' + data.id ,datajson,function(data){
                         layer.msg(data.msg);
                         if(data.code != 0) {
                             

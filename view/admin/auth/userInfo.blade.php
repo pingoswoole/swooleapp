@@ -67,7 +67,7 @@ layui.use('form', function(){
     form.on('submit(submit)', function(data){
         form_field = data;
         delete data.field.verify_pwd;
-        http_post('/backend/auth/pwd',data.field, function(result){
+        http_post('/backadmin/auth/user/pwd',data.field, function(result){
             if(result.code != 0) {
                 layer.msg(result.msg);
             } else {

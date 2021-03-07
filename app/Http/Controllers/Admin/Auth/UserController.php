@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Service\Admin\AdminUserService;
-use App\Service\Admin\AdminRoleService;
+use App\Http\Controllers\AdminController;
+use App\Service\Admin\Auth\AdminUserService;
+use App\Service\Admin\Auth\AdminRoleService;
 use App\Utility\Log\Log;
 use App\Utility\Status;
 
@@ -30,7 +30,7 @@ class UserController extends AdminController
     public function getAll()
     {
         //if(!$this->hasRuleForPost($this->rule_auth_view)) return ;
-        $page_data = (new \App\Service\Admin\AdminUserService)->getPageList();
+        $page_data = (new \App\Service\Admin\Auth\AdminUserService)->getPageList();
       /*   $data = $this->getPage();
         $service_result = AdminUserService::getInstance()->getPageList($data['page'], $data['limit']);
         list($list_data, $count) = $service_result['data'];
@@ -85,10 +85,12 @@ class UserController extends AdminController
         $id        = $this->request()->route('id');
         $role_data = AdminRoleService::getInstance()->getAllList();
         $user_data = AdminUserService::getInstance()->getUserById($id);
+       
         if (!$user_data) {
             $this->show404();
             return;
         }
+        
         $this->render('auth.userEdit', ['id' => $id, 'role_data' => $role_data, 'user_data' => $user_data]);
     }
 
@@ -123,9 +125,9 @@ class UserController extends AdminController
     {
         $info = $this->request()->post(['old_pwd','pwd']);
          
-        if (encrypt($info['old_pwd'], $this->auth['encry']) == $this->auth['pwd']) {
-            $new_pwd = encrypt($info['pwd'], $this->auth['encry']);
-            if(AdminUserService::getInstance()->setUserById($this->auth['id'], ['pwd' => $new_pwd])) {
+        if (encrypt($info['old_pwd'], $this->auth_user_data['encry']) == $this->auth_user_data['pwd']) {
+            
+            if(AdminUserService::getInstance()->setUserById($this->auth_user_data['id'], ['pwd' => $info['pwd']])) {
                 $this->json(Status::CODE_OK, '修改成功');return ;
             }
         } 

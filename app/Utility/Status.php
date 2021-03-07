@@ -10,4 +10,5 @@ class Status
     const CODE_VERIFY_ERR = -2; // 验证码错误
     const CODE_RULE_ERR   = -3; // 权限不足
     const CODE_SYS_ERR    = -4; // 服务器异常 
+    const CODE_SESSION_EXP = -5; //会话过期
 }

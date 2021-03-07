@@ -30,15 +30,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">用户</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                        6666
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          会员 <a style="color: #1aa094">666</a><br>
+                          代理商 <a style="color: #bd3004">666</a>
                       </div>
                   </div>
               </div>
@@ -48,15 +48,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">商城订单</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                       6666
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          未付款 <a style="color: #1aa094">666</a><br>
+                          已付款 <a style="color: #bd3004">666</a>
                       </div>
                   </div>
               </div>
@@ -66,15 +66,15 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">提现</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                      999
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          已打款 <a style="color: #1aa094">999</a><br>
+                          未打款 <a style="color: #bd3004">999</a>
                       </div>
                   </div>
               </div>
@@ -84,23 +84,38 @@
       <div class="layui-col-xs12 layui-col-md3">
 
           <div class="layui-card top-panel">
-              <div class="layui-card-header">要展示的指标名称</div>
+              <div class="layui-card-header">卡包</div>
               <div class="layui-card-body">
                   <div class="layui-row layui-col-space5">
                       <div class="layui-col-xs9 layui-col-md9 top-panel-number">
-                          9,054,056
+                       22222
                       </div>
                       <div class="layui-col-xs3 layui-col-md3 top-panel-tips">
-                          比昨天 <a style="color: #1aa094">▲0.12</a><br>
-                          比七日 <a style="color: #bd3004">▼0.06</a>
+                          付款 <a style="color: #1aa094">00000</a><br>
+                          未付款 <a style="color: #bd3004">0000</a>
                       </div>
                   </div>
               </div>
           </div>
 
       </div>
+      <div class="layui-col-xs12 layui-col-md3">
+
+        <div class="layui-card top-panel">
+            <div class="layui-card-header">卡包</div>
+            <div class="layui-card-body">
+                <div class="layui-row layui-col-space5">
+                    <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                     22222
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
   </div>
-
+{{-- 
   <div class="layui-row layui-col-space15">
       <div class="layui-col-xs12 layui-col-md9">
           <div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
@@ -119,14 +134,14 @@
           <div id="echarts-map" style="background-color:#ffffff;min-height:300px;padding: 10px"></div>
       </div>
   </div>
-
+ --}}
 
 </div>
 
 @endsection
 
 @section('footer_js')
-<script src="/backend/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="/backend/js/lay-config.js?v=1.0.5" charset="utf-8"></script>
 <script>
     layui.use(['layer', 'echarts'], function () {
         var $ = layui.jquery,
@@ -136,7 +151,7 @@
         /**
          * 报表功能
          */
-        var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+      /*   var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
 
         var optionRecords = {
             title: {
@@ -221,12 +236,12 @@
             ]
         };
         echartsRecords.setOption(optionRecords);
-
+ */
 
         /**
          * 玫瑰图表
          */
-        var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
+        /* var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
         var optionPies = {
             title: {
                 text: '指标名称-玫瑰图',
@@ -265,13 +280,13 @@
                 }
             ]
         };
-        echartsPies.setOption(optionPies);
+        echartsPies.setOption(optionPies); */
 
 
         /**
          * 柱状图
          */
-        var echartsDataset = echarts.init(document.getElementById('echarts-dataset'), 'walden');
+        /* var echartsDataset = echarts.init(document.getElementById('echarts-dataset'), 'walden');
 
         var optionDataset = {
             legend: {},
@@ -296,13 +311,13 @@
             ]
         };
 
-        echartsDataset.setOption(optionDataset);
+        echartsDataset.setOption(optionDataset); */
 
 
         /**
          * 中国地图
          */
-        var echartsMap = echarts.init(document.getElementById('echarts-map'), 'walden');
+        /* var echartsMap = echarts.init(document.getElementById('echarts-map'), 'walden');
 
 
         var optionMap = {
@@ -351,7 +366,7 @@
         // echarts 窗口缩放自适应
         window.onresize = function () {
             echartsRecords.resize();
-        }
+        } */
 
     });
 </script>

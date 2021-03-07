@@ -139,8 +139,8 @@
           miniTongji = layui.miniTongji;
 
       var options = {
-          iniUrl: "/backend/home/initMenu",    // 初始化接口
-          clearUrl: "/backend/home/clearApi", // 缓存清理接口
+          iniUrl: "/backadmin/home/index/initMenu",    // 初始化接口
+          clearUrl: "/backadmin/home/index/clearApi", // 缓存清理接口
           urlHashLocation: true,      // 是否打开hash定位
           bgColorDefault: false,      // 主题默认配置
           multiModule: true,          // 是否开启多模块
@@ -153,10 +153,10 @@
  
 
       $('.login-out').on("click", function () {
-          $.post("/backend/access/logout", {}, function(){
+          $.post("/backadmin/common/access/logout", {}, function(){
 
                 layer.msg('退出登录成功', function () {
-                    window.location = '/backend/access/login';
+                    window.location = '/backadmin/common/access/login';
                 });
           })
       });

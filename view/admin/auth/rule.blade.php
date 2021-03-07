@@ -18,6 +18,9 @@
         <input type="checkbox" name="status" value="@{{d.id}}" lay-skin="switch"  lay-text="启动|禁用" lay-filter="status" @{{ d.status == 1 ? 'checked' : '' }}>
     </script>
 
+    <script type="text/html" id="switchMenu">
+        <input type="checkbox" name="is_menu" value="@{{d.id}}" lay-skin="switch"  lay-text="启动|禁用" lay-filter="is_menu" @{{ d.is_menu == 1 ? 'checked' : '' }}>
+    </script>
 
     <!-- 操作 -->
     <script type="text/html" id="barDemo">
@@ -40,7 +43,7 @@
 
     var datatable = table.render({
         elem: '#test'
-        ,url:'/backend/rule/get_all'
+        ,url:'/backadmin/auth/rule/get_all'
         ,method:'post'
         ,toolbar: '#toolbarDemo'
         ,title: '权限'
@@ -48,10 +51,11 @@
         {field:'id', title:'ID', width:80, fixed: 'left'}
         ,{field:'title', title:'权限名', width:220}
         ,{field:'node', title:'节点标记', width:220 , event:'edit_node'}
-        ,{field:'href', title:'请求URI'}
-        ,{field:'route_handler', title:'请求处理器'}
+        ,{field:'href', title:'菜单URI'}
+        ,{field:'sort', title:'排序', event:'edit_sort'}
         /* ,{field:'created_at', title:'创建时间'} */
-        ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100}
+        /* ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100} */
+        ,{field:'is_menu', title:'是否菜单', templet: '#switchMenu', width:100}
         ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 180}
         ]]
         ,defaultToolbar:[]
@@ -72,7 +76,7 @@
                 layer.open({
                      title: '添加最高权限'
                     ,type: 2
-                    ,content: '/backend/rule/addget'
+                    ,content: '/backadmin/auth/rule/addget'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -86,7 +90,19 @@
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backend/rule/set/' + this.value ,datajson,function(data){
+        $.post('/backadmin/auth/rule/set/' + this.value ,datajson,function(data){
+            if(data.code != 0) {
+                layer.msg(data.msg);
+                obj.elem.checked = !obj.elem.checked;
+                form.render();
+            }
+        });
+    });
+
+    form.on('switch(is_menu)', function(obj){
+        let datajson = {key:'is_menu', value:obj.elem.checked ? '1':'0'};
+
+        $.post('/backadmin/auth/rule/set/' + this.value ,datajson,function(data){
             if(data.code != 0) {
                 layer.msg(data.msg);
                 obj.elem.checked = !obj.elem.checked;
@@ -104,17 +120,17 @@
                 layer.open({
                      title: '添加权限'
                     ,type: 2
-                    ,content: '/backend/rule/addget/' + data.id
+                    ,content: '/backadmin/auth/rule/addget/' + data.id
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
                     }
                 });
-               // location.href = '/backend/rule/add/' + data.id;
+               // location.href = '/backadmin/auth/rule/add/' + data.id;
             break;
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backend/rule/del/' + data.id ,'',function(data){
+                    $.post('/backadmin/auth/rule/del/' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -128,7 +144,7 @@
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backend/rule/editget/' + data.id
+                    ,content: '/backadmin/auth/rule/editget/' + data.id
                     ,area:['70%', '500px']
                 });
             break;
@@ -139,7 +155,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'node', value:value};
-                    $.post('/backend/rule/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/rule/set/' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {
@@ -150,6 +166,26 @@
                     });
                 });
             break;
+            case 'edit_sort':
+                console.log(data.sort)
+                layer.prompt({
+                    formType: 2
+                    ,value: data.sort + ''
+                }, function(value, index){
+                    layer.close(index);
+                    let datajson = {key:'sort', value:value};
+                    $.post('/backadmin/auth/rule/set/' + data.id ,datajson,function(data){
+                        if(data.code != 0) {
+                            layer.msg(data.msg);
+                        } else {
+                            obj.update({
+                                sort: value
+                            });
+                        }
+                    });
+                });
+            break;
+            
         }
     });
 });

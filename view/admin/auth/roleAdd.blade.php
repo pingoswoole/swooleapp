@@ -8,12 +8,12 @@ layui.use('form', function(){
 
   //监听提交
   form.on('submit(submit)', function(data){
-    $.post('/backend/role/add',data.field,function(info){
+    $.post('/backadmin/auth/role/add',data.field,function(info){
         if(info.code != 0) {
             layer.msg(info.msg);
         } else {
             layer.msg('添加成功',{time:1000},function(){
-                location.href = '/backend/role';
+                location.href = '/backadmin/auth/role';
             });
 
         }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\AdminController;
 
 class CommonController extends AdminController
 {

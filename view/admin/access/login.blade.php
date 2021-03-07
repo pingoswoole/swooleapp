@@ -17,14 +17,14 @@
     <style>
         .main-body {top:50%;left:50%;position:absolute;-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%);transform:translate(-50%,-50%);overflow:hidden;}
         .login-main .login-bottom .center .item input {display:inline-block;width:227px;height:22px;padding:0;position:absolute;border:0;outline:0;font-size:14px;letter-spacing:0;}
-        .login-main .login-bottom .center .item .icon-1 {background:url(../images/icon-login.png) no-repeat 1px 0;}
-        .login-main .login-bottom .center .item .icon-2 {background:url(../images/icon-login.png) no-repeat -54px 0;}
-        .login-main .login-bottom .center .item .icon-3 {background:url(../images/icon-login.png) no-repeat -106px 0;}
-        .login-main .login-bottom .center .item .icon-4 {background:url(../images/icon-login.png) no-repeat 0 -43px;position:absolute;right:-10px;cursor:pointer;}
-        .login-main .login-bottom .center .item .icon-5 {background:url(../images/icon-login.png) no-repeat -55px -43px;}
-        .login-main .login-bottom .center .item .icon-6 {background:url(../images/icon-login.png) no-repeat 0 -93px;position:absolute;right:-10px;margin-top:8px;cursor:pointer;}
+        .login-main .login-bottom .center .item .icon-1 {background:url(/backend/images/icon-login.png) no-repeat 1px 0;}
+        .login-main .login-bottom .center .item .icon-2 {background:url(/backend/images/icon-login.png) no-repeat -54px 0;}
+        .login-main .login-bottom .center .item .icon-3 {background:url(/backend/images/icon-login.png) no-repeat -106px 0;}
+        .login-main .login-bottom .center .item .icon-4 {background:url(/backend/images/icon-login.png) no-repeat 0 -43px;position:absolute;right:-10px;cursor:pointer;}
+        .login-main .login-bottom .center .item .icon-5 {background:url(/backend/images/icon-login.png) no-repeat -55px -43px;}
+        .login-main .login-bottom .center .item .icon-6 {background:url(/backend/images/icon-login.png) no-repeat 0 -93px;position:absolute;right:-10px;margin-top:8px;cursor:pointer;}
         .login-main .login-bottom .tip .icon-nocheck {display:inline-block;width:10px;height:10px;border-radius:2px;border:solid 1px #9abcda;position:relative;top:2px;margin:1px 8px 1px 1px;cursor:pointer;}
-        .login-main .login-bottom .tip .icon-check {margin:0 7px 0 0;width:14px;height:14px;border:none;background:url(../images/icon-login.png) no-repeat -111px -48px;}
+        .login-main .login-bottom .tip .icon-check {margin:0 7px 0 0;width:14px;height:14px;border:none;background:url(/backend/images/icon-login.png) no-repeat -111px -48px;}
         .login-main .login-bottom .center .item .icon {display:inline-block;width:33px;height:22px;}
         .login-main .login-bottom .center .item {width:288px;height:35px;border-bottom:1px solid #dae1e6;margin-bottom:35px;}
         .login-main {width:428px;position:relative;float:left;}
@@ -34,7 +34,7 @@
         .login-main .login-bottom {width:428px;background:#fff;border-radius:0 0 12px 12px;padding-bottom:53px;}
         .login-main .login-bottom .center {width:288px;margin:0 auto;padding-top:40px;padding-bottom:15px;position:relative;}
         .login-main .login-bottom .tip {clear:both;height:16px;line-height:16px;width:288px;margin:0 auto;}
-        body {background:url(../images/loginbg.png) 0% 0% / cover no-repeat;position:static;font-size:12px;}
+        body {background:url(/backend/images/loginbg.png) 0% 0% / cover no-repeat;position:static;font-size:12px;}
         input::-webkit-input-placeholder {color:#a6aebf;}
         input::-moz-placeholder {/* Mozilla Firefox 19+ */            color:#a6aebf;}
         input:-moz-placeholder {/* Mozilla Firefox 4 to 18 */            color:#a6aebf;}
@@ -78,7 +78,8 @@
 
                 <div id="validatePanel" class="item" style="width: 137px;">
                     <input type="text" name="captcha" placeholder="请输入验证码" maxlength="4">
-                    <img id="refreshCaptcha" class="validateImg"  src="/backend/access/captcha?v=1" >
+                    <img id="refreshCaptcha" class="validateImg"  src="" >
+                    <input type="hidden" name="check_code" id="check_code">
                 </div>
 
             </div>
@@ -94,7 +95,7 @@
     </div>
 </div>
 <div class="footer">
-    ©版权所有 2020-2099 Pingo<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备666666666</a>
+    ©版权所有 2020-2099 <span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备666666666</a>
 </div>
 <script src="/backend/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script>
@@ -102,7 +103,17 @@
         var $ = layui.jquery,
             form = layui.form,
             layer = layui.layer;
-
+         
+         get_captcha()
+         function get_captcha()
+         {
+            $.get('/backadmin/common/access/captcha?v=1', {}, function(result){
+                console.log(result)
+                $('#refreshCaptcha').attr('src', result.data.image);
+                $("#check_code").val(result.data.check_code)
+            })
+         }
+         $('#refreshCaptcha').click(function(){get_captcha()})
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
 
@@ -139,12 +150,12 @@
                 layer.msg('验证码不能为空');
                 return false;
             }
-            $.post('/backend/access/login', data, function(result){
+            $.post('/backadmin/common/access/login', data, function(result){
 
                 console.log(result);
                 layer.msg(result.msg, {time: 2000}, function(){
                     if(result.code == 0){
-                        window.location = '/backend/home/index';
+                        window.location = '/backadmin/home/index/index';
                     }
                 })
             });

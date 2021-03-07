@@ -5,5 +5,4 @@ use Pingo\Database\Model;
 
 class BaseModel extends Model
 {
-    
 }

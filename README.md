@@ -97,6 +97,12 @@ Test                   项目部署目录
 * 简单
 * 安全
 
+## 添加定时器监测服务是否正常
+
+docker环境下，在宿主机用crontab
+
+* * * * * docker exec php73 sh -c "/www/app/check_swoole.sh"
+
 ## License
 
-非开源产品，请联系作者。
+ 
