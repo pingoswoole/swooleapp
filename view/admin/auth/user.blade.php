@@ -90,7 +90,7 @@ layui.use('table', function(){
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backadmin/auth/user/set/' + this.value ,datajson,function(data){
+        $.post('/backadmin/auth/user/set?id=' + this.value ,datajson,function(data){
             layer.msg(data.msg);
             if(data.code != 0) {
                 //layer.msg(data.msg);
@@ -108,7 +108,7 @@ layui.use('table', function(){
         switch(obj.event){
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backadmin/auth/user/del/' + data.id ,'',function(data){
+                    $.post('/backadmin/auth/user/del?id=' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -122,7 +122,7 @@ layui.use('table', function(){
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/user/editget/' + data.id
+                    ,content: '/backadmin/auth/user/editget?id=' + data.id
                     ,area:['550px', '470px']
                 });
             break;
@@ -133,7 +133,7 @@ layui.use('table', function(){
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'uname', value:value};
-                    $.post('/backadmin/auth/user/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/user/set?id=' + data.id ,datajson,function(data){
                         layer.msg(data.msg);
                         if(data.code != 0) {
                             //layer.msg(data.msg);
@@ -152,7 +152,7 @@ layui.use('table', function(){
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'display_name', value:value};
-                    $.post('/backadmin/auth/user/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/user/set?id=' + data.id ,datajson,function(data){
                         layer.msg(data.msg);
                         if(data.code != 0) {
                             

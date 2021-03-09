@@ -32,7 +32,6 @@ class RuleController extends AdminController
         $data      = [];
         AppFunc::treeRule($tree_data, $data, '', 'title');
         $this->jsonPage(0, $rule_data['count'], $data);
-        
     }
 
     // 获取修改 和 添加的数据 并判断是否完整
@@ -52,7 +51,7 @@ class RuleController extends AdminController
 
     public function addData()
     {
-       // if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
+        // if(!$this->hasRuleForPost($this->rule_rule_add)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
@@ -71,7 +70,7 @@ class RuleController extends AdminController
          
         //if(!$this->hasRuleForGet($this->rule_rule_add)) return ;
 
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
         $info = AdminRuleService::getInstance()->getById($id);
         if (!$info) {
             $this->show404();
@@ -90,7 +89,7 @@ class RuleController extends AdminController
             return;
         }
 
-        $data['pid'] = $this->request()->route('id');
+        $data['pid'] = $this->request()->get('id');
 
         if (AdminRuleService::getInstance()->add($data)) {
             $this->json(Status::CODE_OK);
@@ -103,9 +102,9 @@ class RuleController extends AdminController
     // 修改数据的页面
     public function edit()
     {
-       // if(!$this->hasRuleForGet($this->rule_rule_set)) return ;
+        // if(!$this->hasRuleForGet($this->rule_rule_set)) return ;
 
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
 
         if (!$id) {
             $this->show404();
@@ -125,20 +124,20 @@ class RuleController extends AdminController
     // 修改数据
     public function editData()
     {
-       // if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
+        // if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
             return;
         }
 
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
          
         if (AdminRuleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);
         } else {
             $this->json(Status::CODE_ERR, '保存失败');
-           // Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
+            // Log::getInstance()->error("rule--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
         }
     }
 
@@ -148,28 +147,27 @@ class RuleController extends AdminController
         //if(!$this->hasRuleForPost($this->rule_rule_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
-        $id    = $this->request()->route('id');
+        $id    = $this->request()->get('id');
         $bool = AdminRuleService::getInstance()->setById($id, [$data['key'] => $data['value']]);
 
         if ($bool) {
             $this->json(Status::CODE_OK);
         } else {
             $this->json(Status::CODE_ERR, '设置失败');
-           // Log::getInstance()->error("rule--set:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有设置成功");
+            // Log::getInstance()->error("rule--set:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有设置成功");
         }
     }
 
     public function del()
     {
         //if(!$this->hasRuleForPost($this->rule_rule_del)) return ;
-        $id      = $this->request()->route('id');
+        $id      = $this->request()->get('id');
         $bool    = AdminRuleService::getInstance()->delete($id);
         if ($bool) {
             $this->json(Status::CODE_OK, '');
         } else {
             $this->json(Status::CODE_ERR, '删除失败');
-           // Log::getInstance()->error("rule--del:" . $id . "没有删除失败");
+            // Log::getInstance()->error("rule--del:" . $id . "没有删除失败");
         }
     }
-
 }

@@ -31,19 +31,18 @@ class UserController extends AdminController
     {
         //if(!$this->hasRuleForPost($this->rule_auth_view)) return ;
         $page_data = (new \App\Service\Admin\Auth\AdminUserService)->getPageList();
-      /*   $data = $this->getPage();
-        $service_result = AdminUserService::getInstance()->getPageList($data['page'], $data['limit']);
-        list($list_data, $count) = $service_result['data'];
-        
-        $data       = ['code' => Status::CODE_OK, 'count' => $count, 'data' => $list_data];
-        $this->dataJson($data);
-        return; */
+        /*   $data = $this->getPage();
+          $service_result = AdminUserService::getInstance()->getPageList($data['page'], $data['limit']);
+          list($list_data, $count) = $service_result['data'];
+
+          $data       = ['code' => Status::CODE_OK, 'count' => $count, 'data' => $list_data];
+          $this->dataJson($data);
+          return; */
         $this->jsonPage(0, $page_data['count'], $page_data['list']);
     }
 
     private function fieldInfo()
     {
-         
         $data    = $this->request()->post(['uname', 'pwd', 'status', 'display_name', 'role_id']);
         
         return $data;
@@ -82,7 +81,7 @@ class UserController extends AdminController
     {
         //if(!$this->hasRuleForGet($this->rule_auth_set)) return ;
 
-        $id        = $this->request()->route('id');
+        $id        = $this->request()->get('id');
         $role_data = AdminRoleService::getInstance()->getAllList();
         $user_data = AdminUserService::getInstance()->getUserById($id);
        
@@ -103,7 +102,7 @@ class UserController extends AdminController
         if (!$data) {
             return;
         }
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
         
         if (AdminUserService::getInstance()->setUserById($id, $data)) {
             $this->json(Status::CODE_OK);
@@ -126,11 +125,11 @@ class UserController extends AdminController
         $info = $this->request()->post(['old_pwd','pwd']);
          
         if (encrypt($info['old_pwd'], $this->auth_user_data['encry']) == $this->auth_user_data['pwd']) {
-            
-            if(AdminUserService::getInstance()->setUserById($this->auth_user_data['id'], ['pwd' => $info['pwd']])) {
-                $this->json(Status::CODE_OK, '修改成功');return ;
+            if (AdminUserService::getInstance()->setUserById($this->auth_user_data['id'], ['pwd' => $info['pwd']])) {
+                $this->json(Status::CODE_OK, '修改成功');
+                return ;
             }
-        } 
+        }
 
         $this->json(Status::CODE_ERR, '修改失败');
         //Log::getInstance()->waring('user--editPwdData:' . json_encode($info, JSON_UNESCAPED_UNICODE) . '修改失败');
@@ -150,10 +149,10 @@ class UserController extends AdminController
     // 单字段修改
     public function set()
     {
-       // if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
+        // if(!$this->hasRuleForPost($this->rule_auth_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
-        $id = $this->request()->route("id");
+        $id = $this->request()->get("id");
         $result = AdminUserService::getInstance()->modify(['id' => $id], [$data['key'] => $data['value']]);
         if ($result) {
             $this->json(Status::CODE_OK, '设置成功');
@@ -166,15 +165,14 @@ class UserController extends AdminController
     public function del($request, $response, $vars = [])
     {
         //if(!$this->hasRuleForPost($this->rule_auth_del)) return ;
-        $id      = $this->request()->route("id");
+        $id      = $this->request()->get("id");
         $id   = intval($id);
         $bool    = AdminUserService::getInstance()->setUserById($id, ['deleted' => 1]);
         if ($bool) {
             $this->json(Status::CODE_OK, '');
         } else {
-             
             $this->json(Status::CODE_ERR, '删除失败!!!');
-           // Log::getInstance()->error("user--del:" . $id . "没有删除失败");
+            // Log::getInstance()->error("user--del:" . $id . "没有删除失败");
         }
     }
 }

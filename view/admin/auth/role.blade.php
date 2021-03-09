@@ -97,7 +97,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'detail', value:value};
-                    $.post('/backadmin/auth/role/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/role/set?id=' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {
@@ -110,7 +110,7 @@
             break;
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backadmin/auth/role/del/' + data.id ,'',function(data){
+                    $.post('/backadmin/auth/role/del?id=' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -124,7 +124,7 @@
                 layer.open({
                      title: '编辑角色组'
                     ,type: 2
-                    ,content: '/backadmin/auth/role/editget/' + data.id
+                    ,content: '/backadmin/auth/role/editget?id=' + data.id
                     ,area:['500px', '350px']
                 });
             break;
@@ -134,7 +134,7 @@
                     maxmin: true, // 显示最大最小化按钮
                     area: ['500px', '450px'],
                     title: '变更权限',
-                    content: '/backadmin/auth/role/edit_ruleget/' + data.id,
+                    content: '/backadmin/auth/role/edit_ruleget?id=' + data.id,
                 });
             break;
         }

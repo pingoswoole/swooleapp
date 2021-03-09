@@ -19,7 +19,7 @@ class RoleController extends AdminController
     private $rule_role_rule = 'auth.role.rule';
     public function index()
     {
-       // if(!$this->hasRuleForGet($this->rule_role_view)) return ;
+        // if(!$this->hasRuleForGet($this->rule_role_view)) return ;
 
         $this->render('auth.role');
     }
@@ -47,14 +47,14 @@ class RoleController extends AdminController
 
     public function add()
     {
-       // if(!$this->hasRuleForGet($this->rule_role_add)) return ;
+        // if(!$this->hasRuleForGet($this->rule_role_add)) return ;
         $role_data = AdminRoleService::getInstance()->getAllList();
-        $this->render('auth.roleAdd',['role_data'=>$role_data]);
+        $this->render('auth.roleAdd', ['role_data'=>$role_data]);
     }
 
     public function addData()
     {
-      //  if(!$this->hasRuleForPost($this->rule_role_add)) return ;
+        //  if(!$this->hasRuleForPost($this->rule_role_add)) return ;
 
         $data = $this->fieldInfo();
         if (!$data) {
@@ -65,7 +65,7 @@ class RoleController extends AdminController
             $this->json(Status::CODE_OK);
         } else {
             $this->json(Status::CODE_ERR, '添加失败');
-           // Log::getInstance()->error("role--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有添加失败");
+            // Log::getInstance()->error("role--addData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有添加失败");
         }
     }
 
@@ -73,7 +73,7 @@ class RoleController extends AdminController
     {
         //if(!$this->hasRuleForGet($this->rule_role_set)) return ;
 
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
 
         
         $info = AdminRoleService::getInstance()->getById($id);
@@ -91,22 +91,22 @@ class RoleController extends AdminController
             return;
         }
        
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
         if (AdminRoleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);
         } else {
             $this->json(Status::CODE_ERR, '保存失败');
-           // Log::getInstance()->error("role--editData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
+            // Log::getInstance()->error("role--editData:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "编辑保存失败");
         }
         return;
     }
 
     public function set()
     {
-       // if(!$this->hasRuleForPost($this->rule_role_set)) return ;
+        // if(!$this->hasRuleForPost($this->rule_role_set)) return ;
 
         $data     = $this->request()->post(['id', 'key', 'value']);
-        $id    = $this->request()->route('id');
+        $id    = $this->request()->get('id');
 
         $bool = AdminRoleService::getInstance()->setById($id, [$data['key'], $data['value']]);
         if ($bool) {
@@ -119,14 +119,13 @@ class RoleController extends AdminController
 
     public function del()
     {
-       // if(!$this->hasRuleForPost($this->rule_role_del)) return ;
+        // if(!$this->hasRuleForPost($this->rule_role_del)) return ;
 
-        $id      = $this->request()->route('id');
+        $id      = $this->request()->get('id');
         $bool    = AdminRoleService::getInstance()->delete($id);
         if ($bool) {
             $this->json(Status::CODE_OK, '');
         } else {
-             
             $this->json(Status::CODE_ERR, '删除失败');
             //Log::getInstance()->error("role--del:" . json_encode($data, JSON_UNESCAPED_UNICODE) . "没有删除失败");
         }
@@ -140,7 +139,7 @@ class RoleController extends AdminController
          
         $data      = AppFunc::arrayToTree($rule_data['list']);
         
-        $id        = $this->request()->route('id');
+        $id        = $this->request()->get('id');
         
         $role_info = AdminRoleService::getInstance()->getById($id);
         $this->render('auth.editRule', ['id' => $id, 'data' => $data, 'checked' => explode(',', $role_info['rules_checked'])]);
@@ -152,13 +151,13 @@ class RoleController extends AdminController
 
         $info = $this->request()->post(['id', 'rules_checked', 'rules']);
          
-        $id = $this->request()->route('id');
+        $id = $this->request()->get('id');
         
         if (AdminRoleService::getInstance()->saveIdRules($id, $info['rules_checked'] ?? "", $info['rules'] ?? "")) {
             $this->json(Status::CODE_OK);
         } else {
             $this->json(Status::CODE_ERR, '删除失败');
-           // Log::getInstance()->error("role--editRuleData:" . json_encode($info, JSON_UNESCAPED_UNICODE) . "权限变更失败");
+            // Log::getInstance()->error("role--editRuleData:" . json_encode($info, JSON_UNESCAPED_UNICODE) . "权限变更失败");
         }
         return;
     }

@@ -90,7 +90,7 @@
     form.on('switch(status)', function(obj){
         let datajson = {key:'status', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backadmin/auth/rule/set/' + this.value ,datajson,function(data){
+        $.post('/backadmin/auth/rule/set?id=' + this.value ,datajson,function(data){
             if(data.code != 0) {
                 layer.msg(data.msg);
                 obj.elem.checked = !obj.elem.checked;
@@ -102,7 +102,7 @@
     form.on('switch(is_menu)', function(obj){
         let datajson = {key:'is_menu', value:obj.elem.checked ? '1':'0'};
 
-        $.post('/backadmin/auth/rule/set/' + this.value ,datajson,function(data){
+        $.post('/backadmin/auth/rule/set?id=' + this.value ,datajson,function(data){
             if(data.code != 0) {
                 layer.msg(data.msg);
                 obj.elem.checked = !obj.elem.checked;
@@ -120,7 +120,7 @@
                 layer.open({
                      title: '添加权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/rule/addget/' + data.id
+                    ,content: '/backadmin/auth/rule/addget?id=' + data.id
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -130,7 +130,7 @@
             break;
             case 'del':
                 layer.confirm('真的删除行么', function(index){
-                    $.post('/backadmin/auth/rule/del/' + data.id ,'',function(data){
+                    $.post('/backadmin/auth/rule/del?id=' + data.id ,'',function(data){
                         layer.close(index);
                         if(data.code != 0) {
                             layer.msg(data.msg);
@@ -144,7 +144,7 @@
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/rule/editget/' + data.id
+                    ,content: '/backadmin/auth/rule/editget?id=' + data.id
                     ,area:['70%', '500px']
                 });
             break;
@@ -155,7 +155,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'node', value:value};
-                    $.post('/backadmin/auth/rule/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/rule/set?id=' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {
@@ -174,7 +174,7 @@
                 }, function(value, index){
                     layer.close(index);
                     let datajson = {key:'sort', value:value};
-                    $.post('/backadmin/auth/rule/set/' + data.id ,datajson,function(data){
+                    $.post('/backadmin/auth/rule/set?id=' + data.id ,datajson,function(data){
                         if(data.code != 0) {
                             layer.msg(data.msg);
                         } else {
