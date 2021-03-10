@@ -13,11 +13,10 @@
     <table class="layui-hide" id="test" lay-filter="test"></table>
 
     <script type="text/html" id="toolbarDemo">
-        <div class="layui-inline">
+        <!-- <div class="layui-inline">
             <input class="layui-input layui-btn-sm" name="id" id="demoReload" autocomplete="off">
         </div>
-        <button class="layui-btn layui-btn-sm" data-type="reload">搜索</button>
-
+        <button class="layui-btn layui-btn-sm" data-type="reload">搜索</button> -->
       
             <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="add">添加管理员</button>
         
@@ -27,9 +26,11 @@
         
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
        
-       
+            @verbatim
+            {{#  if(d.id > 1){ }}
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        
+            {{#  } }} 
+            @endverbatim
     </script>
 
     <script type="text/html" id="switchTpl">
@@ -73,11 +74,11 @@ layui.use('table', function(){
     table.on('toolbar(test)', function(obj){
         switch(obj.event){
             case 'add':
-                //location.href="/backadmin/auth/user/add";
+                
                 layer.open({
                      title: '添加管理员'
                     ,type: 2
-                    ,content: '/backadmin/auth/user/addget'
+                    ,content: '/backadmin/auth/user/add'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -122,7 +123,7 @@ layui.use('table', function(){
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/user/editget?id=' + data.id
+                    ,content: '/backadmin/auth/user/edit?id=' + data.id
                     ,area:['550px', '470px']
                 });
             break;

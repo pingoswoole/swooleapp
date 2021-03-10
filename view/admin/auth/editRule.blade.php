@@ -3,8 +3,8 @@
 @section('body')
 <div id="rule" class="tree-rule-more"></div>
 
-<div class="layui-btn-container p20">
-  	<button type="button" class="layui-btn layui-btn-sm" lay-demo="save">保存</button>
+<div class="layui-btn-container p20" style="padding: 20px;">
+  	<button type="button" class="layui-btn layui-btn-normal" lay-demo="save">保存</button>
 </div>
 @endsection
 
@@ -64,7 +64,7 @@ layui.use(['tree', 'util'], function(){
         getCheck(checkedData);
 
         let datajson = {'rules_checked':rules_checked, 'rules' : rules };
-        http_post('/backadmin/auth/role/edit_rule/{{$id}}', datajson, function(result){
+        http_post('/backadmin/auth/role/editRuleData?id={{$id}}', datajson, function(result){
             if(result.code !== 0) {
                 layer.msg(result.msg);
             } else {

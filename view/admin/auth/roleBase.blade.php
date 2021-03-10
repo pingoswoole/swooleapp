@@ -22,7 +22,8 @@
                                 <input type="text" name="detail" required lay-verify="required" placeholder="请输入组的描述" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-form-item">
+                        <input type="hidden" name="pid" value="0">
+                        <!-- <div class="layui-form-item">
                             <label class="layui-form-label">上级组</label>
                             <div class="layui-input-block">
                                 <select name="pid">
@@ -32,7 +33,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="layui-form-item">
                             <div class="layui-input-block">

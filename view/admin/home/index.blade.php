@@ -62,10 +62,10 @@
                   <a href="javascript:;">admin</a>
                   <dl class="layui-nav-child">
                       <dd>
-                          <a href="javascript:;" layuimini-content-href="/backend/auth/userProfile" data-title="基本资料" data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
+                          <a href="javascript:;" layuimini-content-href="/backadmin/auth/user/userProfile" data-title="基本资料" data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
                       </dd>
                       <dd>
-                          <a href="javascript:;" layuimini-content-href="/backend/auth/pwdget" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                          <a href="javascript:;" layuimini-content-href="/backadmin/auth/user/pwdget" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                       </dd>
                       <dd>
                           <hr>

@@ -18,7 +18,7 @@ layui.use('form', function(){
 	//监听提交
 	form.on('submit(submit)', function(data){
 		data.field.status = data.field.status ? 1 : 0;
-		$.post('/backadmin/auth/rule/edit/'+{{ $info['id'] }},data.field,function(info){
+		$.post('/backadmin/auth/rule/editData?id='+{{ $info['id'] }},data.field,function(info){
 		    if(info.code != 0) {
 				layer.msg(info.msg);
 			} else {

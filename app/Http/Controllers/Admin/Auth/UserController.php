@@ -165,9 +165,16 @@ class UserController extends AdminController
     public function del($request, $response, $vars = [])
     {
         //if(!$this->hasRuleForPost($this->rule_auth_del)) return ;
+         
         $id      = $this->request()->get("id");
         $id   = intval($id);
-        $bool    = AdminUserService::getInstance()->setUserById($id, ['deleted' => 1]);
+        if ($id == $this->auth_user_data['id']) {
+            return $this->json(Status::CODE_ERR, '不能删除自己!!!');
+        }
+        if (config('app.admin_user_id') == $id) {
+            return $this->json(Status::CODE_ERR, '超级管理员不能删除!!!');
+        }
+        $bool    = AdminUserService::getInstance()->delItem($id);
         if ($bool) {
             $this->json(Status::CODE_OK, '');
         } else {

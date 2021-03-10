@@ -49,14 +49,14 @@
         ,title: '权限'
         ,cols: [[
         {field:'id', title:'ID', width:80, fixed: 'left'}
-        ,{field:'title', title:'权限名', width:220}
-        ,{field:'node', title:'节点标记', width:220 , event:'edit_node'}
+        ,{field:'title', title:'权限名' }
+        ,{field:'node', title:'节点标记【权限判断标识唯一性】', event:'edit_node'}
         ,{field:'href', title:'菜单URI'}
         ,{field:'sort', title:'排序', event:'edit_sort'}
         /* ,{field:'created_at', title:'创建时间'} */
         /* ,{field:'status', title:'是否启用', templet: '#switchStatus', width:100} */
         ,{field:'is_menu', title:'是否菜单', templet: '#switchMenu', width:100}
-        ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 180}
+        ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width: 200}
         ]]
         ,defaultToolbar:[]
         // ,page: true
@@ -76,7 +76,7 @@
                 layer.open({
                      title: '添加最高权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/rule/addget'
+                    ,content: '/backadmin/auth/rule/add'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -120,7 +120,7 @@
                 layer.open({
                      title: '添加权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/rule/addget?id=' + data.id
+                    ,content: '/backadmin/auth/rule/addChild?id=' + data.id
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -144,7 +144,7 @@
                 layer.open({
                      title: '编辑权限'
                     ,type: 2
-                    ,content: '/backadmin/auth/rule/editget?id=' + data.id
+                    ,content: '/backadmin/auth/rule/edit?id=' + data.id
                     ,area:['70%', '500px']
                 });
             break;

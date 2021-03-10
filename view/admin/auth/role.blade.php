@@ -58,7 +58,7 @@
                 layer.open({
                      title: '添加角色'
                     ,type: 2
-                    ,content: '/backadmin/auth/role/addget'
+                    ,content: '/backadmin/auth/role/add'
                     ,area:['90%', '90%']
                     ,end: function(){
                         location.reload()
@@ -124,7 +124,7 @@
                 layer.open({
                      title: '编辑角色组'
                     ,type: 2
-                    ,content: '/backadmin/auth/role/editget?id=' + data.id
+                    ,content: '/backadmin/auth/role/edit?id=' + data.id
                     ,area:['500px', '350px']
                 });
             break;
@@ -132,9 +132,9 @@
                 layer.open({
                     type: 2,
                     maxmin: true, // 显示最大最小化按钮
-                    area: ['500px', '450px'],
+                    area: ['50%', '60%'],
                     title: '变更权限',
-                    content: '/backadmin/auth/role/edit_ruleget?id=' + data.id,
+                    content: '/backadmin/auth/role/editRule?id=' + data.id,
                 });
             break;
         }

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+//超级管理员ID，对应管理表admin_user
+$config['admin_user_id'] = 1;
 // 是否启用路由
 $config['with_route'] = false; //固定为false，暂时不支持路由，get请求后缀参数已？拼接，不能通过路由模式获取参数
 //后端访问模块别名,固定为，修改谨慎

@@ -15,9 +15,9 @@ layui.use('form', function(){
   form.on('submit(submit)', function(data){
     data.field.status = data.field.status ? 1 : 0;
     form_field = data;
-    let url = '/backadmin/auth/rule/add'
+    let url = '/backadmin/auth/rule/addData'
     @if(isset($id))
-      url += '/{{$id}}'
+      url = '/backadmin/auth/rule/addChildData?id={{$id}}'
     @endif
     http_post(url, data.field, function(result){
         if(result.code != 0) {

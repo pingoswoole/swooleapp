@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Service\Admin\Auth\AdminUserService;
 use App\Utility\Status;
 use duncan3dc\Laravel\BladeInstance;
 use Pingo\Http\Controller;
@@ -41,10 +42,27 @@ class AdminController extends Controller
 
     public function onRequest(?string $action = null)
     {
-        if ($this->auth_flag) {
-            return $this->checkAuth();
-        }
+        \var_dump($action);
 
+        if ($this->auth_flag) {
+            $auth_res = $this->checkAuth();
+            if (false === $auth_res) {
+                return false;
+            }
+            //检查是否有权限，超级管理员跳过,  是否设置检查该方法权限
+            $rule_name = "rule_" . $action;
+            if ($this->auth_user_data['id'] === config("app.admin_user_id") || !isset($this->{$rule_name})) {
+                return true;
+            }
+        
+            $has_rule = (new AdminUserService)->hasRule($this->auth_user_data['id'], $rule_name);
+            if (false === $has_rule) {
+                $this->json(0, '权限不足！！！');
+                return false;
+            }
+            return true;
+        }
+        
         return true;
     }
 

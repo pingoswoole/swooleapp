@@ -31,7 +31,7 @@ layui.use('form', function(){
 		form_field = data;
 		delete data.field.verify_pwd;
 		data.field.status = data.field.status ? 1 : 0;
-		http_post('/backadmin/auth/user/edit/{{$id}}',data.field, function(result){
+		http_post('/backadmin/auth/user/editData?id={{$id}}',data.field, function(result){
 			if(result.code != 0) {
 				layer.msg(result.msg);
 			} else {

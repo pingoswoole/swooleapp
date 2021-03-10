@@ -60,7 +60,7 @@ class RoleController extends AdminController
         if (!$data) {
             return;
         }
-
+        
         if (AdminRoleService::getInstance()->add($data)) {
             $this->json(Status::CODE_OK);
         } else {
@@ -90,7 +90,7 @@ class RoleController extends AdminController
         if (!$data) {
             return;
         }
-       
+        \var_dump($data);
         $id = $this->request()->get('id');
         if (AdminRoleService::getInstance()->setById($id, $data)) {
             $this->json(Status::CODE_OK);

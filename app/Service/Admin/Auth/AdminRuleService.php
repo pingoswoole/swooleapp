@@ -4,6 +4,7 @@ namespace App\Service\Admin\Auth;
 use App\Utility\AppFunc;
 use Pingo\Traits\Singleton;
 use App\Service\Admin\Base;
+
 /**
  * 规则
  *
@@ -11,34 +12,32 @@ use App\Service\Admin\Base;
  * @created_at 00-00-00
  */
 class AdminRuleService extends Base
-{  
-
-   use Singleton;
-   protected $model_class = \App\Model\Admin\AdminRule::class;
-   /**
-    * Undocumented function
-    *
-    * @author pingo
-    * @created_at 00-00-00
-    * @return void
-    */
-   public function getAllList($column = "", $where = [])
-   {
+{
+    use Singleton;
+    protected $model_class = \App\Model\Admin\AdminRule::class;
+    /**
+     * Undocumented function
+     *
+     * @author pingo
+     * @created_at 00-00-00
+     * @return void
+     */
+    public function getAllList($column = "", $where = [])
+    {
+        $rules_list = $this->model->where($where)->select($column)->orderBy('sort', 'ASC')->get();
+        $count =  $this->model->where($where)->count();
        
-      $rules_list = $this->model->where($where)->select($column)->orderBy('sort', 'ASC')->get();
-      $count =  $this->model->where($where)->count();
-       
-      return ['count' => $count, 'list' => $rules_list];
-   }  
+        return ['count' => $count, 'list' => $rules_list];
+    }
 
-   /**
-      * 根据角色ID查询授权标识路由
-      *
-      * @param integer $role_id
-      * @return array
-      */
-      public function getNodesByRoleId(int $role_id): array
-      {
+    /**
+       * 根据角色ID查询授权标识路由
+       *
+       * @param integer $role_id
+       * @return array
+       */
+    public function getNodesByRoleId(int $role_id): array
+    {
         //   try{
         //       $rules = AdminRole::create()->where(['id' => $role_id])->scalar('rules');
         //       if(!is_array($rules)) $rules = explode(",", $rules);
@@ -50,7 +49,7 @@ class AdminRuleService extends Base
               
         //       return [];
         //   }
-      }
+    }
 
     /**
      * getMenuRules
@@ -61,27 +60,26 @@ class AdminRuleService extends Base
      */
     public function getMenuRules()
     {
-
-       $rules_list = $this->model->select('id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu', 'sort')->orderBy('sort', 'ASC')->get();
-       $menu_list['homeInfo'] = [
+        $rules_list = $this->model->select('id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu', 'sort')->orderBy('sort', 'ASC')->get();
+        $menu_list['homeInfo'] = [
           'title' => '首页',
-          'href' => '/backend/home/dashboard',
+          'href' => '/backadmin/home/index/dashboard',
        ];
-       $menu_list['logoInfo'] = [
+        $menu_list['logoInfo'] = [
           'title' => '控制台',
           'href'  => '',
           "image" => "/images/logo.png"
        ];
-       if($rules_list){
-           foreach($rules_list as $key => $rule)
-           {
-               if($rule['is_menu'] == 0) unset($rules_list[$key]);
-           }
-          $menu_list['menuInfo'] = AppFunc::arrayToTree($rules_list, 'pid', 'child');
-       }
+        if ($rules_list) {
+            foreach ($rules_list as $key => $rule) {
+                if ($rule['is_menu'] == 0) {
+                    unset($rules_list[$key]);
+                }
+            }
+            $menu_list['menuInfo'] = AppFunc::arrayToTree($rules_list, 'pid', 'child');
+        }
         
-       return $menu_list;
-
+        return $menu_list;
     }
 
     /**
@@ -93,9 +91,9 @@ class AdminRuleService extends Base
      */
     public function getRuleRoutes()
     {
-          $rules_list = $this->model->select('id', 'href', 'route_handler', 'is_menu')->get();
+        $rules_list = $this->model->select('id', 'href', 'route_handler', 'is_menu')->get();
           
-          return $rules_list;
+        return $rules_list;
     }
 
     /**
@@ -116,7 +114,7 @@ class AdminRuleService extends Base
      */
     public function getById(int $id):array
     {
-         return  $this->model->where('id', $id)->first();
+        return  $this->model->where('id', $id)->first();
     }
 
     /**
@@ -128,7 +126,7 @@ class AdminRuleService extends Base
      */
     public function setById(int $id, array $data): bool
     {
-        $rowCount = $this->model->where('id', $id)->update( $data);
+        $rowCount = $this->model->where('id', $id)->update($data);
         return $rowCount > 0 ? true : false;
     }
     /**
@@ -139,9 +137,10 @@ class AdminRuleService extends Base
      */
     public function delete($ids)
     {
-        if(is_string($ids)) $ids = [$ids];
+        if (is_string($ids)) {
+            $ids = [$ids];
+        }
         $rowCount = $this->model->whereIn('id', $ids)->delete();
         return $rowCount > 0 ? true : false;
     }
-
 }
