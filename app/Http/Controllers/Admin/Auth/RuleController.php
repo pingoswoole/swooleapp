@@ -10,11 +10,14 @@ use App\Utility\Status;
 
 class RuleController extends AdminController
 {
-    private $rule_rule      = 'auth.rule';
-    private $rule_rule_view = 'auth.rule.view';
-    private $rule_rule_add  = 'auth.rule.add';
-    private $rule_rule_set  = 'auth.rule.set';
-    private $rule_rule_del  = 'auth.rule.del';
+    protected $rule_rule      = 'auth.rule';
+    protected $rule_rule_view = 'auth.rule.view';
+    protected $rule_rule_add  = 'auth.rule.add';
+    protected $rule_rule_set  = 'auth.rule.set';
+    protected $rule_rule_del  = 'auth.rule.del';
+
+    protected $rule_getAll = 'xxxxx';
+
     public function index()
     {
         //if(!$this->hasRuleForGet($this->rule_rule_view)) return ;
@@ -37,7 +40,7 @@ class RuleController extends AdminController
     // 获取修改 和 添加的数据 并判断是否完整
     private function fieldInfo()
     {
-        $data    = $this->request()->post(['title', 'node', 'status', 'href']);
+        $data    = $this->request()->post(['title', 'node', 'is_menu', 'href']);
 
         return $data;
     }

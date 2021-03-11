@@ -14,6 +14,8 @@ class AdminUserService extends Base
 {
     use Singleton;
     protected $model_class = \App\Model\Admin\AdminUser::class;
+
+     
     /**
      * getPageList
      *
@@ -77,7 +79,26 @@ class AdminUserService extends Base
      */
     public function hasRule(int $user_id, $rule_name): bool
     {
-        return true;
+        try {
+            //code...
+            $sql = "SELECT `role`.rules FROM `admin_user` AS `user` LEFT JOIN `admin_role` AS `role` ON `user`.role_id = `role`.id WHERE `user`.id = {$user_id}";
+            $res = $this->model->query($sql);
+            if (isset($res[0]['rules']) && !empty($res[0]['rules'])) {
+                $seprator = "@##@";
+                $sql = "SELECT group_concat(node SEPARATOR '{$seprator}') as nodes FROM `admin_rule` WHERE `id` IN ({$res[0]['rules']})";
+                $res = $this->model->query($sql);
+                if (!empty($res[0]['nodes'])) {
+                    $nodes = explode($seprator, $res[0]['nodes']);
+                    if (in_array($rule_name, $nodes)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+         
+        return false;
     }
     /**
      * 更新

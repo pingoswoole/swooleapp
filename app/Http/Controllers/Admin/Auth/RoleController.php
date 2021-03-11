@@ -11,12 +11,13 @@ use App\Utility\Status;
 
 class RoleController extends AdminController
 {
-    private $rule_role      = 'auth.role';
-    private $rule_role_view = 'auth.role.view';
-    private $rule_role_add  = 'auth.role.add';
-    private $rule_role_set  = 'auth.role.set';
-    private $rule_role_del  = 'auth.role.del';
-    private $rule_role_rule = 'auth.role.rule';
+    protected $rule_getAll = 'auth.role.view';
+    protected $rule_add  = 'auth.role.add';
+    protected $rule_roleEdit  = 'auth.role.set';
+    protected $rule_role_del  = 'auth.role.del';
+    protected $rule_role_rule = 'auth.role.rule';
+
+
     public function index()
     {
         // if(!$this->hasRuleForGet($this->rule_role_view)) return ;

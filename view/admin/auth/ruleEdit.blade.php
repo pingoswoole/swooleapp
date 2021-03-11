@@ -9,7 +9,7 @@ layui.use('form', function(){
 	form.val("form", {
 		"title": "{{ $info['title'] }}"
 		,"node": "{{ $info['node'] }}"
-		,"status": {{ $info['status'] }}
+		,"is_menu": {{ $info['is_menu'] }}
 		,"href": "{!! $info['href'] !!}"
 		 
 	});
@@ -17,7 +17,7 @@ layui.use('form', function(){
 
 	//监听提交
 	form.on('submit(submit)', function(data){
-		data.field.status = data.field.status ? 1 : 0;
+		data.field.is_menu = data.field.is_menu ? 1 : 0;
 		$.post('/backadmin/auth/rule/editData?id='+{{ $info['id'] }},data.field,function(info){
 		    if(info.code != 0) {
 				layer.msg(info.msg);

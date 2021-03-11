@@ -22,7 +22,7 @@ class IndexController extends AdminController
      */
     public function initMenu()
     {
-        $result = (new \App\Service\Admin\Auth\AdminRuleService)->getMenuRules();
+        $result = (new \App\Service\Admin\Auth\AdminRuleService)->getMenuRules($this->auth_user_data['id']);
         $this->write($result);
     }
     
@@ -42,7 +42,6 @@ class IndexController extends AdminController
      */
     public function index($request, $response, $vars = [])
     {
-         
         $this->render("home.index");
     }
 

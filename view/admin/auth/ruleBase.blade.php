@@ -23,23 +23,23 @@
 							</div>
 						</div>
 						<div class="layui-form-item">
-							<label class="layui-form-label">节点标识</label>
+							<label class="layui-form-label">节点标识(唯一性)</label>
 							<div class="layui-input-block">
 								<input type="text" name="node" required lay-verify="required" placeholder="请输入节点标识" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 						<div class="layui-form-item">
-							<label class="layui-form-label">请求URI</label>
+							<label class="layui-form-label">菜单请求URI</label>
 							<div class="layui-input-block">
 								<input type="text" name="href" required   placeholder="请输入请求URI" autocomplete="off" class="layui-input">
 							</div>
-							<div class="layui-form-mid layui-word-aux">例如/backend/index/a</div>
+							<div class="layui-form-mid layui-word-aux">例如/backadmin/index/a</div>
 						</div>
 						 
 						<div class="layui-form-item">
-							<label class="layui-form-label">是否启动</label>
+							<label class="layui-form-label">是否菜单</label>
 							<div class="layui-input-block">
-								<input type="checkbox" name="status" lay-skin="switch" checked lay-text="是|否">
+								<input type="checkbox" name="is_menu" lay-skin="switch" checked lay-text="是|否">
 							</div>
 						</div>
 						<div class="layui-form-item">

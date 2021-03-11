@@ -15,6 +15,8 @@ class AdminRuleService extends Base
 {
     use Singleton;
     protected $model_class = \App\Model\Admin\AdminRule::class;
+
+     
     /**
      * Undocumented function
      *
@@ -58,9 +60,16 @@ class AdminRuleService extends Base
      * @created_at 00-00-00
      * @return void
      */
-    public function getMenuRules()
+    public function getMenuRules(int $user_id)
     {
-        $rules_list = $this->model->select('id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu', 'sort')->orderBy('sort', 'ASC')->get();
+        $sql = "SELECT `role`.rules FROM `admin_user` AS `user` LEFT JOIN `admin_role` AS `role` ON `user`.role_id = `role`.id WHERE `user`.id = {$user_id}";
+        $res = $this->model->query($sql);
+        $rules_list = [];
+        if (isset($res[0]['rules']) && !empty($res[0]['rules'])) {
+            $ids = array_filter(explode(",", $res[0]['rules']));
+            $rules_list = $this->model->select('id', 'title', 'href', 'icon', 'pid', 'status', 'is_menu', 'sort')->whereIN('id', $ids)->orderBy('sort', 'ASC')->get();
+        }
+        
         $menu_list['homeInfo'] = [
           'title' => '首页',
           'href' => '/backadmin/home/index/dashboard',

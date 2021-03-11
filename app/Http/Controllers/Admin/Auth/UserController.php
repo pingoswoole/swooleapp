@@ -10,11 +10,13 @@ use App\Utility\Status;
 
 class UserController extends AdminController
 {
-    private $rule_auth      = 'auth.auth';
-    private $rule_auth_view = 'auth.auth.view';
-    private $rule_auth_add  = 'auth.auth.add';
-    private $rule_auth_set  = 'auth.auth.set';
-    private $rule_auth_del  = 'auth.auth.del';
+    protected $rule_auth      = 'auth.auth';
+    protected $rule_auth_view = 'auth.auth.view';
+    protected $rule_auth_add  = 'auth.auth.add';
+    protected $rule_auth_set  = 'auth.auth.set';
+    protected $rule_auth_del  = 'auth.auth.del';
+
+    
     public function index()
     {
         //if(!$this->hasRuleForGet($this->rule_auth_view)) return ;

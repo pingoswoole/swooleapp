@@ -13,7 +13,7 @@ layui.use('form', function(){
  
   //监听提交
   form.on('submit(submit)', function(data){
-    data.field.status = data.field.status ? 1 : 0;
+    data.field.is_menu = data.field.is_menu ? 1 : 0;
     form_field = data;
     let url = '/backadmin/auth/rule/addData'
     @if(isset($id))
